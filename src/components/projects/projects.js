@@ -16,7 +16,7 @@ componentDidMount(){
 		(projects)=>{
 			this.setState({
 				allProjects: projects.map((proj)=>{
-					return proj;
+					return this.props.constructProject(proj)
 				})
 			});
 		}
@@ -31,7 +31,11 @@ render(){
 				// page!!!
 					<Link to={`/work/${project.slug}`}  key={project.id}>
 						<div className="project">
-							{project.title.rendered}
+							{project.title}
+							{project.year}
+							{project.images.map((img)=>{
+								return <img src={img.src} />
+							})}
 						</div>
 					</Link>
 				)

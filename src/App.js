@@ -44,11 +44,20 @@ getData(type, params, callback) {
 		});
 };
 constructProject(proj) {
+// parse the proj.content.rendered html to json
+	let html = document.createElement("div");
+	html.innerHTML = proj.content.rendered;
+	let images = html.querySelectorAll("figure img");
+// new projobj with above...
 	let projObj = {
+		id: proj.id,
+		slug: proj.slug,
 		title: proj.title.rendered,
 		year: proj.acf.year,
-		content: proj.content.renered
+		content: proj.content.renered,
+		images: [...images]
 	};
+	console.log(projObj);
 	return projObj;
 };
 render() {
@@ -62,7 +71,8 @@ render() {
 				path="/"
 				render={() => (
 					<Projects
-						getProjects={this.getData} />
+						getProjects={this.getData}
+						constructProject={this.constructProject} />
 				)} />
 			{/* path prop can be deconstructed so we can include hashes */}
 			<Route
