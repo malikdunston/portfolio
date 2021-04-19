@@ -14,16 +14,12 @@ componentDidMount(){
 		"projects",
 		undefined,
 		(projects)=>{
-			// this.props.getProjects(
-			// 	"apps",
-			// 	undefined,
-			// 	(apps)=>{
-					this.setState({
-						// allProjects: [...projects, ...apps]
-						allProjects: [...projects]
-					});
-			// 	}
-			// );
+			this.setState({
+				// allProjects: [...projects],
+				allProjects: projects.map((proj)=>{
+					return proj;
+				})
+			});
 		}
 	);
 };

@@ -46,10 +46,9 @@ getData(type, params, callback) {
 constructProject(proj) {
 	let projObj = {
 		title: proj.title.rendered,
-		year: proj.acf.year
+		year: proj.acf.year,
+		content: proj.content.renered
 	};
-	// Case Study Stuff
-	projObj.content = proj.content.renered;
 	return projObj;
 };
 render() {
@@ -69,10 +68,15 @@ render() {
 			<Route
 				path="/work/:projectName"
 				render={(thisRoute) => (
-					<Casestudy
-						thisRoute={thisRoute}
-						getThisProject={this.getData}
-						constructProject={this.constructProject} />
+					<div>
+						<Casestudy
+							thisRoute={thisRoute}
+							getThisProject={this.getData}
+							constructProject={this.constructProject} />
+						<Projects
+							getProjects={this.getData}
+							constructProject={this.constructProject} />
+					</div>
 				)} />
 			<Contact />
 		</div>
