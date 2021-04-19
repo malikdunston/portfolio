@@ -1,0 +1,11 @@
+$pureblack: rgba(0, 0, 0, 100);
+$purewhite: rgba(255, 255, 255, 100);
+$black: rgba(20, 20, 20, 100);
+$white: rgba(235, 235, 235, 100);
+
+body{
+	background: $black;
+	*{
+		color: $white;
+	}
+}

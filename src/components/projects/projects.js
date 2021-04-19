@@ -24,17 +24,21 @@ componentDidMount(){
 };
 render(){
 	return (
-		<div className="wrap">
+		<div id="projects">
 			{this.state.allProjects.map(project=> {
 				return (
 				// Dev Ed 22:00 - explaining going to an item's specific
 				// page!!!
 					<Link to={`/work/${project.slug}`}  key={project.id}>
-						<div className="project">
-							{project.title}
-							{project.year}
+						<div className="proj">
+							<div className="proj-title">
+								{project.title}
+							</div>
+							<div className="proj-details">
+								{project.year}
+							</div>
 							{project.images.map((img)=>{
-								return <img src={img.src} />
+								return <img className="proj-img" src={img.src} />
 							})}
 						</div>
 					</Link>

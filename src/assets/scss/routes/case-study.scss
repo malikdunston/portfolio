@@ -1,0 +1,28 @@
+// body:not(.home){
+	.casestudy{
+		display: block;
+		padding: 5rem 0 6rem 0;
+		section.text{
+			padding-top: 2rem;
+			&:first-child{
+				padding-top: 0;
+			}
+		}
+		.column{
+		// background: $cyan;
+			margin: 0 2rem 2rem;	
+		}
+	@include breakpoint(md){
+	@include breakpoint(lg){
+		section.text{
+			padding-top: 6rem;
+			&:first-child{
+				padding-top: 6rem;
+			}
+			.column{
+				margin: 0 3rem 2rem;
+			}
+		}
+	}}
+	}
+// }

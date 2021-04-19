@@ -1,0 +1,49 @@
+@mixin breakpoint($screenMinWidth) {
+// mobile & tab
+	@if $screenMinWidth == xs {
+		@media (max-width:400px) { @content; }
+	}	// 320, 360
+	@if $screenMinWidth == sm {
+		@media (min-width:400px) { @content; }
+	}	// 414, 768
+// desktop
+	@if $screenMinWidth == md {
+		@media (min-width:1000px) { @content; }
+	}	// 1024, 1080, 1280 
+	@if $screenMinWidth == lg {
+		@media (min-width:1360px) { @content; }
+	}	// 1366, 1440, 1536, 1600
+	@if $screenMinWidth == xl {
+		@media (min-width:1900px) { @content; }
+	}	// 1920
+}
+
+@include breakpoint(xs) {
+	body:before {
+		content: "xs";
+	}
+}
+@include breakpoint(sm) {
+	body:before {
+		content: "sm";
+	}
+}
+@include breakpoint(md) {
+	body:before {
+		content: "md";
+	}
+}
+@include breakpoint(lg) {
+	body:before {
+		content: "lg";
+	}
+}
+@include breakpoint(xl) {
+	body:before {
+		content: "xl";
+	}
+}
+
+body:before{
+	display: none;
+}
