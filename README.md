@@ -4,6 +4,13 @@
 	-	from SimpleTut https://www.youtube.com/watch?v=nusgoj74a3Y
 	-	does not account for gulp v4
 
+## Journal
+
+	-	4/19/21: constructProject(), scss from old site
+		-	 new colors...
+	
+	
+
 ## Notes
 
 	-	why no {component} import from react anymore? Just function with return,
