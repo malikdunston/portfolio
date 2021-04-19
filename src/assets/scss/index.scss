@@ -1,6 +1,9 @@
+@import "components/_config";
+
 body{
-	background: red;
-	h1{
-		color: white;
+	background: $black;
+	*{
+		color: $white;
+		font-family: 'gotham';
 	}
 }

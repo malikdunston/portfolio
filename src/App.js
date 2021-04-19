@@ -1,35 +1,81 @@
-import logo from "./logo.svg";
-import "./App.css";
+import { Component } from "react";
+import "./assets/css/index.min.css";
+import {
+	BrowserRouter as Router,
+	Route,
+} from "react-router-dom";
+// components
+// app
+import Navigation from "./components/navigation.js";
+import Projects from "./components/projects/projects.js";
+// work/:projName
+import Casestudy from "./components/projects/case-study.js";
+// contact
+import Contact from "./components/contact/contact.js";
 
-function App() {
-
-	// const $data = () => {
-		fetch("http://wp.malikdunston.com/wp-json")
-			.then((data) => {
-				console.log(data);
-			})
-	// }
-
-	// console.log($data);
-
-	return (
+class App extends Component {
+constructor() {
+	super();
+	this.state = {
+		projects: [],
+	}
+	this.getData = this.getData.bind(this);
+	this.constructProject = this.constructProject.bind(this);
+};
+getData(type, params, callback) {
+	let url = "http://wp.malikdunston.com/wp-json/wp/v2/", ext;
+	switch (type) {
+		case "projects":
+			ext = "projects"
+			break
+		case "pages":
+			ext = "pages"
+			break
+		case "apps":
+			ext = "apps"
+			break
+		case "casestudy":
+			ext = "projects?slug=" + params
+	};
+	fetch(url + ext)
+		.then(data => data.json())
+		.then(projects => {
+			callback(projects)
+		});
+};
+constructProject(proj) {
+	let projObj = {
+		title: proj.title.rendered,
+		year: proj.acf.year
+	};
+	// Case Study Stuff
+	projObj.content = proj.content.renered;
+	return projObj;
+};
+render() {
+	return (<Router>
 		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					React
-				</a>
-			</header>
+			<Navigation />
+			{/* exact keeps the paths below from cascading and including
+	the "/" stuff, PLUS anything wit "/" and additional stuff!!! */}
+			<Route
+				exact
+				path="/"
+				render={() => (
+					<Projects
+						getProjects={this.getData} />
+				)} />
+			{/* path prop can be deconstructed so we can include hashes */}
+			<Route
+				path="/work/:projectName"
+				render={(thisRoute) => (
+					<Casestudy
+						thisRoute={thisRoute}
+						getThisProject={this.getData}
+						constructProject={this.constructProject} />
+				)} />
+			<Contact />
 		</div>
-	);
-}
-
-export default App;
+	</Router>);
+};
+}; export default App;

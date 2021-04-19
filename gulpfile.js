@@ -1,45 +1,31 @@
-var gulp = require("gulp");
-var browserSync = require("browser-sync").create();
-var cache = require("gulp-cache");
-var sass = require("gulp-sass");
-
-// cache
-gulp.task("clear", function(){
-        cache.clearAll();
-});
-
-// sass
-var sass_origin = "./src/assets/scss/**/*.scss";
-var sass_dest = "./src/*.css";
-gulp.task("copmpile_sass", function(){
-	gulp.src(sass_origin)
-		.pipe(sass().on("error", sass.logError))
-		.pipe(changed(sass_dest))
-		.pipe(gulp.dest(sass_dest));
-});
-gulp.task("watch_sass", function(){
-	gulp.watch(sass_dest, ["compile_sass"]);
-});
-
-// browser-sync
-gulp.task("serve", function(){
-        browserSync.init({
-        // if using wamp, no need to define server,
-        // the proxy is the "site" you're serving via wamp.
-        // this is just for automatic page reload
-                server: "./public",
-                // port: "8081",
-                // port: "3002",
-                // proxy: "nowplaying"
-        });
-        let projFiles = [
-                "./**",
-                "./**/**/**/*.html",
-                "./**/**/**/*.js",
-                "./**/**/**/*.php",
-                "./**/**/**/*.svg"
-        ]
-        gulp.watch(projFiles).on("change", browserSync.reload);
-});
-
-gulp.task("default", gulp.series("serve", "clear", "watch_sass"));
+'use strict';
+ 
+// dependencies
+var gulp = require('gulp');
+var sass = require('gulp-sass');
+var minifyCSS = require('gulp-clean-css');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
+var changed = require('gulp-changed');
+ 
+// Compile SCSS 
+var SCSS_SRC = './src/assets/scss/**/*.scss';
+var SCSS_DEST = './src/assets/css';
+ 
+function compile_scss() {
+    return gulp.src(SCSS_SRC)
+        .pipe(sass().on('error', sass.logError))
+        .pipe(minifyCSS())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(changed(SCSS_SRC))//changed from dest to src apparentlyworks now.!!!
+        .pipe(gulp.dest(SCSS_DEST));
+};
+function watch_scss() {
+	gulp.watch(SCSS_SRC, compile_scss);
+};
+ 
+// Run tasks
+gulp.task('default', watch_scss);
+ 
+exports.compile_scss = compile_scss;
+exports.watch_scss = watch_scss;
