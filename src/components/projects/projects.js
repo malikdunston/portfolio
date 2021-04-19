@@ -15,7 +15,6 @@ componentDidMount(){
 		undefined,
 		(projects)=>{
 			this.setState({
-				// allProjects: [...projects],
 				allProjects: projects.map((proj)=>{
 					return proj;
 				})
