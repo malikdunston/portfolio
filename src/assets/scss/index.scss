@@ -1,33 +1,9 @@
 @charset 'UTF-8';
-
 @import
 	'visuals/colors', 'visuals/typography',
 	'styles/normalize', 'styles/clearfix', 'styles/flex()', 'styles/breakpoint()',
-
-
-// @import// 	components
-
-// 	'components/button',
-// 	'components/nav',
-// 	'components/ui-view',
-	'components/projects',
-// 	'components/contact-form',
-// 	'components/images',
-// 	'components/fields';
-
-
-// @import
-
-// 	'pages/home',
-	'routes/case-study';
-// 	'pages/about',
-// 	'pages/skills-tools',
-// 	'pages/contact';
-
-
-// @import// 	apps
-
-// 	'apps/apps',
-// 	'apps/nps',
-// 	'apps/todo',
-// 	'apps/game';
+	'components/button', 'components/navigation', 'components/projects', 'components/skills',
+//	 	'components/ui-view', 'components/contact-form', 'components/images',
+	'routes/case-study', 'routes/contact';
+// 		'routes/home', 'routes/about', 'routes/skills-tools',
+// 	'apps/apps', 'apps/nps', 'apps/todo', 'apps/game';

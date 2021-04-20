@@ -1,7 +1,16 @@
+/// @type Color
+
 $pureblack: rgba(0, 0, 0, 100);
-$purewhite: rgba(255, 255, 255, 100);
 $black: rgba(20, 20, 20, 100);
 $white: rgba(235, 235, 235, 100);
+$purewhite: rgba(255, 255, 255, 100);
+
+$cyan: #5087C7;
+$green: #67AE3E;
+$yellow: #E7BB3A;
+$orange: #F15A22;
+$red: #D1223E;
+$magenta: #DD33AE;
 
 body{
 	background: $black;

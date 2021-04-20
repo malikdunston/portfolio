@@ -4,9 +4,20 @@
 	-	from SimpleTut https://www.youtube.com/watch?v=nusgoj74a3Y
 	-	does not account for gulp v4
 
+## Credits/Tools
+
+	-	normalize.css
+	-	reactjs, npm, node, create-react-app
+	-	js, es6
+
 ## Journal
 
 	-	4/20: 
+		-	path prop can be deconstructed so we can include hashes (from index.js)
+		-	done w/css for now
+		-	needs:
+			-	way to add routename as class to body, on/off for nav, etc...
+			-	ng-touch/hover/swipe react equiv...
 
 	-	4/19/21: constructProject(), scss from old site
 		-	 new colors...

@@ -44,28 +44,25 @@ getData(type, params, callback) {
 		});
 };
 constructProject(proj) {
-// parse the proj.content.rendered html to json
 	let html = document.createElement("div");
 	html.innerHTML = proj.content.rendered;
-	let images = html.querySelectorAll("figure img");
-// new projobj with above...
 	let projObj = {
 		id: proj.id,
 		slug: proj.slug,
 		title: proj.title.rendered,
 		content: proj.content.renered,
-		images: [...images],
+		images: [...html.querySelectorAll("figure img")],
 		...proj.acf
 	};
-	console.log(projObj);
 	return projObj;
 };
 render() {
 	return (<Router>
 		<div className="App">
+			<div className="skills product"><span>three-d</span></div>
+			<div className="skills web"><span>websitessss</span></div>
+			<button>Hello</button>
 			<Navigation />
-			{/* exact keeps the paths below from cascading and including
-	the "/" stuff, PLUS anything wit "/" and additional stuff!!! */}
 			<Route
 				exact
 				path="/"
@@ -74,7 +71,6 @@ render() {
 						getProjects={this.getData}
 						constructProject={this.constructProject} />
 				)} />
-			{/* path prop can be deconstructed so we can include hashes */}
 			<Route
 				path="/work/:projectName"
 				render={(thisRoute) => (
