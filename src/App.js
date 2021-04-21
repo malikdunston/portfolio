@@ -23,10 +23,10 @@ constructor() {
 	this.constructProject = this.constructProject.bind(this);
 	this.navToggle = this.navToggle.bind(this);
 };
-navToggle(x){
+navToggle(){
 	this.setState({
 		navOpen: !this.state.navOpen
-	}, ()=>{console.log(x, this.state);})
+	}, ()=>{console.log(this.state);})
 };
 getData(type, params, callback) {
 	let url = "http://wp.malikdunston.com/wp-json/wp/v2/", ext;
@@ -69,7 +69,8 @@ render() {
 			<div className="skills web"><span>websitessss</span></div>
 			<button>Hello</button>
 			<Navigation
-				toggleNav={this.navToggle} />
+				toggleNav={this.navToggle}
+				navOpen={this.state.navOpen} />
 			<Route
 				exact
 				path="/"
