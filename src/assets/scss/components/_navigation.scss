@@ -10,7 +10,7 @@ nav{
 	@include flex(row, align-center);
 	padding: 0 1rem;
 	border-radius: 1.5rem;
-	background: blue;
+	background: $black;
 	transition: width .75s;
 	overflow: hidden;
 @include breakpoint(lg){

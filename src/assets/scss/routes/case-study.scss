@@ -12,17 +12,25 @@
 		// background: $cyan;
 			margin: 0 2rem 2rem;	
 		}
-	@include breakpoint(md){
-	@include breakpoint(lg){
-		section.text{
-			padding-top: 6rem;
-			&:first-child{
-				padding-top: 6rem;
-			}
-			.column{
-				margin: 0 3rem 2rem;
-			}
-		}
-	}}
+	// @include breakpoint(md){
+	// @include breakpoint(lg){
+	// 	section.text{
+	// 		padding-top: 6rem;
+	// 		&:first-child{
+	// 			padding-top: 6rem;
+	// 		}
+	// 		.column{
+	// 			margin: 0 3rem 2rem;
+	// 		}
+	// 	}
+	// }}
 	}
+
+@include breakpoint(xs) {
+	body{
+		background: purple;
+	}
+}
+
+
 // }

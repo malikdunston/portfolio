@@ -5,12 +5,16 @@ $black: rgba(20, 20, 20, 100);
 $white: rgba(235, 235, 235, 100);
 $purewhite: rgba(255, 255, 255, 100);
 
-$cyan: #5087C7;
-$green: #67AE3E;
-$yellow: #E7BB3A;
-$orange: #F15A22;
-$red: #D1223E;
-$magenta: #DD33AE;
+$lgray: rgb(221, 221, 221);
+$dgray: rgb(34, 34, 34);
+
+
+$cyan: rgb(80, 135, 199);
+$green: rgb(103, 174, 62);
+$yellow: rgb(231, 187, 58);
+$orange: rgb(241, 90, 34);
+$red: rgb(209, 34, 62);
+$magenta: rgb(221, 51, 174);
 
 body{
 	background: $black;
