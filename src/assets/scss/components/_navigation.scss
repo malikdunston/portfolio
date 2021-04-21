@@ -30,9 +30,8 @@ nav{
 	@include breakpoint(lg){
 		top: 3rem;
 	}
-		g,
 		path{
-			fill: white!important;
+			fill: $white!important;
 		}
 	}
 	#ticker{
@@ -59,7 +58,7 @@ nav{
 &.peeked{
 	width: auto!important;
 }}
-body.open{
+.App.navOpen{
 	nav{
 		overflow: visible;
 		background: transparent;
@@ -86,9 +85,8 @@ body.open{
 			}
 		}
 		#circle{
+			opacity: .9;
+			transform: scale(60);
 		}
-	#circle{
-		opacity: .9;
-		transform: scale(60);
-	}}
+	}
 }

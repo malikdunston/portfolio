@@ -17,10 +17,16 @@ class App extends Component {
 constructor() {
 	super();
 	this.state = {
-		projects: [],
+		navOpen: false
 	}
 	this.getData = this.getData.bind(this);
 	this.constructProject = this.constructProject.bind(this);
+	this.navToggle = this.navToggle.bind(this);
+};
+navToggle(x){
+	this.setState({
+		navOpen: !this.state.navOpen
+	}, ()=>{console.log(x, this.state);})
 };
 getData(type, params, callback) {
 	let url = "http://wp.malikdunston.com/wp-json/wp/v2/", ext;
@@ -58,11 +64,12 @@ constructProject(proj) {
 };
 render() {
 	return (<Router>
-		<div className="App">
+		<div className={this.state.navOpen ? "App navOpen" : "App"}>
 			<div className="skills product"><span>three-d</span></div>
 			<div className="skills web"><span>websitessss</span></div>
 			<button>Hello</button>
-			<Navigation />
+			<Navigation
+				toggleNav={this.navToggle} />
 			<Route
 				exact
 				path="/"
