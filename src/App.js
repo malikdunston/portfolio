@@ -65,9 +65,6 @@ constructProject(proj) {
 render() {
 	return (<Router>
 		<div className={this.state.navOpen ? "App navOpen" : "App"}>
-			<div className="skills product"><span>three-d</span></div>
-			<div className="skills web"><span>websitessss</span></div>
-			<button>Hello</button>
 			<Navigation
 				toggleNav={this.navToggle}
 				navOpen={this.state.navOpen} />
