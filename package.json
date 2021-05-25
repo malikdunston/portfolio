@@ -36,6 +36,7 @@
 		]
 	},
 	"devDependencies": {
+		"browser-sync": "^2.26.14",
 		"gulp": "^4.0.2",
 		"gulp-changed": "^4.0.2",
 		"gulp-clean-css": "^4.3.0",

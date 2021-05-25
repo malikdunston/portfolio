@@ -29,10 +29,11 @@ navToggle(){
 	}, ()=>{console.log(this.state);})
 };
 getData(type, params, callback) {
+// need to cache proj responses for an hour to optimize performance
 	let url = "http://wp.malikdunston.com/wp-json/wp/v2/", ext;
 	switch (type) {
 		case "projects":
-			ext = "projects"
+			ext = "projects?per_page=100"
 			break
 		case "pages":
 			ext = "pages"
@@ -65,9 +66,9 @@ constructProject(proj) {
 render() {
 	return (<Router>
 		<div className={this.state.navOpen ? "App navOpen" : "App"}>
-			<Navigation
+			{/* <Navigation
 				toggleNav={this.navToggle}
-				navOpen={this.state.navOpen} />
+				navOpen={this.state.navOpen} /> */}
 			<Route
 				exact
 				path="/"
@@ -76,7 +77,7 @@ render() {
 						getProjects={this.getData}
 						constructProject={this.constructProject} />
 				)} />
-			<Route
+			{/* <Route
 				path="/work/:projectName"
 				render={(thisRoute) => (
 					<div>
@@ -88,8 +89,8 @@ render() {
 							getProjects={this.getData}
 							constructProject={this.constructProject} />
 					</div>
-				)} />
-			<Contact />
+				)} /> */}
+			{/* <Contact /> */}
 		</div>
 	</Router>);
 };

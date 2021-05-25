@@ -1,6 +1,6 @@
 import { getDefaultNormalizer } from "@testing-library/dom";
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+	import React, { Component } from "react";
+	import { Link } from "react-router-dom";
 
 class Projects extends Component {
 constructor(props){
@@ -14,6 +14,7 @@ componentDidMount(){
 		"projects",
 		undefined,
 		(projects)=>{
+			console.log(projects);
 			this.setState({
 				allProjects: projects.map((proj)=>{
 					return this.props.constructProject(proj)
@@ -37,9 +38,10 @@ render(){
 							<div className="proj-details">
 								{project.year}
 							</div>
-							{project.images.map((img)=>{
+							{/* <img src={project.acf.cover} alt="" /> */}
+							{/* {project.images.map((img)=>{
 								return <img className="proj-img" src={img.src} />
-							})}
+							})} */}
 						</div>
 					</Link>
 				)
