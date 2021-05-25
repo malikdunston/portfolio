@@ -22,7 +22,6 @@ componentDidMount(){
 					children: children.filter(child => child.parent == par.id)
 				}
 			})
-			console.log(parents);
 			this.setState({
 				allProjects: parents.map((proj)=>{
 					return this.props.constructProject(proj)
@@ -38,20 +37,18 @@ render(){
 				return (
 				// Dev Ed 22:00 - explaining going to an item's specific
 				// page!!!
-					<Link to={`/work/${project.slug}`}  key={project.id}>
-						<div className="proj">
-							<div className="proj-title">
-								{project.title}
-							</div>
-							<div className="proj-details">
-								{project.year}
-							</div>
-							{/* <img src={project.acf.cover} alt="" /> */}
-							{/* {project.images.map((img)=>{
-								return <img className="proj-img" src={img.src} />
-							})} */}
+					<div className="proj">
+						<h3 className="proj-title">
+							{project.title}
+						</h3>
+						<div className="proj-details">
+							{project.year}
 						</div>
-					</Link>
+						<img className="proj-img" src={project.cover} alt={project.title} />
+						<Link to={`/work/${project.slug}`}  key={project.id}>
+							Explore
+						</Link>
+					</div>
 				)
 			})}
 		</div>

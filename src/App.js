@@ -66,9 +66,9 @@ constructProject(proj) {
 render() {
 	return (<Router>
 		<div className={this.state.navOpen ? "App navOpen" : "App"}>
-			{/* <Navigation
+			<Navigation
 				toggleNav={this.navToggle}
-				navOpen={this.state.navOpen} /> */}
+				navOpen={this.state.navOpen} />
 			<Route
 				exact
 				path="/"
