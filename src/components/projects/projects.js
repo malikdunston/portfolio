@@ -16,7 +16,13 @@ componentDidMount(){
 		(projects)=>{
 			let parents = projects.filter(proj => proj.parent == 0);
 			let children = projects.filter(proj => proj.parent !== 0);
-			console.log(parents, children);
+			parents = parents.map(par => {
+				return {
+					...par,
+					children: children.filter(child => child.parent == par.id)
+				}
+			})
+			console.log(parents);
 			this.setState({
 				allProjects: parents.map((proj)=>{
 					return this.props.constructProject(proj)
