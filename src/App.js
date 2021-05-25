@@ -36,10 +36,10 @@ getData(type, params, callback) {
 			ext = "projects?per_page=100"
 			break
 		case "pages":
-			ext = "pages"
+			ext = "pages?per_page=100"
 			break
 		case "apps":
-			ext = "apps"
+			ext = "apps?per_page=100"
 			break
 		case "casestudy":
 			ext = "projects?slug=" + params
@@ -74,7 +74,7 @@ render() {
 				path="/"
 				render={() => (
 					<Projects
-						getProjects={this.getData}
+						getData={this.getData}
 						constructProject={this.constructProject} />
 				)} />
 			{/* <Route

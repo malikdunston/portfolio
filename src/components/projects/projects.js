@@ -10,13 +10,15 @@ constructor(props){
 	}
 }
 componentDidMount(){
-	this.props.getProjects(
+	this.props.getData(
 		"projects",
 		undefined,
 		(projects)=>{
-			console.log(projects);
+			let parents = projects.filter(proj => proj.parent == 0);
+			let children = projects.filter(proj => proj.parent !== 0);
+			console.log(parents, children);
 			this.setState({
-				allProjects: projects.map((proj)=>{
+				allProjects: parents.map((proj)=>{
 					return this.props.constructProject(proj)
 				})
 			});
