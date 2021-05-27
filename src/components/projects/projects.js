@@ -7,7 +7,8 @@ class Projects extends Component {
 		super(props);
 		this.state = {
 			allProjects: [],
-			projTouched: false
+			projTouched: false,
+			currentProject: null
 		}
 		this.handle = this.handle.bind(this);
 	}
@@ -33,6 +34,7 @@ class Projects extends Component {
 		);
 	};
 	handle = (project) => (ev) => {
+		this.setState({currentProject: project}, ()=>console.log(this.state))
 		let thisProj = ev.currentTarget;
 		let projects = thisProj.parentNode;
 		projects.querySelectorAll(".proj").forEach(proj => proj.classList.remove("proj-hover"))
@@ -62,10 +64,7 @@ class Projects extends Component {
 				className={this.state.projTouched ? "touched" : null}>
 				{this.state.allProjects.map(project => {
 					return (
-					// Dev Ed 22:00 - explaining going to an item's specific
-					// page!!!
-						<div 
-							key={project.id}
+						<div key={project.slug}
 							className="proj"
 							onTouchStart={this.handle(project)}
 							onTouchEnd={this.handle(project)}
@@ -73,11 +72,7 @@ class Projects extends Component {
 							<h3 className="proj-title">{project.title}</h3>
 							<div className="proj-details">{project.year}</div>
 							<img className="proj-img" src={project.cover} alt={project.title} />
-							<Link 
-								to={`/work/${project.slug}`} 
-								key={project.id}>
-								Explore
-							</Link>
+							<Link to={`/work/${project.slug}`}>Explore</Link>
 						</div>
 					)
 				})}

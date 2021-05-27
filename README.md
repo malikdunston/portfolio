@@ -12,6 +12,10 @@
 
 ## Journal
 
+	-	may 2021:
+		-	just reproducing v3 (ajs) in react going down the ux...
+		-	having success with ev listeners, etc....
+
 	-	4/20: 
 		-	path prop can be deconstructed so we can include hashes (from index.js)
 		-	done w/css for now
