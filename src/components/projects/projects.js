@@ -32,12 +32,16 @@ class Projects extends Component {
 			}
 		);
 	};
-	handle(ev){
+	handle = (project) => (ev) => {
 		let thisProj = ev.currentTarget;
 		let projects = thisProj.parentNode;
 		projects.querySelectorAll(".proj").forEach(proj => proj.classList.remove("proj-hover"))
 		switch (ev.type){
 			case "click":
+				projects.querySelectorAll(".proj")
+					// .filter(proj => proj.)
+					.forEach(proj => proj.classList.add("proj-hide"))
+				thisProj.classList.add("clicked");
 				break;
 			case "touchstart":
 				let target = ev.touches[0].target;
@@ -50,7 +54,7 @@ class Projects extends Component {
 			// 	this.setState({projTouched: false})
 			// 	break;
 		}
-		// console.log(projects);
+		console.log(project);
 	}
 	render() {
 		return (
@@ -61,10 +65,11 @@ class Projects extends Component {
 					// Dev Ed 22:00 - explaining going to an item's specific
 					// page!!!
 						<div 
+							key={project.id}
 							className="proj"
-							onTouchStart={this.handle}
-							onTouchEnd={this.handle}
-							onClick={this.handle}>
+							onTouchStart={this.handle(project)}
+							onTouchEnd={this.handle(project)}
+							onClick={this.handle(project)}>
 							<h3 className="proj-title">{project.title}</h3>
 							<div className="proj-details">{project.year}</div>
 							<img className="proj-img" src={project.cover} alt={project.title} />
