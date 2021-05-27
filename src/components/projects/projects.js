@@ -29,15 +29,9 @@ componentDidMount(){
 			});
 		}
 	);
+	this.oneProj.addEventListener("onclick", (ev)=>{console.log(ev);})
 };
-render(){
-	return (
-		<div id="projects">
-			{this.state.allProjects.map(project=> {
-				return (
-				// Dev Ed 22:00 - explaining going to an item's specific
-				// page!!!
-					<div className="proj">
+	oneProj = (project) => { return (			<div className="proj">
 						<h3 className="proj-title">
 							{project.title}
 						</h3>
@@ -48,7 +42,17 @@ render(){
 						<Link to={`/work/${project.slug}`}  key={project.id}>
 							Explore
 						</Link>
-					</div>
+					</div>)
+					}
+render(){
+
+	return (
+		<div id="projects">
+			{this.state.allProjects.map(project=> {
+				return (
+				// Dev Ed 22:00 - explaining going to an item's specific
+				// page!!!
+					this.oneProj(project)
 				)
 			})}
 		</div>
