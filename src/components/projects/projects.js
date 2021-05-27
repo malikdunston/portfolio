@@ -6,7 +6,8 @@ class Projects extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			allProjects: []
+			allProjects: [],
+			projTouched: false
 		}
 		this.handle = this.handle.bind(this);
 	}
@@ -30,35 +31,49 @@ class Projects extends Component {
 				});
 			}
 		);
-	// need to go ahead and look up useEffect 
-		document.querySelector(".proj").addEventListener("click", this.handle)
 	};
 	handle(ev){
-		console.log(ev);
-	}
-	oneProj = (project) => {
-		return (<div className="proj">
-			<h3 className="proj-title">
-				{project.title}
-			</h3>
-			<div className="proj-details">
-				{project.year}
-			</div>
-			<img className="proj-img" src={project.cover} alt={project.title} />
-			<Link to={`/work/${project.slug}`} key={project.id}>
-				Explore
-			</Link>
-		</div>)
+		let thisProj = ev.currentTarget;
+		let projects = thisProj.parentNode;
+		projects.querySelectorAll(".proj").forEach(proj => proj.classList.remove("proj-hover"))
+		switch (ev.type){
+			case "click":
+				break;
+			case "touchstart":
+				let target = ev.touches[0].target;
+				thisProj.classList.add("proj-hover")
+				this.setState({projTouched: true})
+				break;
+			// case "touchend":
+			// 	// target = ev.touches[0].target;
+			// 	// thisProj.classList.add("proj-hover")
+			// 	this.setState({projTouched: false})
+			// 	break;
+		}
+		// console.log(projects);
 	}
 	render() {
-
 		return (
-			<div id="projects">
+			<div id="projects" 
+				className={this.state.projTouched ? "touched" : null}>
 				{this.state.allProjects.map(project => {
 					return (
-						// Dev Ed 22:00 - explaining going to an item's specific
-						// page!!!
-						this.oneProj(project)
+					// Dev Ed 22:00 - explaining going to an item's specific
+					// page!!!
+						<div 
+							className="proj"
+							onTouchStart={this.handle}
+							onTouchEnd={this.handle}
+							onClick={this.handle}>
+							<h3 className="proj-title">{project.title}</h3>
+							<div className="proj-details">{project.year}</div>
+							<img className="proj-img" src={project.cover} alt={project.title} />
+							<Link 
+								to={`/work/${project.slug}`} 
+								key={project.id}>
+								Explore
+							</Link>
+						</div>
 					)
 				})}
 			</div>
