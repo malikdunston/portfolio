@@ -7,7 +7,6 @@ class Projects extends Component {
 		super(props);
 		this.state = {
 			allProjects: [],
-			projTouched: false,
 			currentProject: null
 		}
 		this.handle = this.handle.bind(this);
@@ -34,45 +33,44 @@ class Projects extends Component {
 		);
 	};
 	handle = (project) => (ev) => {
-		this.setState({currentProject: project}, ()=>console.log(this.state))
-		let thisProj = ev.currentTarget;
-		let projects = thisProj.parentNode;
-		projects.querySelectorAll(".proj").forEach(proj => proj.classList.remove("proj-hover"))
+		let thisProj = ev.currentTarget,
+			siblingProjs = thisProj.parentNode.querySelectorAll(":scope > *:not(." + project.slug + ")");
 		switch (ev.type){
-			case "click":
-				projects.querySelectorAll(".proj")
-					// .filter(proj => proj.)
-					.forEach(proj => proj.classList.add("proj-hide"))
-				thisProj.classList.add("clicked");
-				break;
 			case "touchstart":
-				let target = ev.touches[0].target;
 				thisProj.classList.add("proj-hover")
-				this.setState({projTouched: true})
+				siblingProjs.forEach(proj => proj.classList.add("proj-bg"))
 				break;
-			// case "touchend":
-			// 	// target = ev.touches[0].target;
-			// 	// thisProj.classList.add("proj-hover")
-			// 	this.setState({projTouched: false})
-			// 	break;
+			case "click":
+				this.setState({currentProject: project}, ()=>console.log(this.state.currentProject))
+				thisProj.classList.toggle("clicked");
+				siblingProjs.forEach(proj => proj.classList.toggle("proj-hide"))
+				break;
+			case "touchend":
+				thisProj.classList.remove("proj-hover")
+				siblingProjs.forEach(proj => proj.classList.remove("proj-bg"))
+				break;
 		}
-		console.log(project);
 	}
 	render() {
 		return (
-			<div id="projects" 
-				className={this.state.projTouched ? "touched" : null}>
+			<div id="projects">
 				{this.state.allProjects.map(project => {
 					return (
 						<div key={project.slug}
-							className="proj"
+							className={project.slug}
 							onTouchStart={this.handle(project)}
 							onTouchEnd={this.handle(project)}
 							onClick={this.handle(project)}>
 							<h3 className="proj-title">{project.title}</h3>
-							<div className="proj-details">{project.year}</div>
+							<div className="proj-details">
+								<h2 className="proj-tagline">{project.title}</h2>
+								<div className="skills"></div>
+								<Link to={`/work/${project.slug}`} 
+									className="explore">
+									<h2>Explore</h2>
+								</Link>
+							</div>
 							<img className="proj-img" src={project.cover} alt={project.title} />
-							<Link to={`/work/${project.slug}`}>Explore</Link>
 						</div>
 					)
 				})}

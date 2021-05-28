@@ -26,7 +26,7 @@ constructor() {
 navToggle(){
 	this.setState({
 		navOpen: !this.state.navOpen
-	}, ()=>{console.log(this.state);})
+	})
 };
 getData(type, params, callback) {
 // need to cache proj responses for an hour to optimize performance
@@ -77,7 +77,7 @@ render() {
 						getData={this.getData}
 						constructProject={this.constructProject} />
 				)} />
-			{/* <Route
+			<Route
 				path="/work/:projectName"
 				render={(thisRoute) => (
 					<div>
@@ -86,10 +86,10 @@ render() {
 							getThisProject={this.getData}
 							constructProject={this.constructProject} />
 						<Projects
-							getProjects={this.getData}
+							getData={this.getData}
 							constructProject={this.constructProject} />
 					</div>
-				)} /> */}
+				)} />
 			{/* <Contact /> */}
 		</div>
 	</Router>);
