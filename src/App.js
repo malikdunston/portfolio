@@ -57,14 +57,19 @@ constructProject(proj) {
 		id: proj.id,
 		slug: proj.slug,
 		title: proj.title.rendered,
-		content: proj.content.renered,
-		images: [...html.querySelectorAll("figure img")],
-		...proj.acf,
 		skills: findSkillsTools(proj, "skills"),
 		tools: findSkillsTools(proj, "tools"),
+	// acf stuff...
+		year: proj.acf.year,
+		cover: proj.acf.cover,
+		about: proj.acf.about,
+	// stuff not needed on homepage...
+		content: proj.content.renered,
+		images: [...html.querySelectorAll("figure img")],
+
 	};
 
-	console.log(proj.acf);
+	console.log(proj);
 	return projObj;
 
 	function findSkillsTools(proj, skillsTools){
