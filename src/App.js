@@ -17,7 +17,8 @@ class App extends Component {
 constructor() {
 	super();
 	this.state = {
-		navOpen: false
+		navOpen: false,
+		allProjects: []
 	}
 	this.getData = this.getData.bind(this);
 	this.constructProject = this.constructProject.bind(this);
@@ -66,11 +67,15 @@ constructProject(proj) {
 	// stuff not needed on homepage...
 		content: proj.content.renered,
 		images: [...html.querySelectorAll("figure img")],
-
+		children: findChildren(proj)
 	};
 
 	console.log(proj);
 	return projObj;
+
+	function findChildren(proj){
+		return proj.acf.year
+	}
 
 	function findSkillsTools(proj, skillsTools){
 		let obj = {};
@@ -83,6 +88,27 @@ constructProject(proj) {
 		return obj
 	}
 };
+componentDidMount(){
+	this.getData(
+		"projects",
+		undefined,
+		(projects) => {
+			let parents = projects.filter(proj => proj.parent == 0);
+			let children = projects.filter(proj => proj.parent !== 0);
+			parents = parents.map(par => {
+				return {
+					...par,
+					children: children.filter(child => child.parent == par.id)
+				}
+			})
+			this.setState({
+				allProjects: parents.map((proj) => {
+					return this.constructProject(proj)
+				})
+			});
+		}
+	)
+}
 render() {
 	return (<Router>
 		<div className={this.state.navOpen ? "App navOpen" : "App"}>
@@ -94,6 +120,7 @@ render() {
 				path="/"
 				render={() => (
 					<Projects
+						allProjects={this.state.allProjects}
 						getData={this.getData}
 						constructProject={this.constructProject} />
 				)} />
@@ -106,6 +133,7 @@ render() {
 							getThisProject={this.getData}
 							constructProject={this.constructProject} />
 						<Projects
+							allProjects={this.state.allProjects}
 							getData={this.getData}
 							constructProject={this.constructProject} />
 					</div>

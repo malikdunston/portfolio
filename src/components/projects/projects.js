@@ -5,33 +5,8 @@ import { Link } from "react-router-dom";
 class Projects extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			allProjects: [],
-			currentProject: null
-		}
 		this.handle = this.handle.bind(this);
 	}
-	componentDidMount() {
-		this.props.getData(
-			"projects",
-			undefined,
-			(projects) => {
-				let parents = projects.filter(proj => proj.parent == 0);
-				let children = projects.filter(proj => proj.parent !== 0);
-				parents = parents.map(par => {
-					return {
-						...par,
-						children: children.filter(child => child.parent == par.id)
-					}
-				})
-				this.setState({
-					allProjects: parents.map((proj) => {
-						return this.props.constructProject(proj)
-					})
-				});
-			}
-		);
-	};
 	handle = (project) => (ev) => {
 		let thisProj = ev.currentTarget,
 			siblingProjs = thisProj.parentNode.querySelectorAll(":scope > *:not(." + project.slug + ")");
@@ -54,7 +29,7 @@ class Projects extends Component {
 	render() {
 		return (
 			<div id="projects">
-				{this.state.allProjects.map(project => {
+				{this.props.allProjects.map(project => {
 					return (
 						<div key={project.slug}
 							className={project.slug}
