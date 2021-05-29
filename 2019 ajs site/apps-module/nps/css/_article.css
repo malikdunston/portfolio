@@ -1,0 +1,121 @@
+body.article{
+	background: #E5E5E5;
+}
+ng-view.article > *{
+	padding: 24px;
+	margin: 24px 15px;
+	background: white;
+}
+nav,
+ng-view.article > *{
+	box-shadow: 0 4px 3px  rgba(0, 0, 0, 0.35);
+}
+
+.article article h1{
+	color: black;
+	text-align: left;
+	margin: 24px 0;
+}
+
+.article article aside *{
+	line-height: 1.25;
+	margin: 0;
+}
+.article article aside{
+	border-top: 1px #CCCCCC solid;
+	border-bottom: 1px #CCCCCC solid;
+	padding: 15px 0;
+	margin-bottom: 24px;
+}
+
+.article article aside *{
+	font-size: 14px!important;
+}
+.article article aside h5{
+	font-weight: bold;
+}
+
+.article article aside h5:last-of-type{
+	margin-top: 15px;
+}
+.article article > p{
+	font-family: "Rawlinson";
+	line-height: 2;
+	margin-bottom: 32px;
+}
+
+.article h2{
+	font-family: "Rawlinson";
+}
+
+
+/* related */
+
+#related > h2 {
+	margin-bottom: 24px;
+}
+#related div{
+	padding-top: 24px;
+	border-bottom: 1px #cccccc solid;
+}
+#related div:first-of-type{
+	border-top: 1px #cccccc solid;
+}
+
+#related p {
+	opacity: .7;
+}
+
+/* Ad Content */
+#ads{
+	width: 348px;
+}
+#ads div{
+	width: 300px;
+	height: 250px;
+	color: white;
+	background: #454647;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+}
+
+@media only screen and (min-width: 1400px) {
+
+.article > article{
+	width: 848px!important;
+	margin-left: calc(50% - 570px);
+}
+
+#related{
+	width: 330px;
+}
+
+.article nav > div{
+	width: 1140px;
+	margin: 0 auto;
+}
+
+
+#related,
+#ads{
+	position: absolute;
+	margin: 0;
+	left: calc(50% + 300px);
+	width: 262px;
+	/* float: right; */
+}
+#ads > div{
+	width: 100%;
+}
+
+#ads{
+	top: 666px;
+}
+#related{
+	top: 90px;
+}
+
+
+} 

@@ -1,0 +1,64 @@
+body.skills{
+	ui-view{
+		article{
+			section.image{
+				background-repeat: no-repeat;
+				background-position: center center;
+				height: 7rem;
+			}
+			section.text{
+				& > div.skills,
+				& > div.tools{
+					margin-top: 1.333rem;
+				}
+				.skills span,
+				.tools span{
+					margin: 0 .25rem .25rem 0!important;
+				}
+			}
+		}
+	@include breakpoint(md){
+		padding: 0;
+		@include flex(column);
+		article{
+			@include flex(row, align-center);
+			// display: block;
+			// position: relative;
+			height: 100vh;
+			section.image{
+				width: 50%;
+				height: 100%;
+				background-attachment: fixed;
+				// position: absolute;
+				// float: left;
+				background-position: 20% center;
+			}
+			section.text{
+				padding: 2rem;
+				padding-right: 10%;
+				margin: 0;
+				position: relative;
+				// float: left;
+				width: 50%;
+				margin-left: auto;
+			}
+		}
+		article:nth-child(odd){
+			section.image{
+				// float: right;
+			}
+			section.text{
+				// float: right;
+			}
+		}
+	}
+	@include breakpoint(lg){
+		article{
+			section.text{
+				// padding: 3rem;
+				padding-right: 8rem;
+				// background: green;
+			}
+		}
+	}}
+}

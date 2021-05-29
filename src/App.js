@@ -59,9 +59,24 @@ constructProject(proj) {
 		title: proj.title.rendered,
 		content: proj.content.renered,
 		images: [...html.querySelectorAll("figure img")],
-		...proj.acf
+		...proj.acf,
+		skills: findSkillsTools(proj, "skills"),
+		tools: findSkillsTools(proj, "tools"),
 	};
+
+	console.log(proj.acf);
 	return projObj;
+
+	function findSkillsTools(proj, skillsTools){
+		let obj = {};
+		let fields = Object.keys(proj.acf)
+			.filter(keyName => keyName.endsWith(skillsTools))
+		let types = fields.map(f => f.split("_")[0])
+		fields.forEach((field, i) => {
+			obj[types[i]] = proj.acf[field];
+		})
+		return obj
+	}
 };
 render() {
 	return (<Router>

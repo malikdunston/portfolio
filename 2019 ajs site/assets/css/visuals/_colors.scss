@@ -1,0 +1,18 @@
+/// @type Color
+$cyan: #5087C7;
+$green: #67AE3E;
+$yellow: #E7BB3A;
+$orange: #F15A22;
+$red: #D1223E;
+$magenta: #DD33AE;
+$white: #FFFFFF;
+$lgray: #DDDDDD;
+$dgray: #222222;
+$black: #000000;
+
+body {
+	background: $black;
+	color: $white;
+	*{
+	}
+}

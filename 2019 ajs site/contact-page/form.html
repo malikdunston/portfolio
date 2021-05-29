@@ -1,0 +1,172 @@
+<form  name="contact.myform" 
+	ng-submit="contact.register(contact.user)" 
+	novalidate>
+
+	<header class="text">
+
+		<h1 ng-hide="contact.user.firstname;">
+			<legend>
+				Let's Work.
+			</legend>
+			<h1 style="padding-bottom: 0!important; margin-bottom: 0px!important;" ng-if="contact.user.firstname">
+				Welcome<span>,  <br> {{contact.user.firstname}}</span>
+			</h1>
+		</h1>
+
+	<!-- error buttons -->
+
+		<button class="error validationerror" 
+			ng-if="contact.myform.firstname.$invalid && contact.myform.firstname.$touched">
+				FN?</button>
+		<button class="error validationerror" 
+			ng-if="contact.myform.lastname.$invalid && contact.myform.lastname.$touched">
+				LN?</button>
+		<button class="error validationerror" 
+			ng-if="contact.myform.email.$invalid && contact.myform.email.$touched">
+				contact?</button>
+
+	</header>
+
+
+	<fieldset
+		class="fieldset">
+
+		<input 
+			type="text" 
+			name="firstname" 
+			placeholder="First Name"
+			ng-model="contact.user.firstname"
+			ng-required="true">
+
+		<input 
+			type="text" 
+			name="lastname"
+			placeholder="Last Name" 
+			ng-model="contact.user.lastname"
+			ng-required="true">
+
+		<input 
+			type="" 
+			name="email"
+			placeholder="Phone or Email" 
+			ng-model="contact.user.email"
+			ng-pattern="/^(?:\d{10}|\w+@\w+\.\w{2,3})$/">
+
+		<input 
+			type="" 
+			name="website"
+			ng-if="contact.myform.email.$valid"
+			placeholder="Do you have a website?" 
+			ng-model="contact.user.website">
+
+	</fieldset>
+
+	<!-- <fieldset
+		class="fieldset">
+
+		<h3>
+			Tell me about 
+			<br>your oranization.
+		</h3>
+
+		<input 
+			name="needs"
+			placeholder="Who is the project for?" 
+			ng-model="user.project.needs">
+
+		<input 
+			name="description"
+			placeholder="Please give a detailed description of any specifications, deliverables, etc." 
+			ng-model="user.project.description">
+
+		<input 
+			name="availability"
+			placeholder="What time is best to reach you?" 
+			ng-model="user.project.description">
+
+	</fieldset> -->
+
+
+		<button type="submit" ng-click="register(contact.user)">
+			Submit
+		</button>
+
+		<button id="mobileSubmit" ng-click="go(contact); $event.stopPropogation();">
+			Hello
+		</button>
+
+</form>
+
+<style>
+
+
+formsubmit{
+	overflow: visible;
+}
+
+/* ------   whichPage  = "projects"    */
+
+	formsubmit.projects,
+	formsubmit.about{
+		position: fixed;
+		z-index: 1000!important;
+		width: calc(100vw - 4rem);
+		bottom: 2rem;
+		left: 2rem;
+			height: 1.5rem;
+	}
+		.projects form,
+		.about form{
+			position: relative;
+			border-radius: 500px;
+			height: 100%;
+			background-color: white;
+			color: black!important;
+			top: 0; 
+			left: 0; 
+			right: 0; 
+			bottom: 0; 
+				display: flex;
+				flex-direction: column;
+		}
+
+
+			.projects form h1,
+			.about form h1{
+				display: none;
+			}
+
+			.projects form input,
+			.about form input{
+				padding-left: .667rem;
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				color: rgba(0, 0, 0, 0.664)!important;
+			}
+			.projects form input:not(:first-of-type),
+			.about form input:not(:first-of-type){
+				display: none;
+			}
+
+			.projects form button,
+			.about form button,
+			#mobileSubmit{
+				position: absolute;
+				background-color: transparent;
+				right: 0;
+				height: 1.5rem;
+				color: black!important;
+				padding: 0 .667rem 0 0;
+				margin: 0;
+				
+			}
+
+				.projects form button[type="submit"],
+				.projects form .error,
+				.about form button[type="submit"],
+				.about form .error{
+					display: none;
+				}
+
+</style>
