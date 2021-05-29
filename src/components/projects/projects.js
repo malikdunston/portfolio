@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 class Projects extends Component {
 	constructor(props) {
 		super(props);
-		this.handle = this.handle.bind(this);
+		this.select = this.select.bind(this);
 	}
-	handle = (project) => (ev) => {
+	select = (project) => (ev) => {
 		let thisProj = ev.currentTarget,
 			siblingProjs = thisProj.parentNode.querySelectorAll(":scope > *:not(." + project.slug + ")");
 		switch (ev.type){
@@ -33,13 +33,22 @@ class Projects extends Component {
 					return (
 						<div key={project.slug}
 							className={project.slug}
-							onTouchStart={this.handle(project)}
-							onTouchEnd={this.handle(project)}
-							onClick={this.handle(project)}>
+							onTouchStart={this.select(project)}
+							onTouchEnd={this.select(project)}
+							onClick={this.select(project)}>
 							<h3 className="proj-title">{project.title}</h3>
 							<div className="proj-details">
+								{/* huh? */}
 								<h2 className="proj-tagline">{project.title}</h2>
-								<div className="skills"></div>
+								<div className="skills">
+									{Object.keys(project.skills).map(sk=>{
+										return (
+											<div className={sk}>
+												{project.skills[sk].map(s=><span>{s}</span>)}
+											</div>
+										)
+									})}
+								</div>
 								<Link to={`/work/${project.slug}`} 
 									className="explore">
 									<h2>Explore</h2>

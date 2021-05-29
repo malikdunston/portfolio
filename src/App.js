@@ -66,22 +66,18 @@ constructProject(proj) {
 		about: proj.acf.about,
 	// stuff not needed on homepage...
 		content: proj.content.renered,
-		images: [...html.querySelectorAll("figure img")],
-		children: findChildren(proj)
+		images: [...html.querySelectorAll("figure img")]
 	};
 
-	console.log(proj);
 	return projObj;
 
 	function findChildren(proj){
 		return proj.acf.year
 	}
-
-	function findSkillsTools(proj, skillsTools){
-		let obj = {};
-		let fields = Object.keys(proj.acf)
-			.filter(keyName => keyName.endsWith(skillsTools))
-		let types = fields.map(f => f.split("_")[0])
+	function findSkillsTools(proj, str){
+		let obj = {},
+			fields = Object.keys(proj.acf).filter(k => k.endsWith(str)),
+			types = fields.map(f => f.split("_")[0])
 		fields.forEach((field, i) => {
 			obj[types[i]] = proj.acf[field];
 		})
@@ -105,7 +101,7 @@ componentDidMount(){
 				allProjects: parents.map((proj) => {
 					return this.constructProject(proj)
 				})
-			});
+			}, ()=>console.log(this.state.allProjects));
 		}
 	)
 }
