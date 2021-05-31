@@ -52,9 +52,7 @@ getData(type, params, callback) {
 		});
 };
 constructProject(proj) {
-	let html = document.createElement("div");
-	html.innerHTML = proj.content.rendered;
-	let projObj = {
+	return {
 		id: proj.id,
 		slug: proj.slug,
 		title: proj.title.rendered,
@@ -65,14 +63,26 @@ constructProject(proj) {
 		cover: proj.acf.cover,
 		about: proj.acf.about,
 	// stuff not needed on homepage...
-		content: proj.content.renered,
-		images: [...html.querySelectorAll("figure img")]
+		content: getContentFromChildren(proj),
 	};
 
-	return projObj;
-
-	function findChildren(proj){
-		return proj.acf.year
+// make all projects like outernets!!!!!!
+// no need to put html code in the wp content box.
+// moved beyond that!!!
+	function getContentFromChildren(proj){
+		let body = [];
+		proj.children.forEach(c => {
+			let html = document.createElement("div");
+			html.innerHTML = c.content.rendered;
+			body.push({
+				text: {
+					title: c.title.rendered,
+					desc: c.acf.description
+				},
+				images: html.querySelectorAll("figure img")
+			})
+		})
+		return body;
 	}
 	function findSkillsTools(proj, str){
 		let obj = {},
@@ -101,7 +111,7 @@ componentDidMount(){
 				allProjects: parents.map((proj) => {
 					return this.constructProject(proj)
 				})
-			}, ()=>console.log(this.state.allProjects));
+			}, ()=>console.log("state", this.state.allProjects));
 		}
 	)
 }

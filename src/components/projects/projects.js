@@ -38,7 +38,6 @@ class Projects extends Component {
 							onClick={this.select(project)}>
 							<h3 className="proj-title">{project.title}</h3>
 							<div className="proj-details">
-								{/* huh? */}
 								<h2 className="proj-tagline">{project.title}</h2>
 								<div className="skills">
 									{Object.keys(project.skills).map(sk=>{

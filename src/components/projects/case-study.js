@@ -20,7 +20,7 @@ class Casestudy extends Component {
 		)
 	}
 	render() {
-		return (<div id={this.state.project.slug} class="casestudy">
+		return (<div id={this.state.project.slug} className="casestudy">
 			<h1>{this.state.project.title}</h1>
 			<h3>{this.state.project.year}</h3>
 			<div>{this.state.project.content}</div>
