@@ -145,7 +145,7 @@ render() {
 					path="/work/:projectName"
 					render={(thisRoute) => (
 						<div>
-							{thisRoute.match.params.projectName}
+							{this.state.currentProject ? this.state.currentProject.title : "jjfjaskldfjasdfajksd;"}
 						</div>
 					)} />
 				<Projects
