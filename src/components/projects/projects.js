@@ -6,6 +6,9 @@ class Projects extends Component {
 	constructor(props) {
 		super(props);
 	}
+	componentDidMount(){
+		console.log(this.props);
+	}
 	render() {
 		return (
 			<div id="projects">

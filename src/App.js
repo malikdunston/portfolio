@@ -19,7 +19,8 @@ constructor() {
 	this.state = {
 		navOpen: false,
 		allProjects: [],
-		currentProject: null
+		currentProject: null,
+		isProjOpen: false
 	}
 	this.getData = this.getData.bind(this);
 	this.constructProject = this.constructProject.bind(this);
@@ -100,7 +101,17 @@ select = (project) => (ev) => {
 			siblingProjs.forEach(proj => proj.classList.add("proj-bg"))
 			break;
 		case "click":
-			if(this.state.currentProject){
+
+
+			this.setState({
+				isProjOpen: !this.state.isProjOpen
+			})
+
+
+			// console.log(ev.target.tagName == "H2");
+			// console.log(ev.target.tagName == "A");
+		// toggle current project.....
+			if(this.state.currentProject && !this.state.isProjOpen){
 				this.setState({currentProject: null}, ()=>console.log(this.state.currentProject))
 			}else{
 				this.setState({currentProject: project}, ()=>console.log(this.state.currentProject))
@@ -124,45 +135,29 @@ componentDidMount(){
 	})
 }
 render() {
-	return (<Router>
-		<div className={this.state.navOpen ? "App navOpen" : "App"}>
-			<Navigation
-				toggleNav={this.navToggle}
-				navOpen={this.state.navOpen} />
-			<Route
-				path="/work/:projectName"
-				render={(thisRoute) => (
-					<div>
+	return (
+		<Router>
+			<div className={this.state.navOpen ? "App navOpen" : "App"}>
+				<Navigation
+					toggleNav={this.navToggle}
+					navOpen={this.state.navOpen} />
+				<Route
+					path="/work/:projectName"
+					render={(thisRoute) => (
 						<div>
-							as;dlkfja;sldkfja;sldkfja;sdlkfja;sl
+							{thisRoute.match.params.projectName}
 						</div>
-
-
-						{/* <Casestudy
-							thisRoute={thisRoute}
-							getData={this.getData}
-							constructProject={this.constructProject} /> */}
-						{/* <Projects
-							currentProject={this.state.currentProject}
-							select={this.select}
-							allProjects={this.state.allProjects}
-							getData={this.getData}
-							constructProject={this.constructProject} /> */}
-					</div>
-				)} />
-			{/* <Route
-				exact
-				path="/"
-				render={() => ( */}
-					<Projects
-						currentProject={this.state.currentProject}
-						select={this.select}
-						allProjects={this.state.allProjects}
-						getData={this.getData}
-						constructProject={this.constructProject} />
-				{/* )} /> */}
-			{/* <Contact /> */}
-		</div>
-	</Router>);
+					)} />
+				<Projects
+					isProjOpen={this.state.isProjOpen}
+					currentProject={this.state.currentProject}
+					select={this.select}
+					allProjects={this.state.allProjects}
+					getData={this.getData}
+					constructProject={this.constructProject} />
+				{/* <Contact /> */}
+			</div>
+		</Router>
+	);
 };
 }; export default App;
