@@ -14,7 +14,7 @@ class Projects extends Component {
 			<div id="projects">
 				{this.props.allProjects.map(project => {
 					return (
-						<div key={project.slug}
+						<div key={project.id}
 							className={project.slug}
 							onTouchStart={this.props.select(project)}
 							onTouchEnd={this.props.select(project)}

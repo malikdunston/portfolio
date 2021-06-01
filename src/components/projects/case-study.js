@@ -2,40 +2,56 @@ import React, { Component, useParams } from "react";
 class Casestudy extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			slug: this.props.match.params.projectName,
+		}
 	}
 	componentDidMount() {
-		console.log("case-study route", this.props.currentProject);
-		let slug = this.props.thisRoute.match.params.projectName;
-		this.props.getData("projects", 0, (data) => {
-			let thisProj = data.filter(p=>p.slug == slug)[0];
-
-			// this.setState({
-			// 	allProjects: projects.map((proj) => {
-			// 		return this.constructProject(proj)
-			// 	})
-			// });
-		})
-		// if(this.props.currentProject){
-		// }else{
-		// 	this.props.getData( "projects", 0, (data) => {
-		// 		let thisProj = data.filter(p=>p.slug == slug);
-		// 		console.log(thisProj);
-		// 		this.setState({
-		// 			project: this.props.constructProject(thisProj)
-		// 		});
-		// 	})
-		// }
+		this.props.getData(
+			"projects", 
+			`&slug=${this.state.slug}`, 
+			(data)=>{
+				this.setState(
+					{ project: this.props.constructProject(data[0]) }, 
+					()=>{
+						this.props.getData("projects", `&parent=${this.state.project.id}`, (data)=>{
+							this.setState({ data: data.map(p=>this.props.constructProject(p))}, ()=>console.log(this.state))
+						})
+					}
+				)
+			}
+		)
 	}
 	render() {
 		return (
 			<div>
-				as;dlkfja;sldkfja;sldkfja;sdlkfja;sl
+				{this.state.data ? (
+					<div>
+						{this.state.data.map(p => {
+							return (
+								<article key={p.id} id={p.slug}>
+									<section className="text">
+										<h3>
+											{p.body.text.title}
+										</h3>
+										<p>
+											{p.body.text.desc}
+										</p>
+									</section>
+									<section className="content">
+										{p.body.images.map(img=>{
+											return <img src={img.currentSrc} alt="" />
+										})}
+									</section>
+
+								</article>
+							)
+						})}
+					</div>
+				) : (
+					<div>loading proj.....</div>
+				)}
 			</div>
-			// <div id={this.state.project.slug} className="casestudy">
-			// 	<h1>{this.state.project.title}</h1>
-			// 	<h3>{this.state.project.year}</h3>
-			// 	<div>{this.state.project.content}</div>
-			// </div>
 		)
 	}
 } export default Casestudy;

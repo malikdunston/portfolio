@@ -20,7 +20,7 @@ constructor() {
 		navOpen: false,
 		allProjects: [],
 		currentProject: null,
-		isProjOpen: false
+		isProjOpen: false,
 	}
 	this.getData = this.getData.bind(this);
 	this.constructProject = this.constructProject.bind(this);
@@ -37,7 +37,7 @@ getData(type, params, callback) {
 	let url = "http://wp.malikdunston.com/wp-json/wp/v2/", ext;
 	switch (type) {
 		case "projects":
-			ext = "projects?per_page=100&parent=" + params
+			ext = "projects?per_page=100" + params
 			break
 		case "pages":
 			ext = "pages?per_page=100"
@@ -55,6 +55,7 @@ getData(type, params, callback) {
 constructProject(proj) {
 	return {
 		id: proj.id,
+		parent: proj.parent,
 		slug: proj.slug,
 		title: proj.title.rendered,
 		skills: findSkillsTools(proj, "skills"),
@@ -62,26 +63,8 @@ constructProject(proj) {
 		year: proj.acf.year,
 		cover: proj.acf.cover,
 		about: proj.acf.about,
+		body: getContentFromChildren(proj)
 	};
-
-// make all projects like outernets!!!!!!
-// no need to put html code in the wp content box.
-// moved beyond that!!!
-	function getContentFromChildren(proj){
-		let body = [];
-		proj.children.forEach(c => {
-			let html = document.createElement("div");
-			html.innerHTML = c.content.rendered;
-			body.push({
-				text: {
-					title: c.title.rendered,
-					desc: c.acf.description
-				},
-				images: html.querySelectorAll("figure img")
-			})
-		})
-		return body;
-	}
 	function findSkillsTools(proj, str){
 		let obj = {},
 			fields = Object.keys(proj.acf).filter(k => k.endsWith(str)),
@@ -90,6 +73,22 @@ constructProject(proj) {
 			obj[types[i]] = proj.acf[field];
 		})
 		return obj
+	}
+// make all projects like outernets!!!!!!
+// no need to put html code in the wp content box.
+// moved beyond that!!!
+	function getContentFromChildren(proj){
+		if(proj.parent > 0){
+			let html = document.createElement("div");
+			html.innerHTML = proj.content.rendered;
+			return {
+				text: {
+					title: proj.title.rendered,
+					desc: proj.acf.description
+				},
+				images: [...html.querySelectorAll("figure img")]
+			}
+		}
 	}
 };
 select = (project) => (ev) => {
@@ -101,21 +100,10 @@ select = (project) => (ev) => {
 			siblingProjs.forEach(proj => proj.classList.add("proj-bg"))
 			break;
 		case "click":
-
-
 			this.setState({
-				isProjOpen: !this.state.isProjOpen
+				isProjOpen: !this.state.isProjOpen,
+				currentProject: project
 			})
-
-
-			// console.log(ev.target.tagName == "H2");
-			// console.log(ev.target.tagName == "A");
-		// toggle current project.....
-			if(this.state.currentProject && !this.state.isProjOpen){
-				this.setState({currentProject: null}, ()=>console.log(this.state.currentProject))
-			}else{
-				this.setState({currentProject: project}, ()=>console.log(this.state.currentProject))
-			}
 			thisProj.classList.toggle("clicked");
 			siblingProjs.forEach(proj => proj.classList.toggle("proj-hide"))
 			break;
@@ -126,12 +114,12 @@ select = (project) => (ev) => {
 	}
 }
 componentDidMount(){
-	this.getData("projects", 0, (projects) => {
+	this.getData("projects", "&parent=0", (projects) => {
 		this.setState({
 			allProjects: projects.map((proj) => {
 				return this.constructProject(proj)
-			})
-		}, ()=>console.log("state", this.state.allProjects));
+			}),
+		}, ()=>console.log("state", this.state));
 	})
 }
 render() {
@@ -143,10 +131,11 @@ render() {
 					navOpen={this.state.navOpen} />
 				<Route
 					path="/work/:projectName"
-					render={(thisRoute) => (
-						<div>
-							{this.state.currentProject ? this.state.currentProject.title : "jjfjaskldfjasdfajksd;"}
-						</div>
+					render={(props) => (
+						<Casestudy 
+							{...props}
+							getData={this.getData}
+							constructProject={this.constructProject}/>
 					)} />
 				<Projects
 					isProjOpen={this.state.isProjOpen}
@@ -155,7 +144,6 @@ render() {
 					allProjects={this.state.allProjects}
 					getData={this.getData}
 					constructProject={this.constructProject} />
-				{/* <Contact /> */}
 			</div>
 		</Router>
 	);
