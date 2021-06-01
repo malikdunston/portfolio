@@ -18,11 +18,13 @@ constructor() {
 	super();
 	this.state = {
 		navOpen: false,
-		allProjects: []
+		allProjects: [],
+		currentProject: null
 	}
 	this.getData = this.getData.bind(this);
 	this.constructProject = this.constructProject.bind(this);
 	this.navToggle = this.navToggle.bind(this);
+	this.select = this.select.bind(this);
 };
 navToggle(){
 	this.setState({
@@ -34,7 +36,7 @@ getData(type, params, callback) {
 	let url = "http://wp.malikdunston.com/wp-json/wp/v2/", ext;
 	switch (type) {
 		case "projects":
-			ext = "projects?per_page=100"
+			ext = "projects?per_page=100&parent=" + params
 			break
 		case "pages":
 			ext = "pages?per_page=100"
@@ -42,8 +44,6 @@ getData(type, params, callback) {
 		case "apps":
 			ext = "apps?per_page=100"
 			break
-		case "casestudy":
-			ext = "projects?slug=" + params
 	};
 	fetch(url + ext)
 		.then(data => data.json())
@@ -58,12 +58,9 @@ constructProject(proj) {
 		title: proj.title.rendered,
 		skills: findSkillsTools(proj, "skills"),
 		tools: findSkillsTools(proj, "tools"),
-	// acf stuff...
 		year: proj.acf.year,
 		cover: proj.acf.cover,
 		about: proj.acf.about,
-	// stuff not needed on homepage...
-		content: getContentFromChildren(proj),
 	};
 
 // make all projects like outernets!!!!!!
@@ -94,26 +91,37 @@ constructProject(proj) {
 		return obj
 	}
 };
+select = (project) => (ev) => {
+	let thisProj = ev.currentTarget,
+		siblingProjs = thisProj.parentNode.querySelectorAll(":scope > *:not(." + project.slug + ")");
+	switch (ev.type){
+		case "touchstart":
+			thisProj.classList.add("proj-hover")
+			siblingProjs.forEach(proj => proj.classList.add("proj-bg"))
+			break;
+		case "click":
+			if(this.state.currentProject){
+				this.setState({currentProject: null}, ()=>console.log(this.state.currentProject))
+			}else{
+				this.setState({currentProject: project}, ()=>console.log(this.state.currentProject))
+			}
+			thisProj.classList.toggle("clicked");
+			siblingProjs.forEach(proj => proj.classList.toggle("proj-hide"))
+			break;
+		case "touchend":
+			thisProj.classList.remove("proj-hover")
+			siblingProjs.forEach(proj => proj.classList.remove("proj-bg"))
+			break;
+	}
+}
 componentDidMount(){
-	this.getData(
-		"projects",
-		undefined,
-		(projects) => {
-			let parents = projects.filter(proj => proj.parent == 0);
-			let children = projects.filter(proj => proj.parent !== 0);
-			parents = parents.map(par => {
-				return {
-					...par,
-					children: children.filter(child => child.parent == par.id)
-				}
+	this.getData("projects", 0, (projects) => {
+		this.setState({
+			allProjects: projects.map((proj) => {
+				return this.constructProject(proj)
 			})
-			this.setState({
-				allProjects: parents.map((proj) => {
-					return this.constructProject(proj)
-				})
-			}, ()=>console.log("state", this.state.allProjects));
-		}
-	)
+		}, ()=>console.log("state", this.state.allProjects));
+	})
 }
 render() {
 	return (<Router>
@@ -122,28 +130,37 @@ render() {
 				toggleNav={this.navToggle}
 				navOpen={this.state.navOpen} />
 			<Route
-				exact
-				path="/"
-				render={() => (
-					<Projects
-						allProjects={this.state.allProjects}
-						getData={this.getData}
-						constructProject={this.constructProject} />
-				)} />
-			<Route
 				path="/work/:projectName"
 				render={(thisRoute) => (
 					<div>
-						<Casestudy
+						<div>
+							as;dlkfja;sldkfja;sldkfja;sdlkfja;sl
+						</div>
+
+
+						{/* <Casestudy
 							thisRoute={thisRoute}
-							getThisProject={this.getData}
-							constructProject={this.constructProject} />
-						<Projects
+							getData={this.getData}
+							constructProject={this.constructProject} /> */}
+						{/* <Projects
+							currentProject={this.state.currentProject}
+							select={this.select}
 							allProjects={this.state.allProjects}
 							getData={this.getData}
-							constructProject={this.constructProject} />
+							constructProject={this.constructProject} /> */}
 					</div>
 				)} />
+			{/* <Route
+				exact
+				path="/"
+				render={() => ( */}
+					<Projects
+						currentProject={this.state.currentProject}
+						select={this.select}
+						allProjects={this.state.allProjects}
+						getData={this.getData}
+						constructProject={this.constructProject} />
+				{/* )} /> */}
 			{/* <Contact /> */}
 		</div>
 	</Router>);
