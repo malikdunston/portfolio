@@ -31,10 +31,10 @@ class Projects extends Component {
 										)
 									})}
 								</div>
-								<Link to={`/work/${project.slug}`} 
+								<a href={`/work/${project.slug}`} 
 									className="explore">
 									<h2>Explore</h2>
-								</Link>
+								</a>
 							</div>
 							<img className="proj-img" src={project.cover} alt={project.title} />
 						</div>

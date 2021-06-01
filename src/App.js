@@ -20,7 +20,8 @@ constructor() {
 		navOpen: false,
 		allProjects: [],
 		currentProject: null,
-		isProjOpen: false
+		isProjOpen: false,
+		route: "/"
 	}
 	this.getData = this.getData.bind(this);
 	this.constructProject = this.constructProject.bind(this);
@@ -126,6 +127,13 @@ select = (project) => (ev) => {
 	}
 }
 componentDidMount(){
+
+	this.setState({
+		route: window.location.pathname
+	}, ()=>console.log("route ==", this.state.route))
+
+
+
 	this.getData("projects", 0, (projects) => {
 		this.setState({
 			allProjects: projects.map((proj) => {
@@ -136,28 +144,26 @@ componentDidMount(){
 }
 render() {
 	return (
-		<Router>
-			<div className={this.state.navOpen ? "App navOpen" : "App"}>
-				<Navigation
-					toggleNav={this.navToggle}
-					navOpen={this.state.navOpen} />
-				<Route
-					path="/work/:projectName"
-					render={(thisRoute) => (
-						<div>
-							{this.state.currentProject ? this.state.currentProject.title : "jjfjaskldfjasdfajksd;"}
-						</div>
-					)} />
-				<Projects
-					isProjOpen={this.state.isProjOpen}
-					currentProject={this.state.currentProject}
-					select={this.select}
-					allProjects={this.state.allProjects}
-					getData={this.getData}
-					constructProject={this.constructProject} />
-				{/* <Contact /> */}
-			</div>
-		</Router>
+		<div className={this.state.navOpen ? "App navOpen" : "App"}>
+			<Navigation
+				toggleNav={this.navToggle}
+				navOpen={this.state.navOpen} />
+
+			{this.state.route == "/" ? ""
+			:	<div>
+					{this.state.currentProject ? 
+						this.state.currentProject.title : 
+						"404 Not Found"}
+				</div>}
+			<Projects
+				isProjOpen={this.state.isProjOpen}
+				currentProject={this.state.currentProject}
+				select={this.select}
+				allProjects={this.state.allProjects}
+				getData={this.getData}
+				constructProject={this.constructProject} />
+			{/* <Contact /> */}
+		</div>
 	);
 };
 }; export default App;
