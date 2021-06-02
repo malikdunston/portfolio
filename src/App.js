@@ -72,31 +72,33 @@ constructProject(proj) {
 		})
 		return obj
 	}
-// make all projects like outernets!!!!!!
-// no need to put html code in the wp content box.
-// moved beyond that!!!
 	function getContentFromChildren(proj){
 		if(proj.parent > 0){
-			let html = document.createElement("div");
-			html.innerHTML = proj.content.rendered;
 			return {
 				text: {
 					title: proj.title.rendered,
-					desc: proj.acf.description
+					desc: proj.acf.about
 				},
-				images: [...html.querySelectorAll("figure img")]
+				images: findImages(proj)
 			}
 		}
+	}
+	function findImages(proj){
+		let html = document.createElement("div");
+		html.innerHTML = proj.content.rendered;
+		return [...html.querySelectorAll("figure")].map(fig=>{
+			let img = {
+				src: fig.querySelector("img").src,
+			}
+			fig.querySelector("figcaption") ? img.caption = fig.querySelector("figcaption").textContent : img.caption = null
+			return img
+		})
 	}
 };
 select = (project) => (ev) => {
 	let thisProj = ev.currentTarget,
 		siblingProjs = thisProj.parentNode.querySelectorAll(":scope > *:not(." + project.slug + ")");
 	switch (ev.type){
-		case "touchstart":
-			thisProj.classList.add("proj-hover")
-			siblingProjs.forEach(proj => proj.classList.add("proj-bg"))
-			break;
 		case "click":
 			this.setState({
 				isProjOpen: !this.state.isProjOpen,
@@ -105,9 +107,17 @@ select = (project) => (ev) => {
 			thisProj.classList.toggle("clicked");
 			siblingProjs.forEach(proj => proj.classList.toggle("proj-hide"))
 			break;
+		case "touchstart":
+			setTimeout(()=>{
+				thisProj.classList.add("proj-hover")
+				siblingProjs.forEach(proj => proj.classList.add("proj-bg"))
+			}, 100)
+			break;
 		case "touchend":
-			thisProj.classList.remove("proj-hover")
-			siblingProjs.forEach(proj => proj.classList.remove("proj-bg"))
+			setTimeout(()=>{
+				thisProj.classList.remove("proj-hover")
+				siblingProjs.forEach(proj => proj.classList.remove("proj-bg"))
+			}, 100)
 			break;
 	}
 }
@@ -116,8 +126,8 @@ componentDidMount(){
 		this.setState({
 			allProjects: projects.map((proj) => {
 				return this.constructProject(proj)
-			}),
-		}, ()=>console.log("state", this.state));
+			})
+		});
 	})
 }
 render() {

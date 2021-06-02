@@ -4,6 +4,12 @@
 	-	from SimpleTut https://www.youtube.com/watch?v=nusgoj74a3Y
 	-	does not account for gulp v4
 
+## Improvements
+	
+	-	better SEO
+	-	cleaner files and code
+	-	faster
+
 ## Credits/Tools
 
 	-	normalize.css
