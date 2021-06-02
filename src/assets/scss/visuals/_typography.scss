@@ -1,6 +1,12 @@
-$sans-serif: 'Gotham-Book', sans-serif;
+:root{
+	--header-text: "Gotham", sans-serif;
+	--body-text: "Caslon", serif;
+	--code-text: "Jambon", monospace;
+}
+
 body{
 	*{
-		font-family: $sans-serif;
+		font-family: var(--body-text);
+		font-weight: 500;
 	}
 }
