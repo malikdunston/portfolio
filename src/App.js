@@ -1,16 +1,13 @@
 import { Component } from "react";
+	import "./assets/webfonts/webfonts.css";
 	import "./assets/css/index.min.css";
 	import {
 		BrowserRouter as Router,
 		Route,
 	} from "react-router-dom";
-	// components
-	// app
 	import Navigation from "./components/navigation.js";
 	import Projects from "./components/projects/projects.js";
-	// work/:projName
 	import Casestudy from "./components/projects/case-study.js";
-	// contact
 	import Contact from "./components/contact/contact.js";
 
 class App extends Component {
