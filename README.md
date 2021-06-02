@@ -8,7 +8,6 @@
 
 	-	normalize.css
 	-	reactjs, npm, node, create-react-app
-	-	js, es6
 
 ## Journal
 

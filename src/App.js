@@ -1,5 +1,6 @@
 import { Component } from "react";
 	import "./assets/webfonts/webfonts.css";
+	import "./assets/css/normalize.css";
 	import "./assets/css/index.min.css";
 	import {
 		BrowserRouter as Router,

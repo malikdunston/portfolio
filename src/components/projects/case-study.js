@@ -43,7 +43,6 @@ class Casestudy extends Component {
 											return <img src={img.currentSrc} alt="" />
 										})}
 									</section>
-
 								</article>
 							)
 						})}
