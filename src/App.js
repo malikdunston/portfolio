@@ -122,6 +122,7 @@ select = (project) => (ev) => {
 	}
 }
 componentDidMount(){
+	console.log(window);
 	this.getData("projects", "&parent=0", (projects) => {
 		this.setState({
 			allProjects: projects.map((proj) => {
@@ -137,8 +138,9 @@ render() {
 				<Navigation
 					toggleNav={this.navToggle}
 					navOpen={this.state.navOpen} />
+				<div slider-js={"true"} style={{height: 300 + "px"}}></div>
 				<Route
-					path="/work/:projectName"
+					path="/work/:projectName/:subProjectName?"
 					render={(props) => (
 						<Casestudy 
 							{...props}

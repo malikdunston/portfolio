@@ -9,6 +9,9 @@
 	-	better SEO
 	-	cleaner files and code
 	-	faster
+	-	new components:
+		-	slideshow
+		-	modal
 
 ## Credits/Tools
 

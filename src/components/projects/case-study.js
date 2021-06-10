@@ -7,6 +7,7 @@ class Casestudy extends Component {
 		}
 	}
 	componentDidMount() {
+		console.log(this.props.match);
 		this.props.getData(
 			"projects", 
 			`&slug=${this.state.slug}`, 
