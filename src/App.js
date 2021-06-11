@@ -119,6 +119,8 @@ select = (project) => (ev) => {
 				siblingProjs.forEach(proj => proj.classList.remove("proj-bg"))
 			}, 100)
 			break;
+		default:
+			break;
 	}
 }
 componentDidMount(){
@@ -138,7 +140,26 @@ render() {
 				<Navigation
 					toggleNav={this.navToggle}
 					navOpen={this.state.navOpen} />
-				<div slider-js={"true"} style={{height: 300 + "px"}}></div>
+				<Route
+					path="/"
+					render={(props) => (
+						<div>
+							<div 
+								slider-js={"cats"} 
+								style={{height: 300 + "px"}}
+								transition="300ms"
+								axis="Y"
+								interval="600">
+							</div>
+							<Projects
+								isProjOpen={this.state.isProjOpen}
+								currentProject={this.state.currentProject}
+								select={this.select}
+								allProjects={this.state.allProjects}
+								getData={this.getData}
+								constructProject={this.constructProject} />
+						</div>
+					)} />
 				<Route
 					path="/work/:projectName/:subProjectName?"
 					render={(props) => (
@@ -147,13 +168,6 @@ render() {
 							getData={this.getData}
 							constructProject={this.constructProject}/>
 					)} />
-				<Projects
-					isProjOpen={this.state.isProjOpen}
-					currentProject={this.state.currentProject}
-					select={this.select}
-					allProjects={this.state.allProjects}
-					getData={this.getData}
-					constructProject={this.constructProject} />
 			</div>
 		</Router>
 	);
