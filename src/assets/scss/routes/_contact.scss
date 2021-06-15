@@ -1,48 +1,61 @@
-body.contact{
-&.open{
-	navigation{
-		background: transparent;
+body.contact {
+	&.open {
+		navigation {
+			background: transparent;
+		}
 	}
-}
+
 	background: $white;
 	color: $black;
-	navigation{
+
+	navigation {
 		background: $white;
-		#logo{
+
+		#logo {
+
 			g,
-			path{
-				fill: $black!important;
+			path {
+				fill: $black !important;
 			}
 		}
-		#circle{
+
+		#circle {
 			background: $white;
 		}
 	}
-// contact-form is the ui-view for this page.	
-	ui-view{
+
+	// contact-form is the ui-view for this page.	
+	ui-view {
 		padding: 0;
-		#hello{
+
+		#hello {
 			@include flex(row, justify-center, align-center);
 			height: 10rem;
 			overflow: hidden;
 			background: $red;
-			img{
+
+			img {
 				// height: 50vw;
 				// width: initial;
 			}
+
 			animation: change-background 10s linear infinite;
 		}
 	}
-	contact-form{
+
+	contact-form {
 		padding-top: 2rem;
 		display: block;
-		form{
+
+		form {
 			padding: 0 2rem 2rem;
-			header{
-				h1{
+
+			header {
+				h1 {
 					margin-bottom: 1rem;
 				}
-				.error{
+
+				.error {
 					background: $lgray;
 					color: black;
 					height: 1.5rem;
@@ -51,21 +64,25 @@ body.contact{
 					margin: 0rem .333rem .5rem 0;
 				}
 			}
-			fieldset{
+
+			fieldset {
 				padding: 0;
 				margin: 0;
 				border: 0;
-				input{
+
+				input {
 					width: 100%;
 					height: 2rem;
 					border: 0;
 				}
-				label{
-					&.resume{
+
+				label {
+					&.resume {
 						width: 100%;
 						@include flex();
 						align-items: center;
-						input{
+
+						input {
 							margin-right: 0;
 							width: .5rem;
 							margin-left: 2rem;
@@ -73,9 +90,11 @@ body.contact{
 							// overflow: hidden;
 						}
 					}
-					&.needs{
+
+					&.needs {
 						flex-direction: column;
-						input{
+
+						input {
 							margin-top: .25rem;
 							// border: 1px solid $dgray;
 							// overflow: scroll;
@@ -85,42 +104,53 @@ body.contact{
 					}
 				}
 			}
-			button{
+
+			button {
 				margin-top: 1.5rem;
-			// }
-			// button{
+				// }
+				// button{
 				color: $white;
 				background: $black;
 			}
 		}
-	@include breakpoint (md){
-		padding-top: 4rem;
-		form{
-			padding: 0 2rem 0 2rem;
+
+		@include breakpoint (md) {
+			padding-top: 4rem;
+
+			form {
+				padding: 0 2rem 0 2rem;
+			}
 		}
-	}
-	@include breakpoint (lg){
-		padding-top: 6rem;
-		form{
-			padding: 0 3rem 0 3rem;
-		}
-	}}
-@include breakpoint (md){
-	// @include flex(row-reverse);
-	& > *:not(navigation){
-		width: 50vw;
-	}
-	ui-view{
-		#hello{
-			position: fixed;
-			top: 0;
-			bottom: 0;
-			right: 0;
-			left: 50vw;
-			height: 100vh;
-			img{
-				transform: scale(1.25);
+
+		@include breakpoint (lg) {
+			padding-top: 6rem;
+
+			form {
+				padding: 0 3rem 0 3rem;
 			}
 		}
 	}
-}}
+
+	@include breakpoint (md) {
+
+		// @include flex(row-reverse);
+		&>*:not(navigation) {
+			width: 50vw;
+		}
+
+		ui-view {
+			#hello {
+				position: fixed;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				left: 50vw;
+				height: 100vh;
+
+				img {
+					transform: scale(1.25);
+				}
+			}
+		}
+	}
+}

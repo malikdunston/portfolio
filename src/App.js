@@ -43,6 +43,8 @@ getData(type, params, callback) {
 		case "apps":
 			ext = "apps?per_page=100"
 			break
+		default:
+			break
 	};
 	fetch(url + ext)
 		.then(data => data.json())
@@ -141,32 +143,23 @@ render() {
 					toggleNav={this.navToggle}
 					navOpen={this.state.navOpen} />
 				<Route
-					path="/"
-					render={(props) => (
-						<div>
-							<div 
-								slider-js={"cats"} 
-								style={{height: 300 + "px"}}
-								transition="300ms"
-								axis="Y"
-								interval="600">
-							</div>
-							<Projects
-								isProjOpen={this.state.isProjOpen}
-								currentProject={this.state.currentProject}
-								select={this.select}
-								allProjects={this.state.allProjects}
-								getData={this.getData}
-								constructProject={this.constructProject} />
-						</div>
-					)} />
-				<Route
 					path="/work/:projectName/:subProjectName?"
 					render={(props) => (
 						<Casestudy 
 							{...props}
 							getData={this.getData}
 							constructProject={this.constructProject}/>
+					)} />
+				<Route
+					path="/"
+					render={(props) => (
+						<Projects
+							isProjOpen={this.state.isProjOpen}
+							currentProject={this.state.currentProject}
+							select={this.select}
+							allProjects={this.state.allProjects}
+							getData={this.getData}
+							constructProject={this.constructProject} />
 					)} />
 			</div>
 		</Router>

@@ -24,37 +24,31 @@ class Casestudy extends Component {
 		)
 	}
 	render() {
-		return (
-			<div>
-				{this.state.data ? (
-					<div>
-						{this.state.data.map(p => {
-							return (
-								<article key={p.id} id={p.slug}>
-									<section className="text">
-										<h3>
-											{p.body.text.title}
-										</h3>
-										<p>
-											{p.body.text.desc}
-										</p>
-									</section>
-									<section className="content">
-										{p.body.images.map(img=>{
-											return <div>
-												<img src={img.src} alt="" />
-												<p>{img.caption}</p>
-											</div>
-										})}
-									</section>
-								</article>
-							)
-						})}
-					</div>
-				) : (
-					<div>loading proj.....</div>
-				)}
-			</div>
-		)
+		if(this.state.data){ 
+			return (<div id="casestudy">
+				{this.state.data.map(p => {
+					return (
+						<article key={p.id} id={p.slug}>
+							<section className="text">
+								<div className="column">
+									<h3>{p.body.text.title}</h3>
+									<p>{p.body.text.desc}</p>
+								</div>
+							</section>
+							<section className="content">
+								{p.body.images.map(img=>{
+									return <div class="figure">
+										<img src={img.src} alt="" />
+										{img.caption ? <p>{img.caption}</p> : ""}
+									</div>
+								})}
+							</section>
+						</article>
+					)
+				})}
+			</div>)
+		}else{
+			return <div>loading proj.....</div>
+		}
 	}
 } export default Casestudy;

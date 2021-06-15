@@ -5,8 +5,33 @@
 }
 
 body{
+	line-height: .667rem;
 	*{
+		font-family: var(--header-text);
+		font-weight: 800;
+		font-size: .5rem;
+		// font-size: .475rem;
+	}
+	p{
 		font-family: var(--body-text);
 		font-weight: 500;
+	}
+	h1,
+	h2,
+	h3,
+	button,
+	navigation {
+		text-transform: uppercase;
+		letter-spacing: .0875em;
+		// background: blue;
+	}
+	h1{
+		font-size: 1rem;
+		line-height: 1.25rem;
+		letter-spacing: .075em;
+	}
+	a{
+		color: white;
+		border-bottom: 2px dotted white!important;
 	}
 }
