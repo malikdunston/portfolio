@@ -15,17 +15,14 @@ class Contact extends Component {
 	}
 	submit(ev) {
 		ev.preventDefault();
-		console.log(this.state);
 		let req = {
 			firstname: this.state.firstname,
 			lastname: this.state.lastname,
 			phone: this.state.phone,
 			email: this.state.email,
-			resume: this.state.resume,
+			resume: parseInt(this.state.resume),
 			needs: this.state.needs
 		};
-		console.log(req);
-		return;
 		req = JSON.stringify(req)
 		fetch(this.state.php, {
 			method: 'POST',
@@ -78,8 +75,7 @@ class Contact extends Component {
 					<input id="resume"
 						type="checkbox"
 						name="resume"
-						data-val="true"
-						value="true"
+						value="1"
 						onChange={ev => { this.setState({ resume: ev.target.value }) }} />
 				</fieldset>
 				<input onClick={this.submit} type="submit" />

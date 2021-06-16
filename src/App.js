@@ -19,6 +19,10 @@ constructor() {
 		allProjects: [],
 		currentProject: null,
 		isProjOpen: false,
+		contact: {
+			isOpen: true,
+			firstname: "Sumbody"
+		}
 	}
 	this.getData = this.getData.bind(this);
 	this.constructProject = this.constructProject.bind(this);
@@ -157,10 +161,6 @@ render() {
 			<Navigation
 				toggleNav={this.navToggle}
 				navOpen={this.state.navOpen} />
-			<div id="homepage">
-				<h3>Malik Dunston</h3>
-				<p>Web + Design 👍🏿</p>
-			</div>
 			<Route
 				path="/work/:projectName/:subProjectName?"
 				render={(props) => (
@@ -181,18 +181,24 @@ render() {
 			<Route
 				exact path="/contact"
 				render={() => (
-					<Contact />
+					<Contact firstname={this.state.contact.firstname}/>
 				)} />
 			<Route
 				exact path="/"
 				render={() => (
-					<Projects
-						isProjOpen={this.state.isProjOpen}
-						currentProject={this.state.currentProject}
-						select={this.select}
-						allProjects={this.state.allProjects}
-						getData={this.getData}
-						constructProject={this.constructProject} />
+					<div id="home">
+						<div id="homepage">
+							<h3>Malik Dunston</h3>
+							<p>Web + Design 👍🏿</p>
+						</div>
+						<Projects
+							isProjOpen={this.state.isProjOpen}
+							currentProject={this.state.currentProject}
+							select={this.select}
+							allProjects={this.state.allProjects}
+							getData={this.getData}
+							constructProject={this.constructProject} />
+					</div>
 				)} />
 		</div>
 	);
