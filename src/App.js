@@ -179,6 +179,11 @@ render() {
 					</div>
 				)} />
 			<Route
+				exact path="/contact"
+				render={() => (
+					<Contact />
+				)} />
+			<Route
 				exact path="/"
 				render={() => (
 					<Projects

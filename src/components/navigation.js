@@ -22,6 +22,11 @@ render(){ return (
 						Work
 					</li>
 				</Link>
+				<Link to="/contact">
+					<li className="menu-item">
+						Contact
+					</li>
+				</Link>
 			</ul>
 			: <div>
 				blahblahblah
