@@ -134,20 +134,14 @@
 
 	@include breakpoint(md) {
 		width: 66.67vw;
-		// display: none;
 		height: 100vh;
-
-		// height: calc(100vh - 6rem);
-		// background: blue;
 		& > * {
 			height: 33.333%;
 			width: 33.333%;
 			float: left;
-
 			.proj-title {
 				height: 33.333vh;
 			}
-
 			.proj-details {
 				padding: 2rem;
 				width: 33vw;
@@ -157,17 +151,12 @@
 				bottom: -100vh;
 				opacity: 1;
 				background: transparent;
-
 				a.explore {
 					display: none;
 				}
 			}
-
-			// Effects
-			// mouseenter, mouseleave
 			&.proj-hover {
 				height: 33.333% !important;
-
 				.proj-details {
 					bottom: 0rem;
 				}

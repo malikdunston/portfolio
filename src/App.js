@@ -4,7 +4,7 @@ import { Component } from "react";
 	import "./assets/css/index.min.css";
 	import {
 		BrowserRouter as Router,
-		Route,
+		Route, useHistory
 	} from "react-router-dom";
 	import Navigation from "./components/navigation.js";
 	import Projects from "./components/projects/projects.js";
@@ -31,8 +31,7 @@ navToggle(){
 	})
 };
 getData(type, params, callback) {
-// need to cache proj responses for an hour to optimize performance
-	let url = "http://wp.malikdunston.com/wp-json/wp/v2/", ext;
+	let url = "https://wp.malikdunston.com/wp-json/wp/v2/", ext;
 	switch (type) {
 		case "projects":
 			ext = "projects?per_page=100" + params
@@ -102,12 +101,16 @@ select = (project) => (ev) => {
 		siblingProjs = thisProj.parentNode.querySelectorAll(":scope > *:not(." + project.slug + ")");
 	switch (ev.type){
 		case "click":
-			this.setState({
-				isProjOpen: !this.state.isProjOpen,
-				currentProject: project
-			})
-			thisProj.classList.toggle("clicked");
-			siblingProjs.forEach(proj => proj.classList.toggle("proj-hide"))
+			if(window.innerWidth > 1000){
+				window.location.href = `${process.env.PUBLIC_URL}/work/${project.slug}`;
+			}else{
+				this.setState({
+					isProjOpen: !this.state.isProjOpen,
+					currentProject: project
+				})
+				thisProj.classList.toggle("clicked");
+				siblingProjs.forEach(proj => proj.classList.toggle("proj-hide"))
+			}
 			break;
 		case "touchstart":
 			setTimeout(()=>{
@@ -121,12 +124,25 @@ select = (project) => (ev) => {
 				siblingProjs.forEach(proj => proj.classList.remove("proj-bg"))
 			}, 100)
 			break;
+		case "mouseenter":
+			if(ev.target.classList.contains("proj-title") || ev.target.classList.contains("proj-img")){
+				setTimeout(()=>{
+					thisProj.classList.add("proj-hover")
+					siblingProjs.forEach(proj => proj.classList.add("proj-bg"))
+				}, 100)
+			}
+			break;
+		case "mouseleave":
+			setTimeout(()=>{
+				thisProj.classList.remove("proj-hover")
+				siblingProjs.forEach(proj => proj.classList.remove("proj-bg"))
+			}, 100)
+			break;
 		default:
 			break;
 	}
 }
 componentDidMount(){
-	console.log(window);
 	this.getData("projects", "&parent=0", (projects) => {
 		this.setState({
 			allProjects: projects.map((proj) => {
@@ -137,22 +153,22 @@ componentDidMount(){
 }
 render() {
 	return (
-		<Router>
-			<div className={this.state.navOpen ? "App navOpen" : "App"}>
-				<Navigation
-					toggleNav={this.navToggle}
-					navOpen={this.state.navOpen} />
-				<Route
-					path="/work/:projectName/:subProjectName?"
-					render={(props) => (
+		<div className={this.state.navOpen ? "App navOpen" : "App"}>
+			<Navigation
+				toggleNav={this.navToggle}
+				navOpen={this.state.navOpen} />
+			<div id="homepage">
+				<h3>Malik Dunston</h3>
+				<p>Web + Design 👍🏿</p>
+			</div>
+			<Route
+				path="/work/:projectName/:subProjectName?"
+				render={(props) => (
+					<div id="casestudy">
 						<Casestudy 
 							{...props}
 							getData={this.getData}
 							constructProject={this.constructProject}/>
-					)} />
-				<Route
-					path="/"
-					render={(props) => (
 						<Projects
 							isProjOpen={this.state.isProjOpen}
 							currentProject={this.state.currentProject}
@@ -160,9 +176,20 @@ render() {
 							allProjects={this.state.allProjects}
 							getData={this.getData}
 							constructProject={this.constructProject} />
-					)} />
-			</div>
-		</Router>
+					</div>
+				)} />
+			<Route
+				exact path="/"
+				render={() => (
+					<Projects
+						isProjOpen={this.state.isProjOpen}
+						currentProject={this.state.currentProject}
+						select={this.select}
+						allProjects={this.state.allProjects}
+						getData={this.getData}
+						constructProject={this.constructProject} />
+				)} />
+		</div>
 	);
 };
 }; export default App;

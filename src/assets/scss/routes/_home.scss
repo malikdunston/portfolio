@@ -1,0 +1,16 @@
+#homepage {
+	position: fixed;
+	width: calc(33.33vw - 4rem);
+	top: 2rem;
+	left: calc(66.7vw + 2rem);
+	display: none;
+	transition: .3s;
+
+	&.welcomeheader {
+		top: -10rem;
+	}
+
+	@include breakpoint(md) {
+		display: block;
+	}
+}

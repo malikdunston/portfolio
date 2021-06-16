@@ -37,7 +37,7 @@ class Casestudy extends Component {
 							</section>
 							<section className="content">
 								{p.body.images.map(img=>{
-									return <div class="figure">
+									return <div className="figure">
 										<img src={img.src} alt="" />
 										{img.caption ? <p>{img.caption}</p> : ""}
 									</div>
