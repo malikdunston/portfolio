@@ -13,11 +13,31 @@ class Contact extends Component {
 		}
 		this.submit = this.submit.bind(this)
 	}
-	submit(ev){
+	submit(ev) {
 		ev.preventDefault();
 		console.log(this.state);
+		let req = {
+			firstname: this.state.firstname,
+			lastname: this.state.lastname,
+			phone: this.state.phone,
+			email: this.state.email,
+			resume: this.state.resume,
+			needs: this.state.needs
+		};
+		req = JSON.stringify(req)
+		fetch(this.state.php, {
+			method: 'POST',
+			body: req
+		}).then(checkError)
+		function checkError(response) {
+			if (response.status >= 200 && response.status <= 299) {
+				return response;
+			} else {
+				throw Error(response.statusText);
+			}
+		}
 	}
-	componentDidMount(){
+	componentDidMount() {
 		let fn;
 		this.props.firstname ? fn = this.props.firstname : fn = "";
 		this.setState({
@@ -28,35 +48,35 @@ class Contact extends Component {
 		return <div id="contact">
 			<form action="#">
 				<fieldset>
-					<input id="firstmane" 
+					<input id="firstmane"
 						type="text"
 						name="firstname"
-						onChange={ev=>{this.setState({firstname: ev.target.value})}}
+						onChange={ev => { this.setState({ firstname: ev.target.value }) }}
 						placeholder="First" />
-					<input id="lastname" 
+					<input id="lastname"
 						type="text"
 						name="lastname"
-						onChange={ev=>{this.setState({lastname: ev.target.value})}}
+						onChange={ev => { this.setState({ lastname: ev.target.value }) }}
 						placeholder="Last" />
-					<input id="phone" 
+					<input id="phone"
 						type=""
 						name="phone"
-						onChange={ev=>{this.setState({phone: ev.target.value})}}
+						onChange={ev => { this.setState({ phone: ev.target.value }) }}
 						placeholder="Phone" />
-					<input id="email" 
+					<input id="email"
 						type=""
 						name="email"
-						onChange={ev=>{this.setState({email: ev.target.value})}}
+						onChange={ev => { this.setState({ email: ev.target.value }) }}
 						placeholder="Email" />
-					<input id="needs" 
+					<input id="needs"
 						type="textarea"
 						name="needs"
-						onChange={ev=>{this.setState({needs: ev.target.value})}}
+						onChange={ev => { this.setState({ needs: ev.target.value }) }}
 						placeholder="ex: 'I need a Developer.'" />
-					<input id="resume" 
+					<input id="resume"
 						type="checkbox"
 						name="resume"
-						onChange={ev=>{this.setState({resume: ev.target.value})}}/>
+						onChange={ev => { this.setState({ resume: ev.target.value }) }} />
 				</fieldset>
 				<input onClick={this.submit} type="submit" />
 			</form>
