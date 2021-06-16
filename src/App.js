@@ -10,7 +10,6 @@ import { Component } from "react";
 	import Projects from "./components/projects/projects.js";
 	import Casestudy from "./components/projects/case-study.js";
 	import Contact from "./components/contact/contact.js";
-
 class App extends Component {
 constructor() {
 	super();
@@ -21,13 +20,15 @@ constructor() {
 		isProjOpen: false,
 		contact: {
 			isOpen: true,
-			firstname: "Sumbody"
-		}
+			firstname: ""
+		},
+		lightMode: false
 	}
 	this.getData = this.getData.bind(this);
 	this.constructProject = this.constructProject.bind(this);
 	this.navToggle = this.navToggle.bind(this);
 	this.select = this.select.bind(this);
+	this.lightModeOnOff = this.lightModeOnOff.bind(this);
 };
 navToggle(){
 	this.setState({
@@ -154,11 +155,27 @@ componentDidMount(){
 			})
 		});
 	})
+	this.lightModeOnOff(this.state.lightMode)();
+}
+lightModeOnOff = (bool) => (ev) => {
+	if(bool){
+		this.setState({
+			lightMode: bool
+		})
+	} else {
+		this.setState({
+			lightMode: !this.state.lightMode
+		})
+	}
+	this.state.lightMode
+		? document.body.classList.add("lightmode")
+		: document.body.classList.remove("lightmode");
 }
 render() {
 	return (
-		<div className={this.state.navOpen ? "App navOpen" : "App"}>
+		<div className={"App" + (this.state.navOpen ? " navOpen" : "")}>
 			<Navigation
+				lightModeOnOff={this.lightModeOnOff} 
 				toggleNav={this.navToggle}
 				navOpen={this.state.navOpen} />
 			<Route
@@ -181,7 +198,9 @@ render() {
 			<Route
 				exact path="/contact"
 				render={() => (
-					<Contact firstname={this.state.contact.firstname}/>
+					<Contact
+						lightModeOnOff={this.lightModeOnOff} 
+						firstname={this.state.contact.firstname}/>
 				)} />
 			<Route
 				exact path="/"

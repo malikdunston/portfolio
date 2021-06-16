@@ -3,8 +3,7 @@ import React from 'react';
 	import App from './App';
 	import reportWebVitals from './reportWebVitals';
 	import {
-		BrowserRouter as Router,
-		Route, useHistory
+		BrowserRouter as Router
 	} from "react-router-dom";
 
 ReactDOM.render(

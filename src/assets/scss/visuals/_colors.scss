@@ -22,3 +22,9 @@ body{
 		color: $white;
 	}
 }
+body.lightmode{
+	background: $white;
+	*{
+		color: $black;
+	}
+}

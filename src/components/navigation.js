@@ -27,6 +27,9 @@ render(){ return (
 						Contact
 					</li>
 				</Link>
+				<li className="menu-item" onClick={this.props.lightModeOnOff()}>
+					LightMode?
+				</li>
 			</ul>
 			: <div>
 				blahblahblah

@@ -1,7 +1,7 @@
-nav{
+nav {
 	z-index: 1000;
 	display: block;
-	position: fixed!important;
+	position: fixed !important;
 	top: 1rem;
 	left: 1rem;
 	min-width: 3rem;
@@ -13,34 +13,39 @@ nav{
 	background: $black;
 	transition: width .75s;
 	overflow: hidden;
-@include breakpoint(lg){
-	top: 2rem;
-	left: 2rem;
-}
-	& > *:not(#logo):not(#circle){
+
+	@include breakpoint(lg) {
+		top: 2rem;
+		left: 2rem;
+	}
+
+	&>*:not(#logo):not(#circle) {
 		cursor: pointer;
 	}
-	svg#logo{
+
+	svg#logo {
 		display: block;
-		position: fixed;;
+		position: fixed;
 		width: 1rem;
 		height: 1rem;
 		z-index: 1000;
 		top: 2rem;
-	@include breakpoint(lg){
-		top: 3rem;
-	}
-		path{
-			fill: $white!important;
+		@include breakpoint(lg) {
+			top: 3rem;
+		}
+		path {
+			fill: $white !important;
 		}
 	}
-	#ticker{
+
+	#ticker {
 		z-index: 1000;
 		margin-left: 2rem;
 		max-width: 3.25rem;
 		transition: .75s;
 	}
-	#circle{
+
+	#circle {
 		z-index: 900;
 		display: block;
 		position: fixed;
@@ -55,38 +60,53 @@ nav{
 		// transform: scale(1);
 		transition: 1s;
 	}
-&.peeked{
-	width: auto!important;
-}}
-.App.navOpen{
-	nav{
+
+	&.peeked {
+		width: auto !important;
+	}
+}
+.App.navOpen {
+	nav {
 		overflow: visible;
 		background: transparent;
-		#logo{
-		}
-		#ticker{
-		}
-		#menu{
+
+		#menu {
 			z-index: 1000;
 			position: fixed;
 			left: 2rem;
 			top: 4rem;
-		@include breakpoint(lg){
-			left: 3rem;
-			top: 5rem;
-		}
-			.menu-item{
-				@include flex(column, justify-center); 
+
+			@include breakpoint(lg) {
+				left: 3rem;
+				top: 5rem;
+			}
+
+			.menu-item {
+				@include flex(column, justify-center);
 				height: 1.667rem;
 			}
-			a.menu-item{
-				border: 0!important;
-				font-family: "Gotham"!important;
+
+			a.menu-item {
+				border: 0 !important;
+				font-family: "Gotham" !important;
 			}
 		}
-		#circle{
+
+		#circle {
 			opacity: .9;
 			transform: scale(60);
 		}
+	}
+}
+
+.lightmode nav{
+	background: $white;
+	svg#logo {
+		path {
+			fill: $black !important;
+		}
+	}
+	#circle {
+		background: $white;
 	}
 }

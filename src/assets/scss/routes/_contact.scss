@@ -1,155 +1,89 @@
-body.contact {
-	&.open {
-		navigation {
-			background: transparent;
-		}
+#contact {
+	padding-top: 2rem;
+	display: block;
+	input{
 	}
-
-	background: $white;
-	color: $black;
-
-	navigation {
-		background: $white;
-
-		#logo {
-
-			g,
-			path {
-				fill: $black !important;
+	#hello {
+		@include flex(row, justify-center, align-center);
+		height: 10rem;
+		overflow: hidden;
+		background: $red;
+		animation: change-background 10s linear infinite;
+	}
+		header {
+			height: 2rem;
+			h1 {
+				margin-bottom: 1rem;
+			}
+			.error {
+				background: $lgray;
+				color: black;
+				height: 1.5rem;
+				padding: 0 .75rem;
+				border-radius: 1.5rem;
+				margin: 0rem .333rem .5rem 0;
 			}
 		}
-
-		#circle {
-			background: $white;
-		}
-	}
-
-	// contact-form is the ui-view for this page.	
-	ui-view {
-		padding: 0;
-
-		#hello {
-			@include flex(row, justify-center, align-center);
-			height: 10rem;
-			overflow: hidden;
-			background: $red;
-
-			img {
-				// height: 50vw;
-				// width: initial;
-			}
-
-			animation: change-background 10s linear infinite;
-		}
-	}
-
-	contact-form {
-		padding-top: 2rem;
-		display: block;
-
-		form {
-			padding: 0 2rem 2rem;
-
-			header {
-				h1 {
-					margin-bottom: 1rem;
-				}
-
-				.error {
-					background: $lgray;
-					color: black;
-					height: 1.5rem;
-					padding: 0 .75rem;
-					border-radius: 1.5rem;
-					margin: 0rem .333rem .5rem 0;
-				}
-			}
-
-			fieldset {
-				padding: 0;
-				margin: 0;
+	form {
+		padding: 0 2rem 2rem;
+		fieldset {
+			padding: 0;
+			margin: 0;
+			border: 0;
+			input {
+				width: 100%;
+				height: 2rem;
 				border: 0;
-
-				input {
+				background: transparent;
+				&::placeholder{
+					opacity: .5;
+				}
+			}
+			label {
+				&.resume {
 					width: 100%;
-					height: 2rem;
-					border: 0;
-				}
-
-				label {
-					&.resume {
-						width: 100%;
-						@include flex();
-						align-items: center;
-
-						input {
-							margin-right: 0;
-							width: .5rem;
-							margin-left: 2rem;
-							// border-radius: 3rem;
-							// overflow: hidden;
-						}
-					}
-
-					&.needs {
-						flex-direction: column;
-
-						input {
-							margin-top: .25rem;
-							// border: 1px solid $dgray;
-							// overflow: scroll;
-							// height: 4rem;
-							// line-height: .66rem;
-						}
+					@include flex();
+					align-items: center;
+					input {
+						margin-right: 0;
+						width: .5rem;
+						margin-left: 2rem;
 					}
 				}
-			}
-
-			button {
-				margin-top: 1.5rem;
-				// }
-				// button{
-				color: $white;
-				background: $black;
-			}
-		}
-
-		@include breakpoint (md) {
-			padding-top: 4rem;
-
-			form {
-				padding: 0 2rem 0 2rem;
-			}
-		}
-
-		@include breakpoint (lg) {
-			padding-top: 6rem;
-
-			form {
-				padding: 0 3rem 0 3rem;
+				&.needs {
+					flex-direction: column;
+					input {
+						margin-top: .25rem;
+					}
+				}
 			}
 		}
 	}
-
 	@include breakpoint (md) {
-
-		// @include flex(row-reverse);
+		padding-top: 4rem;
+		form {
+			padding: 0 2rem 0 2rem;
+		}
+	}
+	@include breakpoint (lg) {
+		padding-top: 6rem;
+		form {
+			padding: 0 3rem 0 3rem;
+		}
+	}
+	@include breakpoint (md) {
 		&>*:not(navigation) {
 			width: 50vw;
 		}
-
-		ui-view {
-			#hello {
-				position: fixed;
-				top: 0;
-				bottom: 0;
-				right: 0;
-				left: 50vw;
-				height: 100vh;
-
-				img {
-					transform: scale(1.25);
-				}
+		#hello {
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			left: 50vw;
+			height: 100vh;
+			img {
+				transform: scale(1.25);
 			}
 		}
 	}
