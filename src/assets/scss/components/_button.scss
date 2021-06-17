@@ -1,8 +1,13 @@
-button{
+button,
+.button{
 	height: 2rem;
 	padding: 0 1rem;
 	margin-bottom: .5rem;
 	background: white;
 	border: 0;
 	cursor: pointer;
+	border-radius: 100px;
+	&.inactive{
+		background: $white;
+	}
 }
