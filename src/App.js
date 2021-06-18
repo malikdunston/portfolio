@@ -2,14 +2,12 @@ import { Component } from "react";
 	import "./assets/webfonts/webfonts.css";
 	import "./assets/css/normalize.css";
 	import "./assets/css/index.min.css";
-	import {
-		BrowserRouter as Router,
-		Route, useHistory
-	} from "react-router-dom";
+	import {Route} from "react-router-dom";
 	import Navigation from "./components/navigation.js";
 	import Projects from "./components/projects/projects.js";
 	import Casestudy from "./components/projects/case-study.js";
 	import Contact from "./components/contact/contact.js";
+	import Modal from "./components/Modal.js";
 class App extends Component {
 constructor() {
 	super();
@@ -22,17 +20,36 @@ constructor() {
 			isOpen: true,
 			firstname: ""
 		},
-		lightMode: false
+		lightMode: false,
+		modalData: {
+			isOpen: true,
+			content: "hello...."
+		}
 	}
 	this.getData = this.getData.bind(this);
 	this.constructProject = this.constructProject.bind(this);
 	this.navToggle = this.navToggle.bind(this);
 	this.select = this.select.bind(this);
 	this.lightModeOnOff = this.lightModeOnOff.bind(this);
+	this.addUser = this.addUser.bind(this);
+	this.modalToggle = this.modalToggle.bind(this);
 };
+modalToggle(bool){
+	this.setState({
+		modalData: {
+			...this.state.modalData,
+			isOpen: bool
+		}
+	})
+}
+addUser(data){
+	this.setState({
+		userData: data
+	})
+}
 navToggle(){
 	this.setState({
-		navOpen: !this.state.navOpen
+		navOpen: !this.state.navOpen,
 	})
 };
 getData(type, params, callback) {
@@ -199,6 +216,7 @@ render() {
 				exact path="/contact"
 				render={() => (
 					<Contact
+						addUser={this.addUser}
 						lightModeOnOff={this.lightModeOnOff} 
 						firstname={this.state.contact.firstname}/>
 				)} />
@@ -219,6 +237,9 @@ render() {
 							constructProject={this.constructProject} />
 					</div>
 				)} />
+			<Modal
+				toggle={this.modalToggle}
+				data={this.state.modalData}/>
 		</div>
 	);
 };

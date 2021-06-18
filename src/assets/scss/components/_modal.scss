@@ -1,0 +1,22 @@
+#modal{
+	display: flex;
+	flex-direction: row;
+	&:not(.open){
+		display: none;
+	}
+	&.open{
+		width: 100vw;
+		height: 100vh;
+		position: fixed;
+		top: 0;
+		background: $black90;
+		z-index: 1000;
+		section#modalContent{
+			background: $black;
+			position: relative;
+			width: calc(100% - 4rem);
+			height: calc(100% - 4rem);
+			margin: auto;
+		}
+	}
+}

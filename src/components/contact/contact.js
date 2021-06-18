@@ -46,7 +46,6 @@ class Contact extends Component {
 	submit(ev) {
 		ev.preventDefault();
 		this.checkForm();
-		console.log(this.state.formIsValid)
 		if(this.state.formIsValid){
 			let req = {
 				firstname: this.state.fields.firstname.value,
@@ -56,12 +55,12 @@ class Contact extends Component {
 				needs: this.state.fields.needs.value,
 				resume: 0
 			};
-			// console.log(req); return
-			req = JSON.stringify(req)
 			fetch(this.state.php, {
 				method: 'POST',
-				body: req
-			}).then(checkError)
+				body: JSON.stringify(req)
+			})
+			.then(checkError)
+			.then(resp=>{this.props.addUser({...req})})
 			function checkError(response) {
 				if (response.status >= 200 && response.status <= 299) {
 					return response;
