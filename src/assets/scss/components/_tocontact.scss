@@ -1,0 +1,35 @@
+#tocontact{
+	background: $white;
+	width: calc(100% - 2rem);
+	margin: 0px auto;
+	z-index: 900;
+	position: fixed;
+	bottom: -2rem;
+	left: 1rem;
+	overflow: hidden;
+	border-radius: 500px;
+	display: flex;
+	transition: .2s;
+	input{
+		padding-left: 1rem!important;
+		flex-grow: 1;
+		margin: 0;
+		color: $black;
+	}
+	div{
+		position: absolute;
+		right: 0;
+		border: 0px!important;
+		text-transform: uppercase;
+		font-weight: bold;
+		height: 100%;
+		line-height: 2rem;
+		vertical-align: middle;
+		padding: 0 1rem;
+		margin: 0;
+		color: $black!important;
+	}
+	&.peeked{
+		bottom: 1rem;
+	}
+}

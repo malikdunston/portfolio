@@ -33,20 +33,71 @@ class Contact extends Component {
 					name: "needs",
 					type: "textarea",
 					placeholder: "ex: I need a web app",
-					message: "Please describe your needs in detail."
+					label: "Please describe your needs in detail."
 				}
 			},
-			formIsValid: false,
-			allErrors: []
+			errors: []
 		}
-		this.submit = this.submit.bind(this)
 		this.handleBlur = this.handleBlur.bind(this)
 		this.handleChange = this.handleChange.bind(this)
+		this.validateField = this.validateField.bind(this)
+		this.submit = this.submit.bind(this)
+		this.checkForm = this.checkForm.bind(this)
+	}
+	componentDidMount() {
+		let fn;
+		this.props.firstname ? fn = this.props.firstname : fn = "";
+		this.setState({
+			fields: {
+				...this.state.fields,
+				firstname: {
+					...this.state.fields.firstname,
+					value: fn
+				}
+			}
+		})
+	}
+	handleBlur(ev, f){
+		f.blur = true;
+		this.validateField(ev.target, f);
+	}
+	handleChange(ev, f){
+		f.value = ev.target.value;
+		this.validateField(ev.target, f);
+	}
+	validateField(elem, f){
+		if(elem.validity.valid === false){
+			f.error = true
+		} else {
+			f.error = undefined
+		}
+		this.setState({});
+	}
+	checkForm(){
+		Object.keys(this.state.fields).forEach(field=>{
+			this.validateField(
+				document.querySelector(`#${field}`),
+				this.state.fields[field]
+			)
+		})
 	}
 	submit(ev) {
 		ev.preventDefault();
 		this.checkForm();
-		if(this.state.formIsValid){
+		let errorCount = Object.keys(this.state.fields).filter(f=>this.state.fields[f].error===true);
+		const modalData = () => {
+			if(errorCount.length === 0){
+				return <div>
+					<h1>Thanks, {this.state.fields.firstname.value}.</h1>
+				</div>
+			}else{
+				return <div>
+		 			<h1>{errorCount.length} Errors</h1>
+					{this.state.errors.map(e=>e)}
+		 		</div>
+			}
+		}
+		if(errorCount.length === 0){
 			let user = {
 				firstname: this.state.fields.firstname.value,
 				lastname: this.state.fields.lastname.value,
@@ -58,71 +109,20 @@ class Contact extends Component {
 			fetch(this.state.php, {
 				method: 'POST',
 				body: JSON.stringify(user)
-			})
-			.then(checkError)
-			.then(()=>{
-				this.props.addUser({...user});
-				const success = () => {
-					return <div>
-						<h1>Thanks, {this.state.fields.firstname.value}.</h1>
-					</div>
-				}
-				this.props.modalToggle(true, success(), "Return Home", ()=>{
-					window.location.href = `${process.env.PUBLIC_URL}/`;
-				});
-			})
-			function checkError(response) {
+			}).then(response=>{
 				if (response.status >= 200 && response.status <= 299) {
 					return response;
 				} else {
 					throw Error(response.statusText);
 				}
-			}
+			}).then(()=>{
+				this.props.modalToggle(true, modalData(), "Return Home", ()=>{
+					window.location.href = `${process.env.PUBLIC_URL}/`;
+				});
+			})
 		} else {
-			const error = () => {
-				return <div>
-					<h1>Not finished yet.</h1>
-				</div>
-			}
-			this.checkForm();
-			this.props.modalToggle(true, error(), `fix errors`);
+			this.props.modalToggle(true, modalData(), `fix errors ${errorCount.length}`);
 		}
-	}
-	componentDidMount() {
-		let fn;
-		this.props.firstname ? fn = this.props.firstname : fn = "";
-		this.setState({
-			firstname: fn
-		})
-		this.props.lightModeOnOff(true)()
-
-	}
-	validateField(validity, field){
-		if(!validity.valid){
-			field.error = true
-		} else field.error = null
-		this.setState({})
-	}
-	checkForm(){
-		this.setState({allErrors: []});
-		let e = [], formValid = this.state.formIsValid;
-		Object.keys(this.state.fields).forEach(field=>{
-			if(this.state.fields[field].error || !this.state.fields[field].value){
-				e.push(this.state.fields[field])
-			}
-		})
-		if(e.length === 0){formValid = true}
-		this.setState({allErrors: e, formIsValid: formValid});
-	}
-	handleBlur(ev, f){
-		f.blur = true;
-		this.validateField(ev.target.validity, f);
-		this.setState({});
-	}
-	handleChange(ev, f){
-		f.value = ev.target.value;
-		this.validateField(ev.target.validity, f);
-		this.checkForm()
 	}
 	render() {
 		const input = (f) => (
@@ -131,7 +131,7 @@ class Contact extends Component {
 				type={f.type}
 				name={f.name}
 				pattern={f.pattern}
-				// value={f.value}
+				value={f.value}
 				data-value={f.value}
 				onBlur={ev=>{this.handleBlur(ev, f)}}
 				onChange={ev => { this.handleChange(ev, f) }}
@@ -147,24 +147,20 @@ class Contact extends Component {
 				placeholder={f.placeholder} />
 		)
 		return <div id="contact">
-			<form action="#"
-				className={!this.state.formIsValid ? "invalid-form" : ""}>
-				<header>{this.state.firstname ? <h1>Hello, {this.state.firstname}.</h1> : ""}</header>
+			<form action="#">
 				<fieldset>
 					{Object.keys(this.state.fields).map(fieldName=>{
 						let f = this.state.fields[fieldName]
 						return <label 
 							key={f.name} 
 							htmlFor={"#" + f.name} 
-							className={(f.blur && f.error) ? "error" : ""}>
-							{f.message}
+							className={(f.error) ? "error" : ""}>
+							{f.label}
 							{f.type === "textarea" ? textarea(f) : input(f)}
 						</label>
 					})}
 				</fieldset>
-				<input type="submit" 
-					onClick={this.submit}
-					className={"button" + (!this.state.formIsValid ? " inactive" : "")}/>
+				<input type="submit" className="button" onClick={this.submit}/>
 			</form>
 		</div>
 	};

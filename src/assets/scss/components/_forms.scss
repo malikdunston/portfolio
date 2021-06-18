@@ -1,17 +1,16 @@
 input,
-*:focus,
-*:active,
-*:focus,
+input:not(.button):focus,
+input:not(.button):active,
 input[type="text"] i{
-	padding: 0!important;
-	border: none!important;
-	border-radius: 0!important;
-	height: 2rem!important;
-	background-color: transparent!important;
-	box-shadow: none!important;
-	outline: 0!important;
-	outline-color: transparent!important;
-	outline-style: none!important;
+	padding: 0;
+	border: none;
+	border-radius: 0;
+	height: 2rem;
+	background-color: transparent;
+	box-shadow: none;
+	outline: 0;
+	outline-color: transparent;
+	outline-style: none;
 }
 
 *:-webkit-autofill,
@@ -20,6 +19,6 @@ input[type="text"] i{
 *:-webkit-autofill:active
 {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-	box-shadow: 0 0 0 30px rgba(255, 255, 255, 0) inset !important;
-	-webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0) inset !important;
+	box-shadow: 0 0 0 30px rgba(255, 255, 255, 0) inset ;
+	-webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0) inset ;
 }

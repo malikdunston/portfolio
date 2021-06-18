@@ -245,7 +245,7 @@ render() {
 							constructProject={this.constructProject} />
 					</div>
 				)} />
-			<div id="to-contact">
+			<div id="tocontact" className={this.state.contact.isOpen ? "peeked" : ""}>
 				<input type="text" 
 					placeholder="First Name"
 					onChange={(ev)=>{this.setState({contact: {...this.state.contact, firstname: ev.target.value}})}}/>
