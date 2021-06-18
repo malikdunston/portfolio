@@ -1,11 +1,13 @@
 /// @type Color
 
-$pureblack: rgba(0, 0, 0, 100);
 $black: rgba(20, 20, 20, 100);
 $black90: rgba(20, 20, 20, .9);
+$black10: rgba(20, 20, 20, .1);
 $white: rgba(235, 235, 235, 100);
-$purewhite: rgba(255, 255, 255, 100);
+$white90: rgba(235, 235, 235, .9);
+$white10: rgba(235, 235, 235, .1);
 
+// replace these with black/white90....
 $lgray: rgb(221, 221, 221);
 $dgray: rgb(34, 34, 34);
 

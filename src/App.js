@@ -21,9 +21,12 @@ constructor() {
 			firstname: ""
 		},
 		lightMode: false,
-		modalData: {
-			isOpen: true,
-			content: "hello...."
+		modalData: { // this for loading indicator too....
+			isOpen: false,
+			clickThrough: false, 
+			content: "hello....",
+			callback: null,
+			action: "close" 
 		}
 	}
 	this.getData = this.getData.bind(this);
@@ -34,11 +37,14 @@ constructor() {
 	this.addUser = this.addUser.bind(this);
 	this.modalToggle = this.modalToggle.bind(this);
 };
-modalToggle(bool){
+modalToggle(bool, content, action, callback){
 	this.setState({
 		modalData: {
 			...this.state.modalData,
-			isOpen: bool
+			isOpen: bool,
+			content: content,
+			callback: callback,
+			action: action
 		}
 	})
 }
@@ -196,10 +202,11 @@ render() {
 				toggleNav={this.navToggle}
 				navOpen={this.state.navOpen} />
 			<Route
-				path="/work/:projectName/:subProjectName?"
+				path="/work/:projectName"
 				render={(props) => (
 					<div id="casestudy">
 						<Casestudy 
+							modalToggle={this.modalToggle}
 							{...props}
 							getData={this.getData}
 							constructProject={this.constructProject}/>
@@ -216,6 +223,7 @@ render() {
 				exact path="/contact"
 				render={() => (
 					<Contact
+						modalToggle={this.modalToggle}
 						addUser={this.addUser}
 						lightModeOnOff={this.lightModeOnOff} 
 						firstname={this.state.contact.firstname}/>

@@ -2,12 +2,18 @@ button,
 .button{
 	height: 2rem;
 	padding: 0 1rem;
-	margin-bottom: .5rem;
-	background: white;
+	background: $white10;
 	border: 0;
 	cursor: pointer;
 	border-radius: 100px;
 	&.inactive{
-		background: $white;
+		background: $white10;
+	}
+}
+.lightmode button,
+.lightmode .button{
+	background: $black10;
+	&.inactive{
+		background: $black10;
 	}
 }

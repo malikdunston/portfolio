@@ -8,7 +8,14 @@ render(){ return (
 		className={this.props.data.isOpen ? "open" : ""}>
 		<section id="modalContent">
 			{this.props.data.content}
-			{/* <button onClick={(ev)=>{this.props.toggle(false)}}>close</button> */}
+				<button onClick={(ev)=>{
+					this.props.toggle(false, "");
+					if(typeof this.props.data.callback === "function"){
+						this.props.data.callback()
+					}
+				}}>
+					{this.props.data.action}
+				</button>
 		</section>
 	</div>
 ) }

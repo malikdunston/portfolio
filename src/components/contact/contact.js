@@ -47,7 +47,7 @@ class Contact extends Component {
 		ev.preventDefault();
 		this.checkForm();
 		if(this.state.formIsValid){
-			let req = {
+			let user = {
 				firstname: this.state.fields.firstname.value,
 				lastname: this.state.fields.lastname.value,
 				phone: this.state.fields.phone.value,
@@ -57,10 +57,20 @@ class Contact extends Component {
 			};
 			fetch(this.state.php, {
 				method: 'POST',
-				body: JSON.stringify(req)
+				body: JSON.stringify(user)
 			})
 			.then(checkError)
-			.then(resp=>{this.props.addUser({...req})})
+			.then(()=>{
+				this.props.addUser({...user});
+				const success = () => {
+					return <div>
+						<h1>Thanks, {this.state.fields.firstname.value}.</h1>
+					</div>
+				}
+				this.props.modalToggle(true, success(), "Return Home", ()=>{
+					window.location.href = `${process.env.PUBLIC_URL}/`;
+				});
+			})
 			function checkError(response) {
 				if (response.status >= 200 && response.status <= 299) {
 					return response;
@@ -68,7 +78,15 @@ class Contact extends Component {
 					throw Error(response.statusText);
 				}
 			}
-		} else alert("You have errors.")
+		} else {
+			const error = () => {
+				return <div>
+					<h1>Not finished yet.</h1>
+				</div>
+			}
+			this.checkForm();
+			this.props.modalToggle(true, error(), `fix errors`);
+		}
 	}
 	componentDidMount() {
 		let fn;

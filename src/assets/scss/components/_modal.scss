@@ -4,19 +4,34 @@
 	&:not(.open){
 		display: none;
 	}
-	&.open{
-		width: 100vw;
-		height: 100vh;
-		position: fixed;
-		top: 0;
-		background: $black90;
-		z-index: 1000;
-		section#modalContent{
-			background: $black;
-			position: relative;
-			width: calc(100% - 4rem);
-			height: calc(100% - 4rem);
-			margin: auto;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	background: $black90;
+	z-index: 1000;
+	section#modalContent{
+		background: $black;
+		position: relative;
+		width: calc(100% - 4rem);
+		min-height: 33vh;
+		margin: auto;
+		overflow: hidden;
+		padding: 2rem;
+		padding-bottom: 5rem;
+		> div{
+			overflow: hidden;
 		}
+		> button{
+			position: absolute;
+			bottom: 2rem;
+			margin: 0;
+		}
+	}
+}
+.lightmode #modal{
+	background: $white90;
+	section#modalContent{
+		background: $white;
 	}
 }
