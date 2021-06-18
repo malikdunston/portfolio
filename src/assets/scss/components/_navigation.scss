@@ -13,12 +13,10 @@ nav {
 	background: $black;
 	transition: width .75s;
 	overflow: hidden;
-
 	@include breakpoint(lg) {
 		top: 2rem;
 		left: 2rem;
 	}
-
 	&>*:not(#logo):not(#circle) {
 		cursor: pointer;
 	}
@@ -38,7 +36,8 @@ nav {
 		}
 	}
 
-	#ticker {
+	#title {
+		background: red;
 		z-index: 1000;
 		margin-left: 2rem;
 		max-width: 3.25rem;

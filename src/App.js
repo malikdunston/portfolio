@@ -12,7 +12,14 @@ class App extends Component {
 constructor() {
 	super();
 	this.state = {
+		siteTitle: "Hello there",
+		ticker: {
+			current: "",
+			index: 0,
+			list: ["Malik Dunston", "Web + Design"]
+		},
 		navOpen: false,
+		navPeek: true,
 		allProjects: [],
 		currentProject: null,
 		isProjOpen: false,
@@ -32,11 +39,36 @@ constructor() {
 	this.getData = this.getData.bind(this);
 	this.constructProject = this.constructProject.bind(this);
 	this.navToggle = this.navToggle.bind(this);
+	this.navPeek = this.navPeek.bind(this);
 	this.select = this.select.bind(this);
 	this.lightModeOnOff = this.lightModeOnOff.bind(this);
 	this.addUser = this.addUser.bind(this);
 	this.modalToggle = this.modalToggle.bind(this);
 };
+componentDidMount(){
+	this.getData("projects", "&parent=0", (projects) => {
+		this.setState({
+			allProjects: projects.map((proj) => {
+				return this.constructProject(proj)
+			})
+		});
+	})
+	this.lightModeOnOff(this.state.lightMode)();
+	var i;
+	setInterval(()=>{
+		if(i === 0){
+			i = 1
+		} else i = 0
+		document.title = this.state.ticker.list[i]
+		console.log(document.title);
+		this.setState({
+			siteTitle: this.state.ticker.list[i]
+		})
+	}, 2000);
+	setTimeout(()=>{
+		this.navPeek(false, )
+	})
+}
 modalToggle(bool, content, action, callback){
 	this.setState({
 		modalData: {
@@ -58,6 +90,13 @@ navToggle(){
 		navOpen: !this.state.navOpen,
 	})
 };
+navPeek(onOff, str){
+	
+	this.setState({
+		navPeek: onOff,
+		siteTitle: str
+	})
+}
 getData(type, params, callback) {
 	let url = "https://wp.malikdunston.com/wp-json/wp/v2/", ext;
 	switch (type) {
@@ -142,12 +181,14 @@ select = (project) => (ev) => {
 			break;
 		case "touchstart":
 			setTimeout(()=>{
+				this.navPeek(true, project.title);
 				thisProj.classList.add("proj-hover")
 				siblingProjs.forEach(proj => proj.classList.add("proj-bg"))
 			}, 100)
 			break;
 		case "touchend":
 			setTimeout(()=>{
+				this.navPeek(false, this.state.tickerTitle);
 				thisProj.classList.remove("proj-hover")
 				siblingProjs.forEach(proj => proj.classList.remove("proj-bg"))
 			}, 100)
@@ -170,16 +211,6 @@ select = (project) => (ev) => {
 			break;
 	}
 }
-componentDidMount(){
-	this.getData("projects", "&parent=0", (projects) => {
-		this.setState({
-			allProjects: projects.map((proj) => {
-				return this.constructProject(proj)
-			})
-		});
-	})
-	this.lightModeOnOff(this.state.lightMode)();
-}
 lightModeOnOff = (bool) => (ev) => {
 	if(bool){
 		this.setState({
@@ -198,9 +229,11 @@ render() {
 	return (
 		<div className={"App" + (this.state.navOpen ? " navOpen" : "")}>
 			<Navigation
+				title={this.state.siteTitle}
 				lightModeOnOff={this.lightModeOnOff} 
 				toggleNav={this.navToggle}
-				navOpen={this.state.navOpen} />
+				navOpen={this.state.navOpen}
+				navPeek={this.state.navPeek} />
 			<Route
 				path="/work/:projectName"
 				render={(props) => (
@@ -211,6 +244,7 @@ render() {
 							getData={this.getData}
 							constructProject={this.constructProject}/>
 						<Projects
+							navPeek={this.navPeek}
 							isProjOpen={this.state.isProjOpen}
 							currentProject={this.state.currentProject}
 							select={this.select}
