@@ -45,16 +45,18 @@ class Contact extends Component {
 	}
 	submit(ev) {
 		ev.preventDefault();
-		this.checkForm(this.state.allErrors, this.state.formIsValid);
+		this.checkForm();
+		console.log(this.state.formIsValid)
 		if(this.state.formIsValid){
 			let req = {
-				firstname: this.state.firstname,
-				lastname: this.state.lastname,
-				phone: this.state.phone,
-				email: this.state.email,
-				needs: this.state.needs
+				firstname: this.state.fields.firstname.value,
+				lastname: this.state.fields.lastname.value,
+				phone: this.state.fields.phone.value,
+				email: this.state.fields.email.value,
+				needs: this.state.fields.needs.value,
+				resume: 0
 			};
-			console.log(req); return
+			// console.log(req); return
 			req = JSON.stringify(req)
 			fetch(this.state.php, {
 				method: 'POST',
@@ -84,23 +86,24 @@ class Contact extends Component {
 		} else field.error = null
 		this.setState({})
 	}
-	checkForm(e, formValid){
-		e = [];
+	checkForm(){
+		this.setState({allErrors: []});
+		let e = [], formValid = this.state.formIsValid;
 		Object.keys(this.state.fields).forEach(field=>{
-			if(this.state.fields[field].error){
+			if(this.state.fields[field].error || !this.state.fields[field].value){
 				e.push(this.state.fields[field])
-				this.setState({});
 			}
 		})
 		if(e.length === 0){formValid = true}
-		console.log(e, formValid);
+		this.setState({allErrors: e, formIsValid: formValid});
 	}
 	handleBlur(ev, f){
-		this.validateField(ev.target.validity, f);
 		f.blur = true;
+		this.validateField(ev.target.validity, f);
 		this.setState({});
 	}
 	handleChange(ev, f){
+		f.value = ev.target.value;
 		this.validateField(ev.target.validity, f);
 		this.checkForm()
 	}
