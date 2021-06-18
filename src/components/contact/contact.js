@@ -131,6 +131,7 @@ class Contact extends Component {
 				type={f.type}
 				name={f.name}
 				pattern={f.pattern}
+				// value={f.value}
 				data-value={f.value}
 				onBlur={ev=>{this.handleBlur(ev, f)}}
 				onChange={ev => { this.handleChange(ev, f) }}

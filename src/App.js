@@ -2,7 +2,7 @@ import { Component } from "react";
 	import "./assets/webfonts/webfonts.css";
 	import "./assets/css/normalize.css";
 	import "./assets/css/index.min.css";
-	import {Route} from "react-router-dom";
+	import {Route, Link} from "react-router-dom";
 	import Navigation from "./components/navigation.js";
 	import Projects from "./components/projects/projects.js";
 	import Casestudy from "./components/projects/case-study.js";
@@ -245,6 +245,14 @@ render() {
 							constructProject={this.constructProject} />
 					</div>
 				)} />
+			<div id="to-contact">
+				<input type="text" 
+					placeholder="First Name"
+					onChange={(ev)=>{this.setState({contact: {...this.state.contact, firstname: ev.target.value}})}}/>
+				<Link to="/contact">
+					<div>Hello!</div>
+				</Link>
+			</div>
 			<Modal
 				toggle={this.modalToggle}
 				data={this.state.modalData}/>
