@@ -15,11 +15,10 @@ constructor() {
 		siteTitle: "Hello there",
 		ticker: {
 			current: "",
-			index: 0,
 			list: ["Malik Dunston", "Web + Design"]
 		},
 		navOpen: false,
-		navPeek: true,
+		navIsPeeked: false,
 		allProjects: [],
 		currentProject: null,
 		isProjOpen: false,
@@ -55,19 +54,15 @@ componentDidMount(){
 	})
 	this.lightModeOnOff(this.state.lightMode)();
 	var i;
-	setInterval(()=>{
+	const navAnim = setInterval(()=>{
 		if(i === 0){
 			i = 1
-		} else i = 0
+		} else i = 0;
 		document.title = this.state.ticker.list[i]
-		console.log(document.title);
 		this.setState({
-			siteTitle: this.state.ticker.list[i]
+			ticker: {...this.state.ticker, current: this.state.ticker.list[i]}
 		})
 	}, 2000);
-	setTimeout(()=>{
-		this.navPeek(false, )
-	})
 }
 modalToggle(bool, content, action, callback){
 	this.setState({
@@ -90,12 +85,18 @@ navToggle(){
 		navOpen: !this.state.navOpen,
 	})
 };
-navPeek(onOff, str){
-	
-	this.setState({
-		navPeek: onOff,
-		siteTitle: str
-	})
+navPeek(bool, str){
+	if(bool === true){
+		this.setState({
+			navIsPeeked: bool,
+			siteTitle: str
+		})
+	}else{
+		this.setState({
+			navIsPeeked: bool,
+			siteTitle: "this.state.ticker.current"
+		})
+	}
 }
 getData(type, params, callback) {
 	let url = "https://wp.malikdunston.com/wp-json/wp/v2/", ext;
@@ -180,20 +181,21 @@ select = (project) => (ev) => {
 			}
 			break;
 		case "touchstart":
+			this.navPeek(true, project.title);
 			setTimeout(()=>{
-				this.navPeek(true, project.title);
 				thisProj.classList.add("proj-hover")
 				siblingProjs.forEach(proj => proj.classList.add("proj-bg"))
 			}, 100)
 			break;
 		case "touchend":
+			this.navPeek(false, this.state.tickerTitle);
 			setTimeout(()=>{
-				this.navPeek(false, this.state.tickerTitle);
 				thisProj.classList.remove("proj-hover")
 				siblingProjs.forEach(proj => proj.classList.remove("proj-bg"))
 			}, 100)
 			break;
 		case "mouseenter":
+			this.navPeek(true, project.title);
 			if(ev.target.classList.contains("proj-title") || ev.target.classList.contains("proj-img")){
 				setTimeout(()=>{
 					thisProj.classList.add("proj-hover")
@@ -202,6 +204,7 @@ select = (project) => (ev) => {
 			}
 			break;
 		case "mouseleave":
+			this.navPeek(false, this.state.tickerTitle);
 			setTimeout(()=>{
 				thisProj.classList.remove("proj-hover")
 				siblingProjs.forEach(proj => proj.classList.remove("proj-bg"))
@@ -229,11 +232,12 @@ render() {
 	return (
 		<div className={"App" + (this.state.navOpen ? " navOpen" : "")}>
 			<Navigation
-				title={this.state.siteTitle}
+				title={this.state.ticker.current}
 				lightModeOnOff={this.lightModeOnOff} 
 				toggleNav={this.navToggle}
+				navIsPeeked={this.state.navIsPeeked}
 				navOpen={this.state.navOpen}
-				navPeek={this.state.navPeek} />
+				navPeek={this.navPeek} />
 			<Route
 				path="/work/:projectName"
 				render={(props) => (

@@ -20,7 +20,6 @@ nav {
 	&>*:not(#logo):not(#circle) {
 		cursor: pointer;
 	}
-
 	svg#logo {
 		display: block;
 		position: fixed;
@@ -35,15 +34,14 @@ nav {
 			fill: $white !important;
 		}
 	}
-
+	a{text-decoration: none;}
 	#title {
-		background: red;
+		text-transform: uppercase;
 		z-index: 1000;
 		margin-left: 2rem;
 		max-width: 3.25rem;
 		transition: .75s;
 	}
-
 	#circle {
 		z-index: 900;
 		display: block;
@@ -59,7 +57,6 @@ nav {
 		// transform: scale(1);
 		transition: 1s;
 	}
-
 	&.peeked {
 		width: auto !important;
 	}
@@ -68,36 +65,30 @@ nav {
 	nav {
 		overflow: visible;
 		background: transparent;
-
 		#menu {
 			z-index: 1000;
 			position: fixed;
 			left: 2rem;
 			top: 4rem;
-
 			@include breakpoint(lg) {
 				left: 3rem;
 				top: 5rem;
 			}
-
 			.menu-item {
 				@include flex(column, justify-center);
 				height: 1.667rem;
 			}
-
 			a.menu-item {
 				border: 0 !important;
 				font-family: "Gotham" !important;
 			}
 		}
-
 		#circle {
 			opacity: .9;
 			transform: scale(60);
 		}
 	}
 }
-
 .lightmode nav{
 	background: $white;
 	svg#logo {
