@@ -94,7 +94,7 @@ navPeek(bool, str){
 	}else{
 		this.setState({
 			navIsPeeked: bool,
-			siteTitle: "this.state.ticker.current"
+			siteTitle: this.state.ticker.current
 		})
 	}
 }
@@ -232,7 +232,7 @@ render() {
 	return (
 		<div className={"App" + (this.state.navOpen ? " navOpen" : "")}>
 			<Navigation
-				title={this.state.ticker.current}
+				title={this.state.siteTitle}
 				lightModeOnOff={this.lightModeOnOff} 
 				toggleNav={this.navToggle}
 				navIsPeeked={this.state.navIsPeeked}
@@ -247,6 +247,12 @@ render() {
 							{...props}
 							getData={this.getData}
 							constructProject={this.constructProject}/>
+					<article>
+						<section className="text">
+							<div className="column">
+								<h3>Browse More Projects</h3>
+							</div>
+						</section>
 						<Projects
 							navPeek={this.navPeek}
 							isProjOpen={this.state.isProjOpen}
@@ -255,6 +261,7 @@ render() {
 							allProjects={this.state.allProjects}
 							getData={this.getData}
 							constructProject={this.constructProject} />
+					</article>
 					</div>
 				)} />
 			<Route
@@ -281,16 +288,16 @@ render() {
 							allProjects={this.state.allProjects}
 							getData={this.getData}
 							constructProject={this.constructProject} />
+						<div id="tocontact" className={(!this.state.isProjOpen) ? "peeked" : ""}>
+							<input type="text" 
+								placeholder="First Name"
+								onChange={(ev)=>{this.setState({contact: {...this.state.contact, firstname: ev.target.value}})}}/>
+							<Link to="/contact">
+								<div>Hello!</div>
+							</Link>
+						</div>
 					</div>
 				)} />
-			<div id="tocontact" className={this.state.contact.isOpen ? "peeked" : ""}>
-				<input type="text" 
-					placeholder="First Name"
-					onChange={(ev)=>{this.setState({contact: {...this.state.contact, firstname: ev.target.value}})}}/>
-				<Link to="/contact">
-					<div>Hello!</div>
-				</Link>
-			</div>
 			<Modal
 				toggle={this.modalToggle}
 				data={this.state.modalData}/>

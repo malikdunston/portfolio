@@ -25,7 +25,7 @@ class Casestudy extends Component {
 	}
 	render() {
 		if(this.state.data){ 
-			return (<div id="casestudy">
+			return (<div>
 				{this.state.data.map(p => {
 					return (
 						<article key={p.id} id={p.slug}>
@@ -48,7 +48,7 @@ class Casestudy extends Component {
 				})}
 			</div>)
 		}else{
-			return <div>loading proj.....</div>
+			this.props.modalToggle(true, ()=>{return <h3>loading...</h3>});
 		}
 	}
 } export default Casestudy;

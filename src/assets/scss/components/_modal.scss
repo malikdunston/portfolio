@@ -13,11 +13,11 @@
 	section#modalContent{
 		background: $black;
 		position: relative;
-		width: calc(100% - 4rem);
+		width: calc(100% - 2rem);
 		min-height: 33vh;
 		margin: auto;
 		overflow: hidden;
-		padding: 2rem;
+		padding: 2rem 1rem;
 		padding-bottom: 5rem;
 		> div{
 			overflow: hidden;

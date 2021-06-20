@@ -33,7 +33,7 @@ class Contact extends Component {
 					name: "needs",
 					type: "textarea",
 					placeholder: "ex: I need a web app",
-					label: "Please describe your needs in detail."
+					label: "How can I help?"
 				}
 			},
 			errors: []
@@ -155,7 +155,7 @@ class Contact extends Component {
 							key={f.name} 
 							htmlFor={"#" + f.name} 
 							className={(f.error) ? "error" : ""}>
-							{f.label}
+							<span>{f.label}</span>
 							{f.type === "textarea" ? textarea(f) : input(f)}
 						</label>
 					})}

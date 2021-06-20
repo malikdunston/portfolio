@@ -5,7 +5,7 @@
 	z-index: 900;
 	position: fixed;
 	bottom: -2rem;
-	left: 1rem;
+	right: 1rem;
 	overflow: hidden;
 	border-radius: 500px;
 	display: flex;
@@ -31,5 +31,12 @@
 	}
 	&.peeked{
 		bottom: 1rem;
+	}
+}
+@include breakpoint(md){
+	#tocontact{
+		right: 2rem;
+		bottom: 2rem;
+		width: calc(33.333vw - 4rem);
 	}
 }
