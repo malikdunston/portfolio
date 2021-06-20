@@ -12,21 +12,11 @@ class App extends Component {
 constructor() {
 	super();
 	this.state = {
-		siteTitle: "Hello there",
-		ticker: {
-			current: "",
-			list: ["Malik Dunston", "Web + Design"]
-		},
-		navOpen: false,
-		navIsPeeked: false,
 		allProjects: [],
-		currentProject: null,
-		isProjOpen: false,
 		contact: {
 			isOpen: true,
 			firstname: ""
 		},
-		lightMode: false,
 		modalData: { // this for loading indicator too....
 			isOpen: false,
 			clickThrough: false, 
@@ -37,11 +27,7 @@ constructor() {
 	}
 	this.getData = this.getData.bind(this);
 	this.constructProject = this.constructProject.bind(this);
-	this.navToggle = this.navToggle.bind(this);
-	this.navPeek = this.navPeek.bind(this);
 	this.select = this.select.bind(this);
-	this.lightModeOnOff = this.lightModeOnOff.bind(this);
-	this.addUser = this.addUser.bind(this);
 	this.modalToggle = this.modalToggle.bind(this);
 };
 componentDidMount(){
@@ -52,17 +38,6 @@ componentDidMount(){
 			})
 		});
 	})
-	this.lightModeOnOff(this.state.lightMode)();
-	var i;
-	const navAnim = setInterval(()=>{
-		if(i === 0){
-			i = 1
-		} else i = 0;
-		document.title = this.state.ticker.list[i]
-		this.setState({
-			ticker: {...this.state.ticker, current: this.state.ticker.list[i]}
-		})
-	}, 2000);
 }
 modalToggle(bool, content, action, callback){
 	this.setState({
@@ -74,29 +49,6 @@ modalToggle(bool, content, action, callback){
 			action: action
 		}
 	})
-}
-addUser(data){
-	this.setState({
-		userData: data
-	})
-}
-navToggle(){
-	this.setState({
-		navOpen: !this.state.navOpen,
-	})
-};
-navPeek(bool, str){
-	if(bool === true){
-		this.setState({
-			navIsPeeked: bool,
-			siteTitle: str
-		})
-	}else{
-		this.setState({
-			navIsPeeked: bool,
-			siteTitle: this.state.ticker.current
-		})
-	}
 }
 getData(type, params, callback) {
 	let url = "https://wp.malikdunston.com/wp-json/wp/v2/", ext;
@@ -165,79 +117,26 @@ constructProject(proj) {
 	}
 };
 select = (project) => (ev) => {
-	let thisProj = ev.currentTarget,
-		siblingProjs = thisProj.parentNode.querySelectorAll(":scope > *:not(." + project.slug + ")");
 	switch (ev.type){
-		case "click":
-			if(window.innerWidth > 1000){
-				window.location.href = `${process.env.PUBLIC_URL}/work/${project.slug}`;
-			}else{
-				this.setState({
-					isProjOpen: !this.state.isProjOpen,
-					currentProject: project
-				})
-				thisProj.classList.toggle("clicked");
-				siblingProjs.forEach(proj => proj.classList.toggle("proj-hide"))
-			}
-			break;
 		case "touchstart":
-			this.navPeek(true, project.title);
-			setTimeout(()=>{
-				thisProj.classList.add("proj-hover")
-				siblingProjs.forEach(proj => proj.classList.add("proj-bg"))
-			}, 100)
+		case "mouseenter":
+			project.selected = true; 
 			break;
 		case "touchend":
-			this.navPeek(false, this.state.tickerTitle);
-			setTimeout(()=>{
-				thisProj.classList.remove("proj-hover")
-				siblingProjs.forEach(proj => proj.classList.remove("proj-bg"))
-			}, 100)
-			break;
-		case "mouseenter":
-			this.navPeek(true, project.title);
-			if(ev.target.classList.contains("proj-title") || ev.target.classList.contains("proj-img")){
-				setTimeout(()=>{
-					thisProj.classList.add("proj-hover")
-					siblingProjs.forEach(proj => proj.classList.add("proj-bg"))
-				}, 100)
-			}
-			break;
 		case "mouseleave":
-			this.navPeek(false, this.state.tickerTitle);
-			setTimeout(()=>{
-				thisProj.classList.remove("proj-hover")
-				siblingProjs.forEach(proj => proj.classList.remove("proj-bg"))
-			}, 100)
+			project.selected = false;
 			break;
 		default:
 			break;
 	}
-}
-lightModeOnOff = (bool) => (ev) => {
-	if(bool){
-		this.setState({
-			lightMode: bool
-		})
-	} else {
-		this.setState({
-			lightMode: !this.state.lightMode
-		})
-	}
-	this.state.lightMode
-		? document.body.classList.add("lightmode")
-		: document.body.classList.remove("lightmode");
+	this.setState({
+		currentProj: this.state.allProjects.filter(p=>p.selected === true)[0]
+	});
 }
 render() {
 	return (
-		<div className={"App" + (this.state.navOpen ? " navOpen" : "")}>
-			<Navigation
-				title={this.state.siteTitle}
-				lightModeOnOff={this.lightModeOnOff} 
-				toggleNav={this.navToggle}
-				navIsPeeked={this.state.navIsPeeked}
-				navOpen={this.state.navOpen}
-				navPeek={this.navPeek} />
+		<div className={"App"}>
+			<Navigation/>
 			<Route
 				path="/work/:projectName"
 				render={(props) => (
@@ -254,9 +153,7 @@ render() {
 							</div>
 						</section>
 						<Projects
-							navPeek={this.navPeek}
-							isProjOpen={this.state.isProjOpen}
-							currentProject={this.state.currentProject}
+							currentProj={this.state.currentProj}
 							select={this.select}
 							allProjects={this.state.allProjects}
 							getData={this.getData}
@@ -269,8 +166,6 @@ render() {
 				render={() => (
 					<Contact
 						modalToggle={this.modalToggle}
-						addUser={this.addUser}
-						lightModeOnOff={this.lightModeOnOff} 
 						firstname={this.state.contact.firstname}/>
 				)} />
 			<Route
@@ -282,13 +177,12 @@ render() {
 							<p>Web + Design 👍🏿</p>
 						</div>
 						<Projects
-							isProjOpen={this.state.isProjOpen}
-							currentProject={this.state.currentProject}
+							currentProj={this.state.currentProj}
 							select={this.select}
 							allProjects={this.state.allProjects}
 							getData={this.getData}
 							constructProject={this.constructProject} />
-						<div id="tocontact" className={(!this.state.isProjOpen) ? "peeked" : ""}>
+						<div id="tocontact">
 							<input type="text" 
 								placeholder="First Name"
 								onChange={(ev)=>{this.setState({contact: {...this.state.contact, firstname: ev.target.value}})}}/>
