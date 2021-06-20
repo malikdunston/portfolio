@@ -48,6 +48,7 @@ class Casestudy extends Component {
 				})}
 			</div>)
 		}else{
+			return <h3>Loading...</h3>
 			this.props.modalToggle(true, ()=>{return <h3>loading...</h3>});
 		}
 	}

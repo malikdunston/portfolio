@@ -126,6 +126,14 @@ select = (project) => (ev) => {
 		case "mouseleave":
 			project.selected = false;
 			break;
+		case "click":
+			if(window.innerWidth >= 1000){
+				window.location.href = `${process.env.PUBLIC_URL}/work/${project.slug}`
+			} else{
+				project.clicked = !project.clicked;
+				project.selected = (project.clicked ? true : false);
+			}
+			break;
 		default:
 			break;
 	}
