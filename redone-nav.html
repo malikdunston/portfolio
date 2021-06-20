@@ -53,6 +53,7 @@
 	nav [class^="ticker"]{
 		display: none;
 	}
+	nav.forced [class^="ticker"],
 	nav.peeked [class^="ticker"],
 	nav.open [class^="ticker"]{
 		display: flex;
@@ -104,6 +105,8 @@
 					nav.classList.remove("peeked");
 					break;
 				case "click":
+					nav.classList.remove("forced");
+					nav.classList.remove("replace");
 					nav.classList.toggle("open");
 					break;
 				default:
@@ -136,7 +139,7 @@
 
 		const buttons = document.querySelectorAll("button");
 
-		btnSelect = (ev) => {
+		select = (ev) => {
 			switch(ev.type){
 				case "mouseenter":
 					b.innerHTML = ev.target.innerHTML;
@@ -153,12 +156,16 @@
 			}
 		}
 
-		console.log(buttons);
+		forcePeek = (ev) => {
+			ev.currentTarget.removeEventListener("mouseenter", select);
+			ev.currentTarget.removeEventListener("mouseleave", select);
+			nav.classList.toggle("forced");
+		}
 
 		buttons.forEach(btn=>{
-			console.log(btn);
-			btn.addEventListener("mouseenter", btnSelect);
-			btn.addEventListener("mouseleave", btnSelect);
+			btn.addEventListener("mouseenter", select);
+			btn.addEventListener("mouseleave", select);
+			btn.addEventListener("click", forcePeek);
 		})
 
 	</script>
