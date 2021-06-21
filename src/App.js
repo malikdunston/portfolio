@@ -21,9 +21,9 @@ class App extends Component {
 				isOpen: true,
 				firstname: ""
 			},
-			modalData: { // this for loading indicator too....
+			modalData: {
 				isOpen: false,
-				clickThrough: false,
+				persist: false,
 				content: "hello....",
 				callback: null,
 				action: "close"
@@ -33,7 +33,6 @@ class App extends Component {
 		this.constructProject = this.constructProject.bind(this);
 		this.select = this.select.bind(this);
 		this.modalToggle = this.modalToggle.bind(this);
-		this.iterate = this.iterate.bind(this);
 		this.navPeek = this.navPeek.bind(this);
 	};
 	componentDidMount() {
@@ -44,17 +43,13 @@ class App extends Component {
 				})
 			});
 		})
-		const navAnimation = setInterval(()=>{
-			this.iterate(this.state.navData.tickerA.length);
+		setInterval(()=>{
+			this.setState(prevState => {
+				return { 
+					iterator: prevState.iterator === (prevState.navData.tickerA.length - 1) ? 0 : prevState.iterator + 1 
+				}
+			});
 		}, 1000)
-	}
-
-	iterate(len) {
-		this.setState(prevState => {
-			return { 
-				iterator: prevState.iterator === (len - 1) ? 0 : prevState.iterator + 1 
-			}
-		});
 	}
 	navPeek(ev){
 		switch(ev.type){
@@ -77,14 +72,17 @@ class App extends Component {
 			this.setState({})
 		});
 	}
-	modalToggle(bool, content, action, callback) {
-		this.setState({
-			modalData: {
-				...this.state.modalData,
-				isOpen: bool,
-				content: content,
-				callback: callback,
-				action: action
+	modalToggle(bool, content, action, callback, persist) {
+		this.setState(prevState => {
+			return {
+				modalData: {
+					...prevState.modalData,
+					isOpen: bool,
+					content: content,
+					callback: callback,
+					action: action,
+					persist: persist
+				}
 			}
 		})
 	}
@@ -197,6 +195,7 @@ class App extends Component {
 				<Navigation
 					i={this.state.iterator}
 					data={this.state.navData}
+					modalToggle={this.modalToggle}
 					navPeek={this.navPeek} />
 				<Route
 					path="/work/:projectName"

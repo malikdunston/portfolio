@@ -1,7 +1,30 @@
 import React, { Component } from "react";
 import {Link} from "react-router-dom";
+import avatar from "../assets/images/avatar2.jpg";
 
 class Navigation extends Component { 
+constructor(props){
+	super(props);
+	this.openAbout = this.openAbout.bind(this);
+}
+openAbout(){
+	const aboutHtml = () => {
+		return <div id="about">
+			<img className="avatar" src={avatar} alt="" />
+			<div className="column">
+				<h3>About</h3>
+				<p>Developer and Designer.</p>
+			</div>
+			<div className="column">
+				<h3>Hobbies</h3>
+				<p>Sim City 4, cooking and <a href="https://open.spotify.com/user/cecildunston?si=4adc78236dec4468">music!</a></p>
+			</div>
+		</div>
+	};
+	this.props.modalToggle(true, aboutHtml(), "Contact", ()=>{
+		window.location.href = `${process.env.PUBLIC_URL}/contact`;
+	});
+}
 render(){ return (
 	<nav className={
 		(this.props.data.peeked ? "peeked" : "")
@@ -34,6 +57,9 @@ render(){ return (
 			<Link to="/contact">
 				<li><h3>Contact</h3></li>
 			</Link>
+				<li onClick={this.openAbout}>
+					<h3>About</h3>
+				</li>
 		</ul> : ""}
 	</nav>
 ) }

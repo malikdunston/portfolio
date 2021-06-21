@@ -85,7 +85,7 @@ class Contact extends Component {
 		ev.preventDefault();
 		this.checkForm();
 		let errorCount = Object.keys(this.state.fields).filter(f=>this.state.fields[f].error===true);
-		const modalData = () => {
+		const msg = () => {
 			if(errorCount.length === 0){
 				return <div>
 					<h1>Thanks, {this.state.fields.firstname.value}.</h1>
@@ -116,12 +116,12 @@ class Contact extends Component {
 					throw Error(response.statusText);
 				}
 			}).then(()=>{
-				this.props.modalToggle(true, modalData(), "Return Home", ()=>{
+				this.props.modalToggle(true, msg(), "Return Home", ()=>{
 					window.location.href = `${process.env.PUBLIC_URL}/`;
-				});
+				}, true);
 			})
 		} else {
-			this.props.modalToggle(true, modalData(), `fix errors ${errorCount.length}`);
+			this.props.modalToggle(true, msg(), `fix errors ${errorCount.length}`, null, true);
 		}
 	}
 	render() {
