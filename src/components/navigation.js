@@ -13,8 +13,18 @@ render(){ return (
 		onClick={this.props.navPeek}>
 		<div id="circle"></div>
 		<div id="logo"></div>
-		<div className="ticker-a">{this.props.data.tickerA[this.props.i]}</div>
-		<div className="ticker-b">{this.props.data.tickerB}</div>
+		<div className="ticker-a">
+			<h3>
+				<Link to={"/"}>
+					{this.props.data.tickerA[this.props.i]}
+				</Link>
+			</h3>
+		</div>
+		<div className="ticker-b">
+			<h3>
+				{this.props.data.tickerB}
+			</h3>
+		</div>
 	</nav>
 ) }
 } export default  Navigation;

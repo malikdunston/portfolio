@@ -36,7 +36,9 @@
 @include breakpoint(md){
 	#tocontact{
 		right: 2rem;
-		bottom: 2rem;
 		width: calc(33.333vw - 4rem);
+		&.peeked{
+			bottom: 2rem;
+		}
 	}
 }

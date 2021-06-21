@@ -243,7 +243,8 @@ class App extends Component {
 								allProjects={this.state.allProjects}
 								getData={this.getData}
 								constructProject={this.constructProject} />
-							<div id="tocontact">
+							<div id="tocontact"
+								className={this.state.currentProj ? "" : "peeked"}>
 								<input type="text"
 									placeholder="First Name"
 									onChange={(ev) => { this.setState({ contact: { ...this.state.contact, firstname: ev.target.value } }) }} />

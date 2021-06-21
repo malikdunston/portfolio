@@ -155,7 +155,7 @@ class Contact extends Component {
 							key={f.name} 
 							htmlFor={"#" + f.name} 
 							className={(f.error) ? "error" : ""}>
-							<span>{f.label}</span>
+							{f.label ? <span>{f.label}</span> : ""}
 							{f.type === "textarea" ? textarea(f) : input(f)}
 						</label>
 					})}
