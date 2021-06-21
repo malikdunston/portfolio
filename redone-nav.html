@@ -105,8 +105,7 @@
 					nav.classList.remove("peeked");
 					break;
 				case "click":
-					nav.classList.remove("forced");
-					nav.classList.remove("replace");
+					nav.classList.remove("forced", "replace");
 					nav.classList.toggle("open");
 					break;
 				default:
@@ -116,8 +115,7 @@
 		nav.addEventListener("mouseenter", navPeek);
 		nav.addEventListener("mouseleave", navPeek);
 		nav.addEventListener("click", navPeek);
-	</script>
-	<script>
+
 		const tickerA = [
 			"Malik Dunston",
 			"Web + Design"
@@ -143,13 +141,11 @@
 			switch(ev.type){
 				case "mouseenter":
 					b.innerHTML = ev.target.innerHTML;
-					nav.classList.add("replace");
-					nav.classList.add("peeked");
+					nav.classList.add("replace", "peeked");
 					break;
 				case "mouseleave":
 					b.innerHTML = "";
-					nav.classList.remove("replace");
-					nav.classList.remove("peeked");
+					nav.classList.remove("replace", "peeked");
 					break;
 				default:
 					break;
