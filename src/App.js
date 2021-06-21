@@ -195,6 +195,7 @@ class App extends Component {
 				<Navigation
 					i={this.state.iterator}
 					data={this.state.navData}
+					modalData={this.state.modalData}
 					modalToggle={this.modalToggle}
 					navPeek={this.navPeek} />
 				<Route

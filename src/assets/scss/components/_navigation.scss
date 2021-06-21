@@ -42,8 +42,12 @@ nav {
 		width: 3rem;
 		height: 3rem;
 		border-radius: 500px;
-		transition: .2s;
+		transition: .5s;
 		background: $black;
+		&.open{
+			transform: scale(100);
+			background: $black90;
+		}
 	}
 	ul{
 		z-index: 1000;
