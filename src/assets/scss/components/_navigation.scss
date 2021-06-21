@@ -6,73 +6,78 @@ nav {
 	width: 3rem;
 	height: 3rem;
 	a{border: 0px!important;}
-}
-svg#logo {
-	width: 1rem;
-	height: 1rem;
-	z-index: 1000;
-	top: 1rem;
-}
-svg#logo {
-	z-index: 1000;
-	position: absolute;
-	left: 1rem;
-	top: 1rem;
-	width: 1rem;
-	height: 1rem;
-	@include breakpoint(lg) {
-		top: 2rem;
+	svg#logo {
+		z-index: 1000;
+		position: absolute;
+		left: 1rem;
+		top: 1rem;
+		width: 1rem;
+		height: 1rem;
+		@include breakpoint(lg) {
+			top: 2rem;
+		}
+		path {
+			fill: $white !important;
+		}
 	}
-	path {
-		fill: $white !important;
+	div[class^="ticker"] {
+		position: absolute;
+		height: 3rem;
+		max-width: 600px;
+		background: $black;
+		padding: 1rem 1rem 1rem 3rem;
+		border-radius: 500px;
+		overflow-y: hidden;
+		box-sizing: border-box;
+		line-height: .5rem;
+		display: flex;
+		align-items: center;
+		display: none;
 	}
-}
-div[class^="ticker"] {
-	position: absolute;
-	height: 3rem;
-	max-width: 600px;
-	background: $black;
-	padding: 1rem 1rem 1rem 3rem;
-	border-radius: 500px;
-	overflow-y: hidden;
-	box-sizing: border-box;
-	line-height: .5rem;
-	display: flex;
-	align-items: center;
-}
-#circle{
-	position: fixed;
-	transform-origin: center center;
-	left: 1rem;
-	top: 1rem;
-	width: 3rem;
-	height: 3rem;
-	border-radius: 500px;
-	background: $black90;
-	transition: .2s;
-}
-nav [class^="ticker"]{
-	display: none;
-}
+	#circle{
+		position: fixed;
+		transform-origin: center center;
+		left: 1rem;
+		top: 1rem;
+		width: 3rem;
+		height: 3rem;
+		border-radius: 500px;
+		transition: .2s;
+		background: $black;
+	}
+	ul{
+		z-index: 1000;
+		display: none;
+		position: fixed;
+		top: 4rem;
+		left: 2rem;
+	}
+	&.forced [class^="ticker"],
+	&.peeked [class^="ticker"]{
+		display: flex;
+	}
+	&:not(.replace) .ticker-b{
+		display: none;
+	}
+	&.replace .ticker-a{
+		display: none;
+	}
+	&.replace.peeked .ticker-b{
+		display: flex;
+	}
+	&.open{
+		& #circle{
+			transform: scale(100);
+			background: $black90;
+		}
+		& .ticker-a{
+			display: flex;
+			background: transparent;
+		}
+		ul{
+			display: flex;
+			flex-direction: column;
+		}
+	}
 
-nav.forced [class^="ticker"],
-nav.peeked [class^="ticker"],
-nav.open [class^="ticker"]{
-	display: flex;
 }
-nav.open #circle{
-	transform: scale(100);
-}
-nav.open [class^="ticker"]{
-	background: transparent;
-}
-nav:not(.replace) .ticker-b{
-	display: none;
-}
-nav.replace .ticker-a{
-	display: none;
-}
-nav.replace.peeked .ticker-b{
-	display: flex;
-}
-

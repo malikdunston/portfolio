@@ -27,6 +27,14 @@ render(){ return (
 				{this.props.data.tickerB}
 			</h3>
 		</div>
+		{this.props.data.open ? <ul>
+			<Link to="/">
+				<li><h3>Work</h3></li>
+			</Link>
+			<Link to="/contact">
+				<li><h3>Contact</h3></li>
+			</Link>
+		</ul> : ""}
 	</nav>
 ) }
 } export default  Navigation;
