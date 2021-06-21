@@ -42,6 +42,7 @@ div[class^="ticker"] {
 nav [class^="ticker"]{
 	display: none;
 }
+
 nav.forced [class^="ticker"],
 nav.peeked [class^="ticker"],
 nav.open [class^="ticker"]{
@@ -59,7 +60,7 @@ nav:not(.replace) .ticker-b{
 nav.replace .ticker-a{
 	display: none;
 }
-nav.replace .ticker-b{
+nav.replace.peeked .ticker-b{
 	display: flex;
 }
 

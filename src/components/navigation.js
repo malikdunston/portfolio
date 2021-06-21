@@ -14,7 +14,7 @@ render(){ return (
 		<div id="circle"></div>
 		<div id="logo"></div>
 		<div className="ticker-a">{this.props.data.tickerA[this.props.i]}</div>
-		<div className="ticker-b"></div>
+		<div className="ticker-b">{this.props.data.tickerB}</div>
 	</nav>
 ) }
 } export default  Navigation;

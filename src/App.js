@@ -65,12 +65,17 @@ class App extends Component {
 				this.state.navData.peeked = false;
 				break;
 			case "click":
+				this.state.navData.forced = false;
+				this.state.navData.replace = false;
 				this.state.navData.open = !this.state.navData.open;
 				break;
 			default:
 				break;
 		}
-		this.setState({});
+		this.setState({}, ()=>{
+			if (this.state.navData.open) {this.state.navData.peeked = false};
+			this.setState({})
+		});
 	}
 	modalToggle(bool, content, action, callback) {
 		this.setState({
@@ -154,17 +159,29 @@ class App extends Component {
 			case "touchstart":
 			case "mouseenter":
 				project.selected = true;
+				this.state.navData.tickerB = project.title;
+				this.state.navData.replace = true;
+				this.state.navData.peeked = true;
 				break;
 			case "touchend":
 			case "mouseleave":
-				project.selected = false;
+				if(project.clicked){
+				}else{
+					project.selected = false;
+					this.state.navData.tickerB = project.title;
+					this.state.navData.replace = false;
+					this.state.navData.peeked = false;
+				}
 				break;
 			case "click":
 				if (window.innerWidth >= 1000) {
 					window.location.href = `${process.env.PUBLIC_URL}/work/${project.slug}`
 				} else {
+					this.state.navData.forced = !this.state.navData.forced;
 					project.clicked = !project.clicked;
 					project.selected = (project.clicked ? true : false);
+					this.state.navData.peeked = (project.clicked ? true : false);
+					this.state.navData.replace = (project.clicked ? true : false);
 				}
 				break;
 			default:
