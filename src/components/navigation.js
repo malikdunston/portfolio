@@ -31,6 +31,8 @@ render(){ return (
 		+ (this.props.data.forced ? " forced" : "")
 		+ (this.props.data.replace ? " replace" : "")
 		+ (this.props.data.open ? " open" : "")}
+		onTouchStart={this.props.navPeek}
+		onTouchEnd={this.props.navPeek}
 		onMouseEnter={this.props.navPeek}
 		onMouseLeave={this.props.navPeek}
 		onClick={this.props.navPeek}>

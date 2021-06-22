@@ -6,6 +6,10 @@
 	@if $screenMinWidth == sm {
 		@media (min-width:400px) { @content; }
 	}	// 414, 768
+// all mobile
+	@if $screenMinWidth == mobile {
+		@media (max-width:1000px) { @content; }
+	}	// 414, 768
 // desktop
 	@if $screenMinWidth == md {
 		@media (min-width:1000px) { @content; }

@@ -53,24 +53,53 @@ class App extends Component {
 	}
 	navPeek(ev){
 		switch(ev.type){
+			case "click":
+				if(this.state.navData.open){
+					this.setState(prevState => {
+						return {navData: {
+							...prevState.navData,
+							forced: false,
+							replace: false,
+							peeked: false,
+							open: false
+						}}
+					})
+				}else {
+					this.setState(prevState => {
+						return {navData: {
+							...prevState.navData,
+							forced: false,
+							replace: false,
+							open: true
+						}}
+					})
+				}
+				break;
 			case "mouseenter":
-				this.state.navData.peeked = true;
+				if(window.innerWidth >= 1000){
+					this.setState(prevState => {
+						return {navData: {
+							...prevState.navData,
+							peeked: true
+						}}
+					})
+					alert("enter");
+				}
 				break;
 			case "mouseleave":
-				this.state.navData.peeked = false;
-				break;
-			case "click":
-				this.state.navData.forced = false;
-				this.state.navData.replace = false;
-				this.state.navData.open = !this.state.navData.open;
+				if(window.innerWidth >= 1000){
+					this.setState(prevState => {
+						return {navData: {
+							...prevState.navData,
+							peeked: false
+						}}
+					})
+					alert("leave");
+				}
 				break;
 			default:
 				break;
 		}
-		this.setState({}, ()=>{
-			if (this.state.navData.open) {this.state.navData.peeked = false};
-			this.setState({})
-		});
 	}
 	modalToggle(bool, content, action, callback, persist) {
 		this.setState(prevState => {
