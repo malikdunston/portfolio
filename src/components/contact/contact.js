@@ -157,6 +157,7 @@ class Contact extends Component {
 							className={(f.error) ? "error" : ""}>
 							{f.label ? <span>{f.label}</span> : ""}
 							{f.type === "textarea" ? textarea(f) : input(f)}
+							<span className="icon">!</span>
 						</label>
 					})}
 				</fieldset>
