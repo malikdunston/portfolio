@@ -11,6 +11,14 @@ input[type="text"] i{
 	outline: 0;
 	outline-color: transparent;
 	outline-style: none;
+	font-weight: 100;
+}
+
+input,
+textarea,
+::placeholder{
+	font-size: 16px;
+	font-weight: 100;
 }
 
 *:-webkit-autofill,

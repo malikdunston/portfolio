@@ -121,7 +121,7 @@ class Contact extends Component {
 				}, true);
 			})
 		} else {
-			this.props.modalToggle(true, msg(), `fix errors ${errorCount.length}`, null, true);
+			this.props.modalToggle(true, msg(), `fix`, null, true);
 		}
 	}
 	render() {

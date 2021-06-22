@@ -1,5 +1,5 @@
 nav {
-	z-index: 1000;
+	z-index: 200;
 	position: fixed;
 	top: 1rem;
 	left: 1rem;
@@ -7,17 +7,18 @@ nav {
 	height: 3rem;
 	a{border: 0px!important;}
 	svg#logo {
-		z-index: 1000;
 		position: absolute;
 		left: 1rem;
 		top: 1rem;
 		width: 1rem;
 		height: 1rem;
-		@include breakpoint(lg) {
-			top: 2rem;
-		}
 		path {
-			fill: $white !important;
+			fill: $white;
+		}
+		&.modal{
+			path{
+				fill: $white10;
+			}
 		}
 	}
 	div[class^="ticker"] {
@@ -44,13 +45,12 @@ nav {
 		border-radius: 500px;
 		transition: .5s;
 		background: $black;
-		&.open{
+		&.modal{
 			transform: scale(100);
 			background: $black90;
 		}
 	}
 	ul{
-		z-index: 1000;
 		display: none;
 		position: fixed;
 		top: 4rem;

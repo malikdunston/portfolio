@@ -5,10 +5,3 @@
 	'components/button', 'components/navigation', 'components/projects', 'components/skills', 'components/tocontact', 'components/images', 'components/modal', 'components/forms',
 	'routes/case-study', 'routes/contact', 'routes/home', 'routes/about';
 
-// chrome zooms in on font-size < 16px
-	input,
-	::placeholder{
-		@include breakpoint(mobile){
-			font-size: 16px;
-		}
-	}

@@ -8,6 +8,7 @@ import Projects from "./components/projects/projects.js";
 import Casestudy from "./components/projects/case-study.js";
 import Contact from "./components/contact/contact.js";
 import Modal from "./components/Modal.js";
+import avatar from "./assets/images/avatar2.jpg";
 class App extends Component {
 	constructor() {
 		super();
@@ -34,6 +35,7 @@ class App extends Component {
 		this.select = this.select.bind(this);
 		this.modalToggle = this.modalToggle.bind(this);
 		this.navPeek = this.navPeek.bind(this);
+		this.openAbout = this.openAbout.bind(this);
 	};
 	componentDidMount() {
 		this.getData("projects", "&parent=0", (projects) => {
@@ -50,6 +52,24 @@ class App extends Component {
 				}
 			});
 		}, 1000)
+	}
+	openAbout(){
+		const aboutHtml = () => {
+			return <div id="about">
+				<img className="avatar" src={avatar} alt="" />
+				<div className="column">
+					<h3>About</h3>
+					<p>Developer & Designer.</p>
+				</div>
+				<div className="column">
+					<h3>Really into</h3>
+					<p>Sim City 4, cooking and <a href="https://open.spotify.com/user/cecildunston?si=4adc78236dec4468">music!</a></p>
+				</div>
+			</div>
+		};
+		this.modalToggle(true, aboutHtml(), "Contact", ()=>{
+			window.location.href = `${process.env.PUBLIC_URL}/contact`;
+		});
 	}
 	navPeek(ev){
 		switch(ev.type){
@@ -83,7 +103,6 @@ class App extends Component {
 							peeked: true
 						}}
 					})
-					alert("enter");
 				}
 				break;
 			case "mouseleave":
@@ -94,7 +113,6 @@ class App extends Component {
 							peeked: false
 						}}
 					})
-					alert("leave");
 				}
 				break;
 			default:
@@ -226,6 +244,7 @@ class App extends Component {
 					data={this.state.navData}
 					modalData={this.state.modalData}
 					modalToggle={this.modalToggle}
+					openAbout={this.openAbout}
 					navPeek={this.navPeek} />
 				<Route
 					path="/work/:projectName"
@@ -262,7 +281,7 @@ class App extends Component {
 					exact path="/"
 					render={() => (
 						<div id="home">
-							<div id="homepage">
+							<div id="homepage" onClick={this.openAbout}>
 								<h3>Malik Dunston</h3>
 								<p>Web + Design 👍🏿</p>
 							</div>

@@ -25,14 +25,11 @@
 			justify-content: flex-end;
 			&:first-of-type {
 				section.text {
-					padding-top: 5rem !important;
-					@include breakpoint(lg) {
-						padding-top: 6rem !important;
-					}
+					padding-top: 5rem;
 				}
 			}
 			section.text {
-				padding-top: 0 !important;
+				padding-top: 0;
 				left: 0;
 				width: 30vw;
 				margin-right: auto;

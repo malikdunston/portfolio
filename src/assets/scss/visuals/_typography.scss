@@ -31,7 +31,8 @@ body{
 		letter-spacing: .075em;
 	}
 	a{
-		color: white;
-		border-bottom: 2px dotted white!important;
+		font-weight: inherit;
+		color: $white;
+		border-bottom: 2px dotted $white90;
 	}
 }

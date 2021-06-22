@@ -21,7 +21,7 @@
 					width: 100%;
 					height: 100%;
 					border: 0;
-					background: transparent;
+					background: $black;
 					&::placeholder{
 						opacity: .5;
 					}
@@ -64,24 +64,14 @@
 		}
 	}
 	input.button{
-		z-index: 900;
 		position: fixed;
 		bottom: 2rem;
-		left: 2rem;
+		right: 2rem;
 	}
 	@include breakpoint (md) {
-		padding-top: 4rem;
-		form {
-			padding: 0 2rem 0 2rem;
+		input.button{
+			left: 2rem;
 		}
-	}
-	@include breakpoint (lg) {
-		padding-top: 6rem;
-		form {
-			padding: 0 3rem 0 3rem;
-		}
-	}
-	@include breakpoint (md) {
 		&>*:not(navigation) {
 			width: 50vw;
 		}

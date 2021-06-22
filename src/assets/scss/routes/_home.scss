@@ -4,12 +4,11 @@
 	top: 2rem;
 	left: calc(66.7vw + 2rem);
 	display: none;
-	transition: .3s;
-
 	&.welcomeheader {
+		transition: top .3s;
+		cursor: pointer;
 		top: -10rem;
 	}
-
 	@include breakpoint(md) {
 		display: block;
 	}

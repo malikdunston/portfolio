@@ -6,8 +6,9 @@ button,
 	border: 0;
 	cursor: pointer;
 	border-radius: 100px;
+	font-weight: 800;
 	&.inactive{
-		background: $white10;
+		color: $white10;
 	}
 }
 .lightmode button,
