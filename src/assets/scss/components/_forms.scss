@@ -21,12 +21,14 @@ textarea,
 	font-weight: 100;
 }
 
-*:-webkit-autofill,
-*:-webkit-autofill:hover, 
-*:-webkit-autofill:focus, 
-*:-webkit-autofill:active
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active
 {
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-	box-shadow: 0 0 0 30px rgba(255, 255, 255, 0) inset ;
-	-webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0) inset ;
+	-webkit-box-shadow: 0 0 0 30px $black inset !important;
+}
+input:-webkit-autofill
+{
+	-webkit-text-fill-color: $white90 !important;
 }

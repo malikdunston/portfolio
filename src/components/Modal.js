@@ -14,14 +14,17 @@ render(){ return (
 				╳
 			</div> : ""}
 			{this.props.data.content}
-			<button onClick={(ev)=>{
-				this.props.toggle(false, "");
-				if(typeof this.props.data.callback === "function"){
-					this.props.data.callback()
-				}
-			}}>
-				{this.props.data.action}
-			</button>
+			{this.props.data.action
+				? <button onClick={(ev)=>{
+					this.props.toggle(false, "");
+					if(typeof this.props.data.callback === "function"){
+						this.props.data.callback()
+					}
+				}}>
+					{this.props.data.action}
+				</button>
+				: ""
+			}
 		</section>
 	</div>
 ) }

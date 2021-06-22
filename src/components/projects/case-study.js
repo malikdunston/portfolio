@@ -7,7 +7,7 @@ class Casestudy extends Component {
 		}
 	}
 	componentDidMount() {
-		console.log(this.props.match);
+		document.querySelector("nav").classList.add("loading");
 		this.props.getData(
 			"projects", 
 			`&slug=${this.state.slug}`, 
@@ -25,13 +25,14 @@ class Casestudy extends Component {
 	}
 	render() {
 		if(this.state.data){ 
-			return (<div>
+			document.querySelector("nav").classList.remove("loading");
+			return <div>
 				{this.state.data.map(p => {
 					return (
 						<article key={p.id} id={p.slug}>
 							<section className="text">
 								<div className="column">
-									<h3>{p.body.text.title}</h3>
+									<h3 dangerouslySetInnerHTML={{__html: p.body.text.title}}></h3>
 									<p>{p.body.text.desc}</p>
 								</div>
 							</section>
@@ -46,10 +47,9 @@ class Casestudy extends Component {
 						</article>
 					)
 				})}
-			</div>)
+			</div>
 		}else{
-			return <h3>Loading...</h3>
-			this.props.modalToggle(true, ()=>{return <h3>loading...</h3>});
+			return ""
 		}
 	}
 } export default Casestudy;
