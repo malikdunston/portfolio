@@ -59,11 +59,11 @@ class App extends Component {
 				<img className="avatar" src={avatar} alt="" />
 				<div className="column">
 					<h3>About</h3>
-					<p>Developer & Designer.</p>
+					<p>Developer/Designer.</p>
 				</div>
 				<div className="column">
 					<h3>Really into</h3>
-					<p>Sim City 4, cooking and <a href="https://open.spotify.com/user/cecildunston?si=4adc78236dec4468">music!</a></p>
+					<p>Sim City 4 and <a href="https://open.spotify.com/user/cecildunston?si=4adc78236dec4468">playlists!</a></p>
 				</div>
 			</div>
 		};

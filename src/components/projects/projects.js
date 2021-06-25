@@ -30,9 +30,8 @@ class Projects extends Component {
 								)
 							})}
 						</div>
-						<Link to={`/work/${project.slug}`} 
-							className="explore">
-							<h2>Explore</h2>
+						<Link to={`/work/${project.slug}`}>
+							<button>View</button>
 						</Link>
 					</div>
 				</div>

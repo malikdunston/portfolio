@@ -5,7 +5,6 @@
 	padding: 0;
 
 	& > *{
-		/* width: 100%; */
 		height: 150px;
 		border: 0;
 		background-size: cover;
@@ -33,41 +32,23 @@
 		}
 
 		.proj-details {
-			opacity: 0;
-			position: absolute;
-			background-color: #000000e7;
-			bottom: 100%;
-			transition: .33s;
-			transition-delay: .67s;
+			position: fixed;
 			overflow: hidden;
-			padding: 1rem 1rem 1.5rem;
+			padding: 1rem;
 			width: 100%;
-			transition: .333s;
-
+			bottom: -100vh;
+			transition: .5s bottom;
+			background: $black90;
+			a{
+				border: 0px;
+				button{
+					margin-top: .5rem;
+				}
+			}
 			.proj-tagline {
 				margin-bottom: 1rem;
 				max-width: calc(70vw - 2rem);
 				margin-left: auto;
-			}
-
-			a,
-			button {
-				h2 {
-					margin: 0;
-				}
-
-				text-transform: uppercase;
-				bottom: 2rem;
-				right: 2rem;
-				background-color: white;
-				color: black !important;
-				height: 1.5rem;
-				margin-top: 1rem;
-				border-radius: 1.5rem;
-				line-height: 1.5rem;
-				display: inline-block;
-				padding-left: 1rem;
-				padding-right: 1rem;
 			}
 		}
 
@@ -82,9 +63,6 @@
 			object-fit: cover;
 			left: 0;
 		}
-
-		// Effects
-		// mouseenter, mouseleave
 		&.proj-hover {
 			height: 300px !important;
 
@@ -93,7 +71,6 @@
 				max-height: 90px;
 			}
 		}
-
 		&.proj-bg {
 			.skills {
 				display: block !important;
@@ -108,18 +85,12 @@
 				transform: scale(1);
 			}
 		}
-
-		// click toggle
 		&.clicked {
 			height: 100vh !important;
-
 			.proj-details {
-				opacity: .9;
 				bottom: 0;
-				height: auto;
 			}
 		}
-
 		&.proj-hide {
 			height: 0 !important;
 		}

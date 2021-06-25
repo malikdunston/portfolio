@@ -1,4 +1,6 @@
 #about{
+	width: calc(100vw - 2rem);
+	background: $black;
 	img.avatar{
 		width: 2rem;
 		height: 2rem;
@@ -7,5 +9,11 @@
 	}
 	.column{
 		margin-top: 1rem;
+	}
+	@include breakpoint(smMd){
+		width: 60vw;
+	}
+	@include breakpoint(md){
+		width: 40vw;
 	}
 }

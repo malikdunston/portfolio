@@ -31,7 +31,7 @@
 			section.text {
 				padding-top: 0;
 				left: 0;
-				width: 30vw;
+				width: 33vw;
 				margin-right: auto;
 			}
 			section.content {
@@ -51,6 +51,18 @@
 						}
 					}
 				}
+			}
+		}
+	}
+	@include breakpoint(lg){
+		article {
+			&:first-of-type {
+				section.text {
+					padding-top: 6rem;
+				}
+			}
+			.column {
+				margin: 0 3rem 2rem;
 			}
 		}
 	}

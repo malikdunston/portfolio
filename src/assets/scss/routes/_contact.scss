@@ -92,4 +92,10 @@
 			}
 		}
 	}
+	@include breakpoint (lg) {
+		padding-top: 5rem;
+		form{
+			padding: 0 3rem 3rem;
+		}
+	}
 }
