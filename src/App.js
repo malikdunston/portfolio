@@ -162,10 +162,11 @@ class App extends Component {
 			title: proj.title.rendered,
 			skills: findSkillsTools(proj, "skills"),
 			tools: findSkillsTools(proj, "tools"),
-			year: proj.acf.year,
 			cover: proj.acf.cover,
 			about: proj.acf.about,
-			body: getContentFromChildren(proj)
+			body: getContentFromChildren(proj),
+			url: proj.acf.url,
+			repo: proj.acf.repo
 		};
 		function findSkillsTools(proj, str) {
 			let obj = {},

@@ -1,6 +1,8 @@
 button,
 .button{
+	display: inline-block;
 	height: 2rem;
+	line-height: 2rem;
 	padding: 0 1rem;
 	background: $white10;
 	border: 0;
@@ -9,6 +11,9 @@ button,
 	font-weight: 800;
 	&.inactive{
 		color: $white10;
+	}
+	&:not(:first-of-type){
+		margin-left: .5rem;
 	}
 }
 .lightmode button,

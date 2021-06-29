@@ -34,6 +34,14 @@ class Casestudy extends Component {
 								<div className="column">
 									<h3 dangerouslySetInnerHTML={{__html: p.body.text.title}}></h3>
 									<p>{p.body.text.desc}</p>
+									{p.url
+										? <a className="button" href={p.url} target="_blank" rel="noreferrer">
+											Link
+										</a> : ""}
+									{p.repo
+										? <a className="button" href={p.repo} target="_blank" rel="noreferrer">
+											Repo
+										</a> : ""}
 								</div>
 							</section>
 							<section className="content">

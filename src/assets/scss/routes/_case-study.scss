@@ -11,6 +11,9 @@
 			&:first-child {
 				padding-top: 0;
 			}
+			.button, button{
+				margin-top: .666rem;
+			}
 		}
 		.column {
 			margin: 0 2rem 2rem;
@@ -33,6 +36,9 @@
 				left: 0;
 				width: 33vw;
 				margin-right: auto;
+				.button, button{
+					margin-top: 1.5rem;
+				}
 			}
 			section.content {
 				width: 66.666vw;
