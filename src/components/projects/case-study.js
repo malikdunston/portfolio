@@ -3,15 +3,16 @@ class Casestudy extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			slug: this.props.match.params.projectName,
+			data: null
 		}
 	}
 	componentDidMount() {
 		document.querySelector("nav").classList.add("loading");
 		this.props.getData(
 			"projects", 
-			`&slug=${this.state.slug}`, 
+			`&slug=${this.props.match.params.projectName}`, 
 			(data)=>{
+				console.log(this.props.match.params.projectName);
 				this.setState(
 					{ project: this.props.constructProject(data[0]) }, 
 					()=>{

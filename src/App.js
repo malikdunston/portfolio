@@ -248,7 +248,7 @@ class App extends Component {
 					openAbout={this.openAbout}
 					navPeek={this.navPeek} />
 				<Route
-					path="/work/:projectName"
+					exact path="/work/:projectName"
 					render={(props) => (
 						<div id="casestudy">
 							<Casestudy
