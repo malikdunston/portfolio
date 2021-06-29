@@ -15,7 +15,8 @@ class App extends Component {
 		this.state = {
 			iterator: 0,
 			navData: {
-				tickerA: ["Malik Dunston", "Web + Design"]
+				tickerA: ["Malik Dunston", "Web + Design"],
+				tickerB: ""
 			},
 			allProjects: [],
 			contact: {
@@ -31,29 +32,59 @@ class App extends Component {
 			}
 		}
 		this.getData = this.getData.bind(this);
-		this.constructProject = this.constructProject.bind(this);
-		this.select = this.select.bind(this);
+		this.selectProj = this.selectProj.bind(this);
 		this.modalToggle = this.modalToggle.bind(this);
 		this.navPeek = this.navPeek.bind(this);
 		this.openAbout = this.openAbout.bind(this);
 	};
 	componentDidMount() {
-		this.getData("projects", "&parent=0", (projects) => {
+		this.getData("projects", "", (data) => {
+			// spread and delete the acf property...
+			data = data.map(d => {
+				Object.assign(d, {
+					...d.acf,
+					tools: {
+						web: d.acf.web_tools,
+						design: d.acf.design_tools
+					}
+				});
+				delete d.acf;
+				delete d.web_tools;
+				delete d.design_tools;
+				return d
+			});
+			// group pages by parent...	
+			let pages = data.filter(p => {
+				if (p.parent === 0) {
+					let children = data.filter(c => {
+						if (c.parent === p.id) {
+							var child = c;
+							Object.keys(c.tools).forEach(k => {
+								p.tools[k] = p.tools[k].concat(c.tools[k]);
+								p.tools[k] = [...new Set(p.tools[k])]
+							})
+						}
+						return child
+					});
+					return Object.assign(p, {
+						projects: children
+					})
+				}
+			});
+			console.log(pages);
 			this.setState({
-				allProjects: projects.map((proj) => {
-					return this.constructProject(proj)
-				})
+				allProjects: pages
 			});
 		})
-		setInterval(()=>{
+		setInterval(() => {
 			this.setState(prevState => {
-				return { 
-					iterator: prevState.iterator === (prevState.navData.tickerA.length - 1) ? 0 : prevState.iterator + 1 
+				return {
+					iterator: prevState.iterator === (prevState.navData.tickerA.length - 1) ? 0 : prevState.iterator + 1
 				}
 			});
 		}, 1000)
 	}
-	openAbout(){
+	openAbout() {
 		const aboutHtml = () => {
 			return <div id="about">
 				<img className="avatar" src={avatar} alt="" />
@@ -67,51 +98,59 @@ class App extends Component {
 				</div>
 			</div>
 		};
-		this.modalToggle(true, aboutHtml(), "Contact", ()=>{
+		this.modalToggle(true, aboutHtml(), "Contact", () => {
 			window.location.href = `${process.env.PUBLIC_URL}/contact`;
 		});
 	}
-	navPeek(ev){
-		switch(ev.type){
+	navPeek(ev) {
+		switch (ev.type) {
 			case "click":
-				if(this.state.navData.open){
+				if (this.state.navData.open) {
 					this.setState(prevState => {
-						return {navData: {
-							...prevState.navData,
-							forced: false,
-							replace: false,
-							peeked: false,
-							open: false
-						}}
+						return {
+							navData: {
+								...prevState.navData,
+								forced: false,
+								replace: false,
+								peeked: false,
+								open: false
+							}
+						}
 					})
-				}else {
+				} else {
 					this.setState(prevState => {
-						return {navData: {
-							...prevState.navData,
-							forced: false,
-							replace: false,
-							open: true
-						}}
+						return {
+							navData: {
+								...prevState.navData,
+								forced: false,
+								replace: false,
+								open: true
+							}
+						}
 					})
 				}
 				break;
 			case "mouseenter":
-				if(window.innerWidth >= 1000){
+				if (window.innerWidth >= 1000) {
 					this.setState(prevState => {
-						return {navData: {
-							...prevState.navData,
-							peeked: true
-						}}
+						return {
+							navData: {
+								...prevState.navData,
+								peeked: true
+							}
+						}
 					})
 				}
 				break;
 			case "mouseleave":
-				if(window.innerWidth >= 1000){
+				if (window.innerWidth >= 1000) {
 					this.setState(prevState => {
-						return {navData: {
-							...prevState.navData,
-							peeked: false
-						}}
+						return {
+							navData: {
+								...prevState.navData,
+								peeked: false
+							}
+						}
 					})
 				}
 				break;
@@ -139,12 +178,6 @@ class App extends Component {
 			case "projects":
 				ext = "projects?per_page=100" + params
 				break
-			case "pages":
-				ext = "pages?per_page=100"
-				break
-			case "apps":
-				ext = "apps?per_page=100"
-				break
 			default:
 				break
 		};
@@ -154,87 +187,65 @@ class App extends Component {
 				callback(projects)
 			});
 	};
-	constructProject(proj) {
-		return {
-			id: proj.id,
-			parent: proj.parent,
-			slug: proj.slug,
-			title: proj.title.rendered,
-			skills: findSkillsTools(proj, "skills"),
-			tools: findSkillsTools(proj, "tools"),
-			cover: proj.acf.cover,
-			about: proj.acf.about,
-			body: getContentFromChildren(proj),
-			url: proj.acf.url,
-			repo: proj.acf.repo
-		};
-		function findSkillsTools(proj, str) {
-			let obj = {},
-				fields = Object.keys(proj.acf).filter(k => k.endsWith(str)),
-				types = fields.map(f => f.split("_")[0])
-			fields.forEach((field, i) => {
-				obj[types[i]] = proj.acf[field];
-			})
-			return obj
-		}
-		function getContentFromChildren(proj) {
-			if (proj.parent > 0) {
-				return {
-					text: {
-						title: proj.title.rendered,
-						desc: proj.acf.about
-					},
-					images: findImages(proj)
-				}
-			}
-		}
-		function findImages(proj) {
-			let html = document.createElement("div");
-			html.innerHTML = proj.content.rendered;
-			return [...html.querySelectorAll("figure")].map(fig => {
-				let img = {
-					src: fig.querySelector("img").src,
-				}
-				fig.querySelector("figcaption") ? img.caption = fig.querySelector("figcaption").textContent : img.caption = null
-				return img
-			})
-		}
-	};
-	select = (project) => (ev) => {
+	selectProj = (project) => (ev) => {
 		switch (ev.type) {
 			case "touchstart":
 			case "mouseenter":
 				project.selected = true;
-				this.state.navData.tickerB = project.title;
-				this.state.navData.replace = true;
-				this.state.navData.peeked = true;
+				this.setState(prevState => {
+					return {
+						navData: {
+							...prevState.navData,
+							tickerB: project.title.rendered,
+							peeked: true,
+							replaced: true
+						}
+					}
+				});
 				break;
 			case "touchend":
 			case "mouseleave":
-				if(project.clicked){
-				}else{
+				if (project.clicked) {
+				} else {
 					project.selected = false;
-					this.state.navData.tickerB = project.title;
-					this.state.navData.replace = false;
-					this.state.navData.peeked = false;
+					this.setState(prevState => {
+						return {
+							navData: {
+								...prevState.navData,
+								tickerB: project.title.rendered,
+								peeked: false,
+								replaced: false
+							}
+						}
+					});
 				}
 				break;
 			case "click":
 				if (window.innerWidth >= 1000) {
 					window.location.href = `${process.env.PUBLIC_URL}/work/${project.slug}`
 				} else {
-					this.state.navData.forced = !this.state.navData.forced;
 					project.clicked = !project.clicked;
 					project.selected = (project.clicked ? true : false);
-					this.state.navData.peeked = (project.clicked ? true : false);
-					this.state.navData.replace = (project.clicked ? true : false);
+					this.setState(prevState => {
+						return {
+							navData: {
+								...prevState.navData,
+								tickerB: project.title.rendered,
+								forced: !prevState.navData.forced,
+								peeked: (project.clicked ? true : false),
+								replaced: (project.clicked ? true : false)
+							}
+						}
+					});
 				}
 				break;
 			default:
 				break;
 		}
-		this.setState({
-			currentProj: this.state.allProjects.filter(p => p.selected === true)[0]
+		this.setState(prevState => {
+			return {
+				currentProj: prevState.allProjects.filter(p => p.selected === true)[0]
+			}
 		});
 	}
 	render() {
@@ -254,21 +265,19 @@ class App extends Component {
 							<Casestudy
 								modalToggle={this.modalToggle}
 								{...props}
-								getData={this.getData}
-								constructProject={this.constructProject} />
-							<article>
-								<section className="text">
-									<div className="column">
-										<h3>Browse More Projects</h3>
-									</div>
-								</section>
-								<Projects
-									currentProj={this.state.currentProj}
-									select={this.select}
-									allProjects={this.state.allProjects}
-									getData={this.getData}
-									constructProject={this.constructProject} />
-							</article>
+								getData={this.getData}/>
+								<article>
+									<section className="text">
+										<div className="column">
+											<h3>Browse More Projects</h3>
+										</div>
+									</section>
+									<Projects
+										currentProj={this.state.currentProj}
+										selectProj={this.selectProj}
+										allProjects={this.state.allProjects}
+										getData={this.getData}/>
+								</article>
 						</div>
 					)} />
 				<Route
@@ -289,9 +298,9 @@ class App extends Component {
 							<Projects
 								currentProj={this.state.currentProj}
 								select={this.select}
+								selectProj={this.selectProj}
 								allProjects={this.state.allProjects}
-								getData={this.getData}
-								constructProject={this.constructProject} />
+								getData={this.getData} />
 							<div id="tocontact"
 								className={this.state.currentProj ? "" : "peeked"}>
 								<input type="text"

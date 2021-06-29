@@ -8,22 +8,29 @@ class Casestudy extends Component {
 	}
 	componentDidMount() {
 		document.querySelector("nav").classList.add("loading");
-		this.props.getData(
-			"projects", 
-			`&slug=${this.props.match.params.projectName}`, 
-			(data)=>{
-				console.log(this.props.match.params.projectName);
-				this.setState(
-					{ project: this.props.constructProject(data[0]) }, 
-					()=>{
-						this.props.getData("projects", `&parent=${this.state.project.id}`, (data)=>{
-							this.setState({ data: data.map(p=>this.props.constructProject(p))}, ()=>console.log(this.state))
-						})
-					}
-				)
-			}
-		)
 	}
+	// getContentFromChildren(proj) {
+	// 	if (proj.parent > 0) {
+	// 		return {
+	// 			text: {
+	// 				title: proj.title.rendered,
+	// 				desc: proj.acf.about
+	// 			},
+	// 			images: findImages(proj)
+	// 		}
+	// 	}
+	// }
+	// findImages(proj) {
+	// 	let html = document.createElement("div");
+	// 	html.innerHTML = proj.content.rendered;
+	// 	return [...html.querySelectorAll("figure")].map(fig => {
+	// 		let img = {
+	// 			src: fig.querySelector("img").src,
+	// 		}
+	// 		fig.querySelector("figcaption") ? img.caption = fig.querySelector("figcaption").textContent : img.caption = null
+	// 		return img
+	// 	})
+	// }
 	render() {
 		if(this.state.data){ 
 			document.querySelector("nav").classList.remove("loading");
