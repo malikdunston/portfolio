@@ -100,11 +100,11 @@
 		width: 66.67vw;
 		height: 100vh;
 		& > * {
-			height: 33.333%;
-			width: 33.333%;
+			height: 50%;
+			width: 50%;
 			float: left;
 			.proj-title {
-				height: 33.333vh;
+				height: 50vh;
 			}
 			.proj-details {
 				padding: 2rem;
@@ -119,7 +119,7 @@
 				}
 			}
 			&.proj-hover {
-				height: 33.333% !important;
+				height: 50% !important;
 				.proj-details {
 					bottom: 0rem;
 				}
