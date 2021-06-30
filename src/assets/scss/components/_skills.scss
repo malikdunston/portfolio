@@ -73,6 +73,9 @@
 		border-radius: .667rem;
 		margin-left: .25rem;
 		margin-bottom: .25rem;
+		&:first-child{
+			margin-left: 0;
+		}
 	}
 }
 
@@ -84,4 +87,16 @@ div.skills span{
 	background: transparent!important;
 	border: 2px solid;
 	box-sizing: content-box;
+}
+
+.column{
+	.skills,
+	.tools{
+		margin-top: .75rem;
+	}
+	.skills span,
+	.tools span{
+		margin-left: 0;
+		margin-right: .25rem;
+	}
 }

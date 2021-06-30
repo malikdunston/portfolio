@@ -46,7 +46,12 @@ class App extends Component {
 					tools: {
 						web: d.acf.web_tools,
 						design: d.acf.design_tools
-					}
+					},
+					text: {
+						title: d.title.rendered,
+						desc: d.acf.about
+					},
+					images: this.findImages(d)
 				});
 				delete d.acf;
 				delete d.web_tools;
@@ -83,6 +88,20 @@ class App extends Component {
 				}
 			});
 		}, 1000)
+	}
+	findImages(proj) {
+		let html = document.createElement("div");
+		html.innerHTML = proj.content.rendered;
+		var imgs = []
+		html.querySelectorAll("figure").forEach(fig=>{
+			let imgTag = fig.querySelector("img");
+			let imgCap = fig.querySelector("figcaption");
+			imgs.push({
+				src: imgTag === null ? "" : imgTag.src,
+				caption: imgCap === null ? null : imgCap
+			})
+		})
+		return imgs
 	}
 	openAbout() {
 		const aboutHtml = () => {
@@ -263,8 +282,9 @@ class App extends Component {
 					render={(props) => (
 						<div id="casestudy">
 							<Casestudy
-								modalToggle={this.modalToggle}
 								{...props}
+								data={this.state.allProjects.filter(p=>p.slug === props.match.params.projectName)[0]}
+								modalToggle={this.modalToggle}
 								getData={this.getData}/>
 								<article>
 									<section className="text">

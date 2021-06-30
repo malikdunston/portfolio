@@ -12,7 +12,10 @@
 				padding-top: 0;
 			}
 			.button, button{
-				margin-top: .666rem;
+				margin-top: 1rem;
+				:not(:first-of-type){
+					margin-left: .25rem;
+				}
 			}
 		}
 		.column {
