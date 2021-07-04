@@ -6,23 +6,30 @@ class Casestudy extends Component {
 			loaded: false,
 		}
 	}
-	componentDidMount(){
+	componentDidMount() {
 		document.querySelector("nav").classList.add("loading");
 	}
+	componentDidUpdate(prevProps) {
+		if (
+			this.props.match.params.projectName !== prevProps.match.params.projectName
+		) {
+			window.scrollTo(0, 0);
+		}
+	}
 	render() {
-		if(this.props.data){
+		if (this.props.data) {
 			document.querySelector("nav").classList.remove("loading");
 			return <div>
-				{this.props.data.projects.map(p=>{
+				{this.props.data.projects.map(p => {
 					return <article key={p.id} id={p.slug}>
 						<section className="text">
 							<div className="column">
-								<h3 dangerouslySetInnerHTML={{__html: p.text.title}}></h3>
+								<h3 dangerouslySetInnerHTML={{ __html: p.text.title }}></h3>
 								<p>{p.text.desc}</p>
 								<div className="skills">
-									{Object.keys(p.tools).map(tool=>{
-										return ( <div className={tool} key={tool}>
-											{p.tools[tool].map(s=><span key={s}>{s}</span>)}
+									{Object.keys(p.tools).map(tool => {
+										return (<div className={tool} key={tool}>
+											{p.tools[tool].map(s => <span key={s}>{s}</span>)}
 										</div>)
 									})}
 								</div>
@@ -37,9 +44,9 @@ class Casestudy extends Component {
 							</div>
 						</section>
 						<section className="content">
-							{p.images.map(img=>{
+							{p.images.map(img => {
 								return <div className="figure">
-									<img src={img.src} alt=""/>
+									<img src={img.src} alt="" />
 									{img.caption ? <p>{img.caption}</p> : ""}
 								</div>
 							})}
@@ -47,7 +54,7 @@ class Casestudy extends Component {
 					</article>
 				})}
 			</div>
-		}else{
+		} else {
 			return ""
 		}
 	}
