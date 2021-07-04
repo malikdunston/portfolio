@@ -126,4 +126,17 @@
 			}
 		}
 	}
+
+	@media screen and (max-width: 1000px) and (min-height: 600px){
+		& > *{
+			height: 25vh;
+			.proj-title {
+				height: 25vh;
+			}
+			&.proj-hover {
+				height: 50vh !important;
+			}
+		}
+	}
+
 }
