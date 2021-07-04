@@ -109,11 +109,11 @@ class App extends Component {
 				<img className="avatar" src={avatar} alt="" />
 				<div className="column">
 					<h3>About</h3>
-					<p>Developer/Designer.</p>
+					<p>Designer &amp; Developer.</p>
 				</div>
 				<div className="column">
-					<h3>Really into</h3>
-					<p>Sim City 4 and <a href="https://open.spotify.com/user/cecildunston?si=4adc78236dec4468">playlists!</a></p>
+					<h3>Interests</h3>
+					<p>UI/UX Design, Front-End Development and Graphic Design</p>
 				</div>
 			</div>
 		};
