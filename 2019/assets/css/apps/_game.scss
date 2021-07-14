@@ -1,0 +1,79 @@
+body.game {
+	navigation{
+		background: transparent;
+	}
+	contact-form{
+		display: none;
+	}
+	ui-view{
+		padding: 0;
+	}
+	.top-section{
+		// background: $green;
+		height: 6rem;
+		@include flex(row, space-between);
+		*{
+			@include flex(column, align-center, justify-center);
+		}
+		#resetBtn{
+			margin: auto 0 24px 0;
+		}
+		.score-container {
+			border: 1px solid #fff;
+			padding: 12px;
+			font-size: 1.2em;
+			color: #fff;
+			width: 200px;
+			height: auto;
+			margin: 24px;
+			span {
+				font-size: 2em;
+			}
+			div{
+				margin-bottom: 15px;
+			}
+		}
+		.round-result{
+			#roundResultText {
+				text-align: center;
+				font-size: 1.8em;
+				// margin-top: 2rem;
+				margin: .85rem 0 0 0
+			}
+			#roundResultPlays {
+				font-size: 1.4em;
+			}
+		}
+	}
+	.bottom-section{
+		height: calc(100vh - 7rem);
+	@include breakpoint(md){
+		@include flex(row);
+		height: calc(100vh - 6rem);
+	}
+		.choice{
+			@include flex(column, justify-center, align-center);
+			width: 100%;
+			padding: 1rem;
+		@include breakpoint(md){
+			width: 33.33vw;
+		}
+		&:nth-child(1){
+			background: $green;
+			i{
+				// background:purple;
+			}
+		}
+		&:nth-child(2){
+			background: $cyan;
+		}
+		&:nth-child(3){
+			background: $red;
+		}
+		span{
+			margin-top: .5rem;
+			font-size: .7rem;
+		}
+		}
+	}
+}

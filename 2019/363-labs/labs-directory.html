@@ -1,0 +1,44 @@
+<div ng-repeat="x in labs.allLabs"
+	class="proj {{ x.slug }}"
+	ng-class="{clicked: labs.app.projClicker}"
+	ng-touchstart="labs.onHover(x)"  
+	ng-touchend="labs.offHover()"
+	ng-mouseenter="labs.onHover(x)"  
+	ng-mouseleave="labs.offHover()"
+	ng-click="labs.projClick(x)">
+
+	<h3 class="proj-title">
+		{{x.Title}}
+	</h3>
+
+	<div class='proj-details'>
+		<h2 class='proj-tagline'>{{  x.Title  }}</h2>
+
+		<div class="tools">
+			<div ng-repeat="(key, value) in x.tools track by $index"
+				class="{{key}}">
+				<span ng-repeat="y in value track by $index">
+					{{    y   }}
+				</span>
+			</div>
+		</div>
+		<a 
+			class="explore"
+			ng-if="x.href !== ''" 
+			href="{{x.href}}">
+			<h2>Explore</h2>
+		</a>
+		<a 
+			class="explore"
+			ng-if="x.uisref !== ''" 
+			ui-sref="{{x.uisref}}">
+			<h2>Explore</h2>
+		</a>
+	</div>
+
+	<div
+		class="proj-img"
+		style="background-image: url('{{  x.cover  }}');">
+	</div>
+
+</div>

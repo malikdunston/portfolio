@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="malikdunston" ng-controller="appCtrl as app">
+
+<head>
+	<meta charset="utf-8">
+	<base href="/" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Malik Dunston</title>
+	<link href="assets/fonts/fonts.css" rel="stylesheet" type="text/css" />
+	<link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+	<!-- <script src="assets/modules/ajs_1.7.7.js"></script> -->
+</head>
+
+<body class="{{app.pageClass}} {{app.caseStudyName}}" ng-class="{open: app.navOpen, clicked: app.projClicker}">
+	<!-- <img src="flower.jpg" alt=""> -->
+	<navigation ng-class="{peeked: app.menuPeek}" ng-click="app.navOpen = !app.navOpen"
+		ng-mouseenter="app.menuPeek = true" ng-mouseleave="app.menuPeek = false"> </navigation>
+	<ui-view> </ui-view>
+	<contact-form ng-class="{peeked: app.formPeek == true}" ng-hide="app.pageClass == 'about'"> </contact-form>
+	<projects class="{{whichPage}}" id="projects" ng-class="{clicked: projClicker}"
+		ng-if="app.pageClass == 'home' || app.pageClass == 'casestudy'" ng-mouseenter="app.formPeek = true"
+		ng-mouseleave="app.formPeek = false"> </projects>
+
+	<div id="homepage" ng-class="{welcomeheader: app.welcomeHeader}" ng-if="app.pageClass == 'home'">
+		<h3>Malik Dunston</h3>
+		<p>Web + Design</p>
+		<p>Portvolio v2</p>
+		<p>v3 <a href="https://github.com/malikdunston/portfolio">here</a> 👍🏿</p>
+
+	</div>
+
+
+	<div id="apps" ng-class="{welcomeheader: app.welcomeHeader}" ng-if="app.pageClass == 'apps'">
+		<h3>Web Development</h3>
+	</div>
+
+		<!-- Scripts -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript">
+		</script><!-- Moduls from wip site -->
+		<script src="assets/modules/ngTouch.js"></script>
+		<script src="assets/modules/angular-animate.min.js" type="text/javascript"></script>
+		<!-- Modules from Hendricks -->
+		<script src="assets/modules/ui.router.js" type="text/javascript"></script>
+		<script src="assets/modules/ng-scroll.js" type="text/javascript"></script>
+		<script src="assets/modules/angular-sanitize.min.js" type="text/javascript"></script><!-- App -->
+		<!-- My Modules -->
+		<script type="text/javascript" src="wpdata/wpdata.js"></script><!-- The Site -->
+		<script type="text/javascript" src="/app.js"></script>
+		<script type="text/javascript" src="nav/nav.js"></script>
+		<script type="text/javascript" src="projects/projects.js"></script>
+		<script type="text/javascript" src="casestudy/casestudy.js"></script>
+		<script type="text/javascript" src="home/home.js"></script>
+		<script type="text/javascript" src="about-page/about.js"></script>
+		<script type="text/javascript" src="skills-page/skills.js"></script>
+		<script type="text/javascript" src="contact-page/contact.js"></script>
+		<script type="text/javascript" src="363-labs/labs.js"></script>
+		<script type="text/javascript" src="363-labs/todo/todo.js"></script>
+		<script type="text/javascript" src="363-labs/game/game.js"></script>
+		<script type="text/javascript" src="363-labs/social/social.js"></script>
+</body>
+
+</html>

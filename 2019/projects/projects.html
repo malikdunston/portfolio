@@ -1,0 +1,68 @@
+
+
+<div ng-repeat="x in projects.allProj track by $index" 
+	class="proj {{ x.slug }}"
+	ng-class="{clicked: projects.app.projClicker}"
+	ng-touchstart="projects.onHover(x)"  
+	ng-touchend="projects.offHover()"
+	ng-mouseenter="projects.onHover(x)"  
+	ng-mouseleave="projects.offHover()"
+	ng-click="projects.projClick(x.slug)">
+
+	<h3 class='proj-title'>
+		{{  x.Title  }}
+	</h3>
+
+	<div class='proj-details'>
+		<h2 class='proj-tagline'>{{  x.Title  }}</h2>
+		<div class="skills">
+			<div ng-repeat="(key, value) in x.skills track by $index"
+				class="{{key}}">
+				<span ng-repeat="y in value track by $index">
+					{{    y   }}
+				</span>
+			</div>
+		</div>
+		<a class="explore" ui-sref="casestudy({name: x.slug})"><h2>Explore</h2></a>
+	</div>
+	
+	<div
+		class="proj-img"
+		style="background-image: url('{{  x.cover  }}');">
+	</div>
+
+</div>
+
+
+<!-- APPS -->
+<div class="proj {{ projects.webdev.slug }}"
+	ng-class="{clicked: projects.app.projClicker}"
+	ng-touchstart="projects.onHover(projects.webdev)"  
+	ng-touchend="projects.offHover()"
+	ng-mouseenter="projects.onHover(projects.webdev)"  
+	ng-mouseleave="projects.offHover()"
+	ng-click="projects.projClick(projects.webdev.slug)">
+
+	<h3 class='proj-title'>
+		{{  projects.webdev.Title  }}
+	</h3>
+
+	<div class='proj-details'>
+		<h2 class='proj-tagline'>{{  projects.webdev.Title  }}</h2>
+		<div class="skills">
+			<div ng-repeat="(key, value) in projects.webdev.skills track by $index"
+				class="{{key}}">
+				<span ng-repeat="y in value track by $index">
+					{{    y   }}
+				</span>
+			</div>
+		</div>
+		<a class="explore" ui-sref="apps"><h2>Explore</h2></a>
+	</div>
+	
+	<div
+		class="proj-img"
+		style="background-image: url('{{  projects.webdev.cover  }}');">
+	</div>
+
+</div>

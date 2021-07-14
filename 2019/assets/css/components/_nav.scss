@@ -1,0 +1,96 @@
+navigation{
+	z-index: 1000;
+	display: block;
+	position: fixed!important;
+	top: 1rem;
+	left: 1rem;
+	min-width: 3rem;
+	height: 3rem;
+	width: 3rem;
+	@include flex(row, align-center);
+	padding: 0 1rem;
+	border-radius: 1.5rem;
+	background: $black;
+	transition: width .75s;
+	overflow: hidden;
+@include breakpoint(lg){
+	top: 2rem;
+	left: 2rem;
+}
+	& > *:not(#logo):not(#circle){
+		cursor: pointer;
+	}
+	svg#logo{
+		display: block;
+		position: fixed;;
+		width: 1rem;
+		height: 1rem;
+		z-index: 1000;
+		top: 2rem;
+	@include breakpoint(lg){
+		top: 3rem;
+	}
+		g,
+		path{
+			fill: white!important;
+		}
+	}
+	#ticker{
+		z-index: 1000;
+		// background: $red;
+		margin-left: 2rem;
+		max-width: 3.25rem;
+		// width: auto;
+		transition: .75s;
+	}
+	#circle{
+		z-index: 900;
+		display: block;
+		position: fixed;
+		width: 3rem;
+		height: 3rem;
+		opacity: 0;
+		border-radius: 2000px;
+		transform-origin: 50% 50%;
+		top: 1rem;
+		left: 1rem;
+		background: $black;
+		// transform: scale(1);
+		transition: 1s;
+	}
+&.peeked{
+	width: auto!important;
+}}
+body.open{
+	navigation{
+		overflow: visible;
+		background: transparent;
+		#logo{
+		}
+		#ticker{
+		}
+		#menu{
+			z-index: 1000;
+			position: fixed;
+			left: 2rem;
+			top: 4rem;
+		@include breakpoint(lg){
+			left: 3rem;
+			top: 5rem;
+		}
+			.menu-item{
+				@include flex(column, justify-center); 
+				height: 1.667rem;
+			}
+			a.menu-item{
+				border: 0!important;
+				font-family: "Gotham"!important;
+			}
+		}
+		#circle{
+		}
+	#circle{
+		opacity: .9;
+		transform: scale(60);
+	}}
+}

@@ -1,0 +1,12 @@
+body.apps{
+	ui-view{
+		// padding: 5rem 2rem;
+		@include breakpoint(md){
+			.proj,
+			div.proj-hover{
+				// height: 50vh!important;
+				width: 50%!important;
+			}
+		}
+	}
+}
