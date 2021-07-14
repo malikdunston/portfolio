@@ -76,7 +76,7 @@ class App extends Component {
 					})
 				}
 			});
-			console.log(pages);
+			pages = pages.filter(p=>p.id !== 705);
 			this.setState({
 				allProjects: pages
 			});
