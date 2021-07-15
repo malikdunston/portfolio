@@ -3,6 +3,7 @@
 	padding-top: 5rem;
 	article {
 		padding-top: 2rem;
+		margin: 0!important;
 		&:nth-child(1) {
 			padding-top: 0;
 		}
@@ -18,8 +19,39 @@
 				}
 			}
 		}
+		section:empty{
+			display: none;
+		}
+		section.text:last-of-type .column:last-of-type{
+			padding-bottom: 0;
+		}
+		#projects{
+			padding-top: 4em;
+		}
 		.column {
-			margin: 0 2rem 2rem;
+			padding: 0 2rem 2rem;
+			h3{
+				margin-top: 0;
+			}
+			h3:only-child{
+				margin: 0;
+			}
+			p:last-child{
+				margin-bottom: 0;
+			}
+			img{
+				width: 100%;
+				height: 6rem;
+				object-fit: cover;
+			}
+		}
+	}
+	ul{
+		li{
+			list-style: disc!important;
+			margin-left: .5rem;
+			padding-left: .05rem;
+			font-weight: 100;
 		}
 	}
 	@include breakpoint(md) {
@@ -34,6 +66,12 @@
 					padding-top: 5rem;
 				}
 			}
+			.column{
+				img{
+					height: 12rem;
+					margin-bottom: 1rem;
+				}
+			}
 			section.text {
 				padding-top: 0;
 				left: 0;
@@ -42,21 +80,43 @@
 				.button, button{
 					margin-top: 1.5rem;
 				}
+				&.flex{
+					// background: red;
+					width: 100%;
+					padding-top: 4rem;
+					> div{
+						@include flex(row);
+						.column.float-3{
+							width: 33%;
+						}
+						.column.float-2{
+							width: 50%;
+							padding-bottom: 6rem;
+							&:first-child{padding-right: 1.5rem;}
+							&:last-child{padding-left: 1.5rem;}
+						}
+					}
+					&+.text.flex{
+						padding-top: 2rem;
+						background: purple;
+					}
+				}
 			}
 			section.content {
 				width: 66.666vw;
 			}
-		}
-		#projects {
-			margin-left: auto;
-			.proj-details {
-				left: 0;
-				text-align: left;
-				.skills {
-					div {
-						span {
-							margin-left: 0;
-							margin-right: .25rem;
+			#projects {
+				padding-top: 0;
+				margin-left: auto;
+				.proj-details {
+					left: 0;
+					text-align: left;
+					.skills {
+						div {
+							span {
+								margin-left: 0;
+								margin-right: .25rem;
+							}
 						}
 					}
 				}
@@ -71,7 +131,7 @@
 				}
 			}
 			.column {
-				margin: 0 3rem 2rem;
+				padding: 0 3rem 2rem;
 			}
 		}
 	}
