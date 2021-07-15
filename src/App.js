@@ -39,7 +39,6 @@ class App extends Component {
 	};
 	componentDidMount() {
 		this.getData("projects", "", (data) => {
-			// spread and delete the acf property...
 			data = data.map(d => {
 				Object.assign(d, {
 					...d.acf,
@@ -58,7 +57,6 @@ class App extends Component {
 				delete d.design_tools;
 				return d
 			});
-			// group pages by parent...	
 			let pages = data.filter(p => {
 				if (p.parent === 0) {
 					let children = data.filter(c => {
@@ -68,7 +66,7 @@ class App extends Component {
 								p.tools[k] = p.tools[k].concat(c.tools[k]);
 								p.tools[k] = [...new Set(p.tools[k])]
 							})
-						}
+						} 
 						return child
 					});
 					return Object.assign(p, {
@@ -76,7 +74,7 @@ class App extends Component {
 					})
 				}
 			});
-			pages = pages.filter(p=>p.id !== 705);
+			// pages = pages.filter(p=>p.id !== 705);
 			this.setState({
 				allProjects: pages
 			});
@@ -295,7 +293,7 @@ class App extends Component {
 									<Projects
 										currentProj={this.state.currentProj}
 										selectProj={this.selectProj}
-										allProjects={this.state.allProjects}
+										allProjects={this.state.allProjects.filter(p=>p.id !== 705)}
 										getData={this.getData}/>
 								</article>
 						</div>
@@ -319,7 +317,7 @@ class App extends Component {
 								currentProj={this.state.currentProj}
 								select={this.select}
 								selectProj={this.selectProj}
-								allProjects={this.state.allProjects}
+								allProjects={this.state.allProjects.filter(p=>p.id !== 705)}
 								getData={this.getData} />
 							<div id="tocontact"
 								className={this.state.currentProj ? "" : "peeked"}>

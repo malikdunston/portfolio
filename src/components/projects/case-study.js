@@ -6,8 +6,20 @@ class Casestudy extends Component {
 			loaded: false,
 		}
 	}
+	// auth(){
+	// 	const authentication = {
+	// 		isLoggedIn: false,
+	// 		onAuth(){
+	// 			this.isLoggedIn: true;
+	// 		},
+	// 		getLoginStatus(){
+	// 			return this.isLoggedIn;
+	// 		}
+	// 	}
+	// }
 	componentDidMount() {
 		document.querySelector("nav").classList.add("loading");
+
 	}
 	componentDidUpdate(prevProps) {
 		if (
