@@ -74,7 +74,6 @@ class App extends Component {
 					})
 				}
 			});
-			// pages = pages.filter(p=>p.id !== 705);
 			this.setState({
 				allProjects: pages
 			});

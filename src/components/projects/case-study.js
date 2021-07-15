@@ -54,6 +54,9 @@ class Casestudy extends Component {
 										Repo
 									</a> : ""}
 							</div>
+							<div dangerouslySetInnerHTML={{ __html: p.html }}>
+
+							</div>
 						</section>
 						<section className="content">
 							{p.images.map(img => {
