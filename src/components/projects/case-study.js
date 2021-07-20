@@ -6,20 +6,20 @@ class Casestudy extends Component {
 			loaded: false,
 		}
 	}
-	// auth(){
-	// 	const authentication = {
-	// 		isLoggedIn: false,
-	// 		onAuth(){
-	// 			this.isLoggedIn: true;
-	// 		},
-	// 		getLoginStatus(){
-	// 			return this.isLoggedIn;
-	// 		}
-	// 	}
-	// }
+
+	componentWillMount(){
+		const password = "a72b-toolbox";
+		if(this.props.match.params.projectName === "toolbox-no9-ux"){
+			let ask = prompt("Password: ");
+			if(ask !== password){
+				alert("Password Incorrect!");
+				window.location.href = "https://www.malikdunston.com/";
+			}
+		}
+	}
+
 	componentDidMount() {
 		document.querySelector("nav").classList.add("loading");
-
 	}
 	componentDidUpdate(prevProps) {
 		if (

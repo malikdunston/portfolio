@@ -1,14 +1,14 @@
 import { Component } from "react";
-import "./assets/webfonts/webfonts.css";
-import "./assets/css/normalize.css";
-import "./assets/css/index.min.css";
-import { Route, Link } from "react-router-dom";
-import Navigation from "./components/navigation.js";
-import Projects from "./components/projects/projects.js";
-import Casestudy from "./components/projects/case-study.js";
-import Contact from "./components/contact/contact.js";
-import Modal from "./components/Modal.js";
-import avatar from "./assets/images/avatar2.jpg";
+	import "./assets/webfonts/webfonts.css";
+	import "./assets/css/normalize.css";
+	import "./assets/css/index.min.css";
+	import { Route, Link } from "react-router-dom";
+	import Navigation from "./components/navigation.js";
+	import Projects from "./components/projects/projects.js";
+	import Casestudy from "./components/projects/case-study.js";
+	import Contact from "./components/contact/contact.js";
+	import Modal from "./components/Modal.js";
+	import avatar from "./assets/images/avatar2.jpg";
 class App extends Component {
 	constructor() {
 		super();
@@ -31,52 +31,56 @@ class App extends Component {
 				action: "close"
 			}
 		}
-		this.getData = this.getData.bind(this);
 		this.selectProj = this.selectProj.bind(this);
 		this.modalToggle = this.modalToggle.bind(this);
 		this.navPeek = this.navPeek.bind(this);
 		this.openAbout = this.openAbout.bind(this);
+		this.organizeProjects = this.organizeProjects.bind(this);
 	};
-	componentDidMount() {
-		this.getData("projects", "", (data) => {
-			data = data.map(d => {
-				Object.assign(d, {
-					...d.acf,
-					tools: {
-						web: d.acf.web_tools,
-						design: d.acf.design_tools
-					},
-					text: {
-						title: d.title.rendered,
-						desc: d.acf.about
-					},
-					images: this.findImages(d)
+	organizeProjects(data){
+		data = data.map(d => {
+			Object.assign(d, {
+				...d.acf,
+				tools: {
+					web: d.acf.web_tools,
+					design: d.acf.design_tools
+				},
+				text: {
+					title: d.title.rendered,
+					desc: d.acf.about
+				},
+				images: this.findImages(d)
+			});
+			delete d.acf;
+			delete d.web_tools;
+			delete d.design_tools;
+			return d
+		});
+		let pages = data.filter(p => {
+			if (p.parent === 0) {
+				let children = data.filter(c => {
+					if (c.parent === p.id) {
+						var child = c;
+						Object.keys(c.tools).forEach(k => {
+							p.tools[k] = p.tools[k].concat(c.tools[k]);
+							p.tools[k] = [...new Set(p.tools[k])]
+						})
+					} 
+					return child
 				});
-				delete d.acf;
-				delete d.web_tools;
-				delete d.design_tools;
-				return d
-			});
-			let pages = data.filter(p => {
-				if (p.parent === 0) {
-					let children = data.filter(c => {
-						if (c.parent === p.id) {
-							var child = c;
-							Object.keys(c.tools).forEach(k => {
-								p.tools[k] = p.tools[k].concat(c.tools[k]);
-								p.tools[k] = [...new Set(p.tools[k])]
-							})
-						} 
-						return child
-					});
-					return Object.assign(p, {
-						projects: children
-					})
-				}
-			});
-			this.setState({
-				allProjects: pages
-			});
+				return Object.assign(p, {
+					projects: children
+				})
+			}
+		});
+		return pages;
+	}
+	async componentDidMount() {
+		let allProjs = await this.getProjects({
+			per_page: "100"
+		});
+		this.setState({
+			allProjects: this.organizeProjects(allProjs)
 		})
 		setInterval(() => {
 			this.setState(prevState => {
@@ -188,21 +192,11 @@ class App extends Component {
 			}
 		})
 	}
-	getData(type, params, callback) {
-		let url = "https://wp.malikdunston.com/wp-json/wp/v2/", ext;
-		switch (type) {
-			case "projects":
-				ext = "projects?per_page=100" + params
-				break
-			default:
-				break
-		};
-		fetch(url + ext)
-			.then(data => data.json())
-			.then(projects => {
-				callback(projects)
-			});
-	};
+	async getProjects(params){
+		let url = new URL("https://wp.malikdunston.com/wp-json/wp/v2/projects");
+		url.search = new URLSearchParams(params).toString();
+		return  await fetch(url).then(resp => resp.json());
+	}
 	selectProj = (project) => (ev) => {
 		switch (ev.type) {
 			case "touchstart":
@@ -292,8 +286,7 @@ class App extends Component {
 									<Projects
 										currentProj={this.state.currentProj}
 										selectProj={this.selectProj}
-										allProjects={this.state.allProjects.filter(p=>p.id !== 705)}
-										getData={this.getData}/>
+										allProjects={this.state.allProjects.filter(p=>p.id !== 705)}/>
 								</article>
 						</div>
 					)} />
@@ -316,8 +309,7 @@ class App extends Component {
 								currentProj={this.state.currentProj}
 								select={this.select}
 								selectProj={this.selectProj}
-								allProjects={this.state.allProjects.filter(p=>p.id !== 705)}
-								getData={this.getData} />
+								allProjects={this.state.allProjects.filter(p=>p.id !== 705)}/>
 							<div id="tocontact"
 								className={this.state.currentProj ? "" : "peeked"}>
 								<input type="text"
