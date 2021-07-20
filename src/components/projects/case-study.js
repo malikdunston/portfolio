@@ -6,18 +6,17 @@ class Casestudy extends Component {
 			loaded: false,
 		}
 	}
-
 	componentWillMount(){
-		const password = "a72b-toolbox";
-		if(this.props.match.params.projectName === "toolbox-no9-ux"){
-			let ask = prompt("Password: ");
-			if(ask !== password){
+		const slug = this.props.match.params.projectName;
+		let isHidden = this.props.hiddenProjs.filter(h=>h[0] === slug)[0];
+		if(isHidden){
+			let pw = prompt("Password: ");
+			if(!isHidden[1].includes(pw)){
 				alert("Password Incorrect!");
 				window.location.href = "https://www.malikdunston.com/";
 			}
 		}
 	}
-
 	componentDidMount() {
 		document.querySelector("nav").classList.add("loading");
 	}

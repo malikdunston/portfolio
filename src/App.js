@@ -29,7 +29,11 @@ class App extends Component {
 				content: "hello....",
 				callback: null,
 				action: "close"
-			}
+			},
+			hiddenProjs: [
+				["toolbox-no9-ux", ["a72b-toolbox", "maxxberkowitz", "josephmena"]], 
+				["digital-signage", ["dstest"]]
+			]
 		}
 		this.selectProj = this.selectProj.bind(this);
 		this.modalToggle = this.modalToggle.bind(this);
@@ -49,7 +53,7 @@ class App extends Component {
 					title: d.title.rendered,
 					desc: d.acf.about
 				},
-				images: this.findImages(d)
+				images: findImages(d)
 			});
 			delete d.acf;
 			delete d.web_tools;
@@ -69,11 +73,27 @@ class App extends Component {
 					return child
 				});
 				return Object.assign(p, {
+					hidden: (this.state.hiddenProjs.filter(h=>h[0] === p.slug).length > 0 ? true : false),
 					projects: children
 				})
 			}
 		});
 		return pages;
+		function findImages(proj) {
+			let html = document.createElement("div");
+			html.innerHTML = proj.content.rendered;
+			var imgs = []
+			html.querySelectorAll("figure").forEach(fig=>{
+				let imgTag = fig.querySelector("img");
+				let imgCap = fig.querySelector("figcaption");
+				imgs.push({
+					src: imgTag === null ? "" : imgTag.src,
+					caption: imgCap === null ? null : imgCap
+				})
+			})
+			return imgs
+		}
+
 	}
 	async componentDidMount() {
 		let allProjs = await this.getProjects({
@@ -89,20 +109,6 @@ class App extends Component {
 				}
 			});
 		}, 1000)
-	}
-	findImages(proj) {
-		let html = document.createElement("div");
-		html.innerHTML = proj.content.rendered;
-		var imgs = []
-		html.querySelectorAll("figure").forEach(fig=>{
-			let imgTag = fig.querySelector("img");
-			let imgCap = fig.querySelector("figcaption");
-			imgs.push({
-				src: imgTag === null ? "" : imgTag.src,
-				caption: imgCap === null ? null : imgCap
-			})
-		})
-		return imgs
 	}
 	openAbout() {
 		const aboutHtml = () => {
@@ -275,6 +281,7 @@ class App extends Component {
 							<Casestudy
 								{...props}
 								data={this.state.allProjects.filter(p=>p.slug === props.match.params.projectName)[0]}
+								hiddenProjs={this.state.hiddenProjs}
 								modalToggle={this.modalToggle}
 								getData={this.getData}/>
 								<article>
@@ -286,7 +293,7 @@ class App extends Component {
 									<Projects
 										currentProj={this.state.currentProj}
 										selectProj={this.selectProj}
-										allProjects={this.state.allProjects.filter(p=>p.id !== 705)}/>
+										allProjects={this.state.allProjects.filter(p=>p.hidden === false)}/>
 								</article>
 						</div>
 					)} />
@@ -309,7 +316,7 @@ class App extends Component {
 								currentProj={this.state.currentProj}
 								select={this.select}
 								selectProj={this.selectProj}
-								allProjects={this.state.allProjects.filter(p=>p.id !== 705)}/>
+								allProjects={this.state.allProjects.filter(p=>p.hidden === false)}/>
 							<div id="tocontact"
 								className={this.state.currentProj ? "" : "peeked"}>
 								<input type="text"
