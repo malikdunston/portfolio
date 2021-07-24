@@ -32,8 +32,8 @@ class App extends Component {
 				action: "close"
 			},
 			hiddenProjs: [
-				["toolbox-no9-ux", ["a72b-toolbox", "maxxberkowitz", "josephmena"]], 
-				["digital-signage", ["dstest"]]
+				// ["toolbox-no9-ux", ["a72b-toolbox", "maxxberkowitz", "josephmena"]], 
+				// ["digital-signage", ["dstest"]]
 			]
 		}
 		this.selectProj = this.selectProj.bind(this);
