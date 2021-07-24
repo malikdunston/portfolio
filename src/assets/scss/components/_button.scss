@@ -9,11 +9,15 @@ button,
 	cursor: pointer;
 	border-radius: 100px;
 	font-weight: 800;
+	margin-top: .5rem;
 	&.inactive{
 		color: $white10;
 	}
 	&:not(:first-of-type){
-		margin-left: .5rem;
+		margin-left: .25rem;
+	}
+	@include breakpoint(md){
+		margin-top: 1rem;
 	}
 }
 .lightmode button,

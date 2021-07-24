@@ -7,6 +7,7 @@ import { Component } from "react";
 	import Projects from "./components/projects/projects.js";
 	import Casestudy from "./components/projects/case-study.js";
 	import Contact from "./components/contact/contact.js";
+	import Home from "./components/Home.js";
 	import Modal from "./components/Modal.js";
 	import avatar from "./assets/images/avatar2.jpg";
 class App extends Component {
@@ -93,12 +94,9 @@ class App extends Component {
 			})
 			return imgs
 		}
-
 	}
 	async componentDidMount() {
-		let allProjs = await this.getProjects({
-			per_page: "100"
-		});
+		let allProjs = await this.getProjects();
 		this.setState({
 			allProjects: this.organizeProjects(allProjs)
 		})
@@ -199,6 +197,8 @@ class App extends Component {
 		})
 	}
 	async getProjects(params){
+		params = params || {};
+		params["per_page"] = "100";
 		let url = new URL("https://wp.malikdunston.com/wp-json/wp/v2/projects");
 		url.search = new URLSearchParams(params).toString();
 		return  await fetch(url).then(resp => resp.json());
@@ -304,29 +304,15 @@ class App extends Component {
 							modalToggle={this.modalToggle}
 							firstname={this.state.contact.firstname} />
 					)} />
-				<Route
-					exact path="/"
-					render={() => (
-						<div id="home">
-							<div id="homepage" onClick={this.openAbout}>
-								<h3>Malik Dunston</h3>
-								<p>Web + Design 👍🏿</p>
-							</div>
-							<Projects
-								currentProj={this.state.currentProj}
-								select={this.select}
-								selectProj={this.selectProj}
-								allProjects={this.state.allProjects.filter(p=>p.hidden === false)}/>
-							<div id="tocontact"
-								className={this.state.currentProj ? "" : "peeked"}>
-								<input type="text"
-									placeholder="First Name"
-									onChange={(ev) => { this.setState({ contact: { ...this.state.contact, firstname: ev.target.value } }) }} />
-								<Link to="/contact">
-									<div>Hello!</div>
-								</Link>
-							</div>
-						</div>
+				<Route exact path="/" 
+					render={(props) => (
+						<Home
+							openAbout={this.openAbout}
+							currentProj={this.state.currentProj}
+							modalToggle={this.modalToggle}
+							selectProj={this.selectProj}
+							allProjects={this.state.allProjects}
+							firstname={this.state.contact.firstname} />
 					)} />
 				<Modal
 					toggle={this.modalToggle}

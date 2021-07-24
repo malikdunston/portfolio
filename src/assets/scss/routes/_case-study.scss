@@ -12,12 +12,12 @@
 			&:first-child {
 				padding-top: 0;
 			}
-			.button, button{
-				margin-top: 1rem;
-				:not(:first-of-type){
-					margin-left: .25rem;
-				}
-			}
+			// .button, button{
+			// 	margin-top: 1rem;
+			// 	:not(:first-of-type){
+			// 		margin-left: .25rem;
+			// 	}
+			// }
 		}
 		section:empty{
 			display: none;
@@ -77,9 +77,9 @@
 				left: 0;
 				width: 33vw;
 				margin-right: auto;
-				.button, button{
-					margin-top: 1.5rem;
-				}
+				// .button, button{
+				// 	margin-top: 1.5rem;
+				// }
 				&.flex{
 					// background: red;
 					width: 100%;
