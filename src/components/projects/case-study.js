@@ -1,13 +1,14 @@
 import React, { Component, useParams } from "react";
+	import { withRouter } from "react-router-dom";
 class Casestudy extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			loaded: false,
 		}
+		this.passwordProtect = this.passwordProtect.bind(this);
 	}
-	componentWillMount(){
-		const slug = this.props.match.params.projectName;
+	passwordProtect(slug){
 		let isHidden = this.props.hiddenProjs.filter(h=>h[0] === slug)[0];
 		if(isHidden){
 			let pw = prompt("Password: ");
@@ -17,15 +18,13 @@ class Casestudy extends Component {
 			}
 		}
 	}
+	componentWillMount(){
+		this.passwordProtect(
+			this.props.match.params.projectName
+		);
+	}
 	componentDidMount() {
 		document.querySelector("nav").classList.add("loading");
-	}
-	componentDidUpdate(prevProps) {
-		if (
-			this.props.match.params.projectName !== prevProps.match.params.projectName
-		) {
-			window.scrollTo(0, 0);
-		}
 	}
 	render() {
 		if (this.props.data) {
@@ -44,29 +43,30 @@ class Casestudy extends Component {
 										</div>)
 									})}
 								</div> : ""}
-								
-								{p.url
-									? <a className="button" href={p.url} target="_blank" rel="noreferrer">
+								{p.url ? <a className="button" 
+									href={p.url} 
+									target="_blank" 
+									rel="noreferrer">
 										Link
 									</a> : ""}
-								{p.repo
-									? <a className="button" href={p.repo} target="_blank" rel="noreferrer">
+								{p.repo ? <a className="button" 
+									href={p.repo} 
+									target="_blank" 
+									rel="noreferrer">
 										Repo
 									</a> : ""}
 							</div>
-							<div dangerouslySetInnerHTML={{ __html: p.html }}>
-
-							</div>
+							<div dangerouslySetInnerHTML={{ __html: p.html }}></div>
 						</section>
 						{p.images.length > 0 ? <section className="content">
 							{p.images.map(img => {
-								return <div className="figure">
+								return <div className="figure"
+									key={img.src}>
 									<img src={img.src} alt="" />
 									{img.caption ? <p>{img.caption}</p> : ""}
 								</div>
 							})}
 						</section> : ""}
-						
 					</article>
 				})}
 			</div>
@@ -74,4 +74,4 @@ class Casestudy extends Component {
 			return ""
 		}
 	}
-} export default Casestudy;
+} export default withRouter(Casestudy);

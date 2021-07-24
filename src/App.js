@@ -2,7 +2,7 @@ import { Component } from "react";
 	import "./assets/webfonts/webfonts.css";
 	import "./assets/css/normalize.css";
 	import "./assets/css/index.min.css";
-	import { Route, Link } from "react-router-dom";
+	import { Route, Link, withRouter } from "react-router-dom";
 	import Navigation from "./components/navigation.js";
 	import Projects from "./components/projects/projects.js";
 	import Casestudy from "./components/projects/case-study.js";
@@ -334,4 +334,6 @@ class App extends Component {
 			</div>
 		);
 	};
-}; export default App;
+}; 
+
+export default withRouter(App);
