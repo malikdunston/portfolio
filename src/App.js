@@ -3,6 +3,7 @@ import { Component } from "react";
 	import "./assets/css/normalize.css";
 	import "./assets/css/index.min.css";
 	import { Route, Link, withRouter } from "react-router-dom";
+	import hiddenProjects from "./__info.json";
 	import Navigation from "./components/navigation.js";
 	import Projects from "./components/projects/projects.js";
 	import Casestudy from "./components/projects/case-study.js";
@@ -30,7 +31,7 @@ class App extends Component {
 				content: "hello....",
 				callback: null,
 				action: "close"
-			}
+			},
 		}
 		this.selectProj = this.selectProj.bind(this);
 		this.modalToggle = this.modalToggle.bind(this);
@@ -70,7 +71,7 @@ class App extends Component {
 					return child
 				});
 				return Object.assign(p, {
-					hidden: (window.__site_data_json.filter(h=>h[0] === p.slug).length > 0 ? true : false),
+					hidden: (hiddenProjects.filter(h=>h[0] === p.slug).length > 0 ? true : false),
 					projects: children
 				})
 			}
@@ -92,6 +93,9 @@ class App extends Component {
 		}
 	}
 	async componentDidMount() {
+		// this.setState({
+		// 	hiddenProjects: hiddenProjects
+		// })
 		let allProjs = await this.getProjects();
 		this.setState({
 			allProjects: this.organizeProjects(allProjs)
@@ -277,7 +281,7 @@ class App extends Component {
 							<Casestudy
 								{...props}
 								data={this.state.allProjects.filter(p=>p.slug === props.match.params.projectName)[0]}
-								hiddenProjs={this.state.hiddenProjs}
+								hiddenProjects={hiddenProjects}
 								modalToggle={this.modalToggle}
 								getData={this.getData}/>
 								<article>

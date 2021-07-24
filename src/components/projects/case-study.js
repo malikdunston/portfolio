@@ -6,10 +6,10 @@ class Casestudy extends Component {
 		this.state = {
 			loaded: false,
 		}
-		this.passwordProtect = this.passwordProtect.bind(this);
 	}
-	passwordProtect(slug){
-		let isHidden = this.props.hiddenProjs.filter(h=>h[0] === slug)[0];
+	componentWillMount(){
+		let slug = this.props.match.params.projectName
+		let isHidden = this.props.hiddenProjects.filter(h=>h[0] === slug)[0];
 		if(isHidden){
 			let pw = prompt("Password: ");
 			if(!isHidden[1].includes(pw)){
@@ -17,11 +17,6 @@ class Casestudy extends Component {
 				window.location.href = "https://www.malikdunston.com/";
 			}
 		}
-	}
-	componentWillMount(){
-		this.passwordProtect(
-			this.props.match.params.projectName
-		);
 	}
 	componentDidMount() {
 		document.querySelector("nav").classList.add("loading");
