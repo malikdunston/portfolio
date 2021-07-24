@@ -9,10 +9,10 @@ class Contact extends Component {
 				<p>My name is <a>Malik Dunston</a>, and I'm a Design/Dev hybrid based in Atlanta.</p>
 				<button onClick={this.props.openAbout}>Learn More</button>
 			</div>
-			<Projects
+			{/* <Projects
 				currentProj={this.props.currentProj}
 				selectProj={this.props.selectProj}
-				allProjects={this.props.allProjects.filter(p=>p.hidden === false)}/>
+				allProjects={this.props.allProjects.filter(p=>p.hidden === false)}/> */}
 		</div>
 	};
 }; export default Contact;

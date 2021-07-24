@@ -1,5 +1,5 @@
-import React, { Component, useParams } from "react";
-	import { withRouter } from "react-router-dom";
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 class Casestudy extends Component {
 	constructor(props) {
 		super(props);
@@ -24,7 +24,7 @@ class Casestudy extends Component {
 	render() {
 		if (this.props.data) {
 			document.querySelector("nav").classList.remove("loading");
-			return <div>
+			return <div id="casestudy">
 				{this.props.data.projects.map(p => {
 					return <article key={p.id} id={p.slug}>
 						<section className={"text " + (p.images.length > 0 ? "" : "flex")}>

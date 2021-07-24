@@ -277,43 +277,29 @@ class App extends Component {
 				<Route
 					exact path="/work/:projectName"
 					render={(props) => (
-						<div id="casestudy">
-							<Casestudy
-								{...props}
-								data={this.state.allProjects.filter(p=>p.slug === props.match.params.projectName)[0]}
-								hiddenProjects={hiddenProjects}
-								modalToggle={this.modalToggle}
-								getData={this.getData}/>
-								<article>
-									<section className="text">
-										<div className="column">
-											<h3>Browse More Projects</h3>
-										</div>
-									</section>
-									<Projects
-										currentProj={this.state.currentProj}
-										selectProj={this.selectProj}
-										allProjects={this.state.allProjects.filter(p=>p.hidden === false)}/>
-								</article>
-						</div>
+						<Casestudy
+							{...props}
+							data={this.state.allProjects.filter(p=>p.slug === props.match.params.projectName)[0]}
+							hiddenProjects={hiddenProjects}
+							modalToggle={this.modalToggle}/>
 					)} />
-				<Route
-					exact path="/contact"
+				<Route exact path="/contact"
 					render={() => (
 						<Contact
 							modalToggle={this.modalToggle}
 							firstname={this.state.contact.firstname} />
 					)} />
 				<Route exact path="/" 
-					render={(props) => (
+					render={() => (
 						<Home
 							openAbout={this.openAbout}
-							currentProj={this.state.currentProj}
 							modalToggle={this.modalToggle}
-							selectProj={this.selectProj}
-							allProjects={this.state.allProjects}
 							firstname={this.state.contact.firstname} />
 					)} />
+				<Projects
+					currentProj={this.state.currentProj}
+					selectProj={this.selectProj}
+					allProjects={this.state.allProjects.filter(p=>p.hidden === false)}/>
 				<Modal
 					toggle={this.modalToggle}
 					data={this.state.modalData} />
