@@ -13,15 +13,6 @@ class Contact extends Component {
 				currentProj={this.props.currentProj}
 				selectProj={this.props.selectProj}
 				allProjects={this.props.allProjects.filter(p=>p.hidden === false)}/>
-			<div id="tocontact"
-				className={this.props.currentProj ? "" : "peeked"}>
-				<input type="text"
-					placeholder="First Name"
-					onChange={(ev) => { this.setState({ contact: { ...this.state.contact, firstname: ev.target.value } }) }} />
-				<Link to="/contact">
-					<div>Hello!</div>
-				</Link>
-			</div>
 		</div>
 	};
 }; export default Contact;

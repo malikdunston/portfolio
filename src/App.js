@@ -266,7 +266,7 @@ class App extends Component {
 	}
 	render() {
 		return (
-			<div className={"App"}>
+			<div className={"App " + this.props.location.pathname.split("/")[1]}>
 				<Navigation
 					i={this.state.iterator}
 					data={this.state.navData}
