@@ -7,6 +7,12 @@
 	<meta name="author" content="Malik Dunston" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+	<script>
+		window.__site_data_json = window.__site_data_json || [];
+		fetch("./__info.json")
+			.then(data=>data.json())
+			.then(data=>window.__site_data_json = data);
+	</script>
 </head>
 <body>
 	<noscript>You need to enable JavaScript to run this app.</noscript>

@@ -30,11 +30,7 @@ class App extends Component {
 				content: "hello....",
 				callback: null,
 				action: "close"
-			},
-			hiddenProjs: [
-				// ["toolbox-no9-ux", ["a72b-toolbox", "maxxberkowitz", "josephmena"]], 
-				// ["digital-signage", ["dstest"]]
-			]
+			}
 		}
 		this.selectProj = this.selectProj.bind(this);
 		this.modalToggle = this.modalToggle.bind(this);
@@ -74,7 +70,7 @@ class App extends Component {
 					return child
 				});
 				return Object.assign(p, {
-					hidden: (this.state.hiddenProjs.filter(h=>h[0] === p.slug).length > 0 ? true : false),
+					hidden: (window.__site_data_json.filter(h=>h[0] === p.slug).length > 0 ? true : false),
 					projects: children
 				})
 			}
