@@ -4,10 +4,9 @@ class Casestudy extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			loaded: false,
 		}
 	}
-	componentWillMount(){
+	UNSAFE_componentWillMount(){
 		let slug = this.props.match.params.projectName
 		let isHidden = this.props.hiddenProjects.filter(h=>h[0] === slug)[0];
 		if(isHidden){
@@ -18,31 +17,40 @@ class Casestudy extends Component {
 			}
 		}
 	}
-	componentDidMount() {
+	componentDidMount(props) {
 		document.querySelector("nav").classList.add("loading");
 	}
 	render() {
 		if (this.props.data) {
 			document.querySelector("nav").classList.remove("loading");
+			const renderSkillsTools = ()=>{
+				const skillsTools = this.props.data.tools;
+				return <div className="skills">
+					{Object.keys(skillsTools).map(tool=>{
+						return ( <div className={tool} key={tool}>
+							{skillsTools[tool].map(s=><span key={s}>{s}</span>)}
+						</div>)
+					})}
+				</div>
+
+			}
 			return <div id="casestudy">
-				{this.props.data.projects.map(p => {
+				{this.props.data.projects.map((p, i) => {
 					return <article key={p.id} id={p.slug}>
 						<section className={"text " + (p.images.length > 0 ? "" : "flex")}>
 							<div className="column">
 								<h3 dangerouslySetInnerHTML={{ __html: p.text.title }}></h3>
 								{p.text.desc ? <p>{p.text.desc}</p> : ""}
-								{p.tools.length > 0 ? <div className="skills">
-									{Object.keys(p.tools).map(tool => {
-										return (<div className={tool} key={tool}>
-											{p.tools[tool].map(s => <span key={s}>{s}</span>)}
-										</div>)
-									})}
-								</div> : ""}
+								{(i === 0) ? renderSkillsTools() : ""}
+							</div>
+							<div dangerouslySetInnerHTML={{ __html: p.html }}></div>
+							<div className="btn-group column">
+								{/* {p.url || p.repo ? <h3>Online</h3> : ""} */}
 								{p.url ? <a className="button" 
 									href={p.url} 
 									target="_blank" 
 									rel="noreferrer">
-										Link
+										Live
 									</a> : ""}
 								{p.repo ? <a className="button" 
 									href={p.repo} 
@@ -51,7 +59,6 @@ class Casestudy extends Component {
 										Repo
 									</a> : ""}
 							</div>
-							<div dangerouslySetInnerHTML={{ __html: p.html }}></div>
 						</section>
 						{p.images.length > 0 ? <section className="content">
 							{p.images.map(img => {

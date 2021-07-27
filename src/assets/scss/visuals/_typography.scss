@@ -34,4 +34,23 @@ body{
 		color: $white;
 		border-bottom: 2px dotted $white90;
 	}
+	.column {
+		color: red;
+		padding: 0 2rem 2rem;
+		h3{
+			margin-top: 0;
+		}
+		h3:only-child{
+			margin: 0;
+		}
+		p:last-child{
+			margin-bottom: 0;
+		}
+		img{
+			width: 100%;
+			height: 6rem;
+			object-fit: cover;
+		}
+	}
+
 }

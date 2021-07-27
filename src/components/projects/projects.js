@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 class Projects extends Component {
 	render() {
 		return <div id="projects">
+			<div className="column">
+				<h3>Browse More Projects</h3>
+			</div>
 			{this.props.allProjects.map(project => {
 				return <div key={project.id}
-					className={project.slug 
+					className={"proj " + project.slug 
 						+ (this.props.currentProj === project  ? " proj-hover" : "")
 						+ (project.clicked  ? " clicked" : "")
 						+ ((this.props.currentProj !== project && this.props.currentProj)  ? " proj-bg" : "")
