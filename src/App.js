@@ -2,6 +2,7 @@ import { Component } from "react";
 	import "./assets/webfonts/webfonts.css";
 	import "./assets/css/normalize.css";
 	import "./assets/css/index.min.css";
+	import "./assets/css/index.min.css.map";
 	import { Route, Link, withRouter } from "react-router-dom";
 	import hiddenProjects from "./__info.json";
 	import Navigation from "./components/navigation.js";
@@ -18,13 +19,16 @@ class App extends Component {
 			iterator: 0,
 			navData: {
 				tickerA: ["Malik Dunston", "Web + Design"],
-				tickerB: ""
+				tickerB: "",
+				peeked: false,
+				replaced: false
 			},
 			allProjects: [],
 			contact: {
 				isOpen: true,
 				firstname: ""
 			},
+			projHover: false,
 			modalData: {
 				isOpen: false,
 				persist: false,
@@ -112,13 +116,12 @@ class App extends Component {
 		const aboutHtml = () => {
 			return <div id="about">
 				<img className="avatar" src={avatar} alt="" />
-				<div className="column">
+				<div>
 					<h3>About</h3>
 					<p>Designer &amp; Developer.</p>
-				</div>
-				<div className="column">
-					<h3>Interests</h3>
 					<p>UI/UX Design, Front-End Development and Graphic Design</p>
+					<p>Check me out on <a href="https://open.spotify.com/user/cecildunston?si=2d2e35b88ae34969" target="_blank" rel="noreferrer">Spotify</a> and <a href="https://linkedin.com/in/malikdunston" target="_blank" rel="noreferrer">LinkedIn</a>.
+					</p>
 				</div>
 			</div>
 		};
@@ -210,6 +213,7 @@ class App extends Component {
 				project.selected = true;
 				this.setState(prevState => {
 					return {
+						projHover: true,
 						navData: {
 							...prevState.navData,
 							tickerB: project.title.rendered,
@@ -226,6 +230,7 @@ class App extends Component {
 					project.selected = false;
 					this.setState(prevState => {
 						return {
+							projHover: false,
 							navData: {
 								...prevState.navData,
 								tickerB: project.title.rendered,
@@ -266,7 +271,7 @@ class App extends Component {
 	}
 	render() {
 		return (
-			<div className={"App " + this.props.location.pathname.split("/")[1]}>
+			<div className={"App " + (this.props.location.pathname.split("/")[1] ||"home")}>
 				<Navigation
 					i={this.state.iterator}
 					data={this.state.navData}
@@ -283,16 +288,17 @@ class App extends Component {
 							hiddenProjects={hiddenProjects}
 							modalToggle={this.modalToggle}/>
 					)} />
-				<Route exact path="/contact"
-					render={() => (
-						<Contact
-							modalToggle={this.modalToggle}
-							firstname={this.state.contact.firstname} />
-					)} />
 				<Route exact path="/" 
 					render={() => (
 						<Home
+							projHover={this.state.projHover}
 							openAbout={this.openAbout}
+							modalToggle={this.modalToggle}
+							firstname={this.state.contact.firstname} />
+					)} />
+				<Route exact path="/contact"
+					render={() => (
+						<Contact
 							modalToggle={this.modalToggle}
 							firstname={this.state.contact.firstname} />
 					)} />

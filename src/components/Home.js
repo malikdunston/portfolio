@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-	import { Link } from "react-router-dom";
-	import Projects from "./projects/projects.js";
-class Contact extends Component {
+class Home extends Component {
 	render() {
 		return <div id="home">
-			<div id="homepage" onClick={this.props.openAbout}>
+			<div id="homepage" className={"column " + (this.props.projHover === true ? "hidden" : "")}  onClick={this.props.openAbout}>
 				<h3>Hello!</h3>
-				<p>My name is <a>Malik Dunston</a>, and I'm a Design/Dev hybrid based in Atlanta.</p>
+				<p>My name is <a>Malik Dunston</a>, and I'm a Design/Dev hybrid based in Atlanta, GA.</p>
 				<button onClick={this.props.openAbout}>Learn More</button>
 			</div>
 			{/* <Projects
@@ -15,4 +13,4 @@ class Contact extends Component {
 				allProjects={this.props.allProjects.filter(p=>p.hidden === false)}/> */}
 		</div>
 	};
-}; export default Contact;
+}; export default Home;

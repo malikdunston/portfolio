@@ -1,4 +1,4 @@
-#casestudy {
+.App.work {
 	display: block;
 	padding-top: 5rem;
 	article {
@@ -12,12 +12,6 @@
 			&:first-child {
 				padding-top: 0;
 			}
-			// .button, button{
-			// 	margin-top: 1rem;
-			// 	:not(:first-of-type){
-			// 		margin-left: .25rem;
-			// 	}
-			// }
 		}
 		section:empty{
 			display: none;
@@ -35,6 +29,32 @@
 			margin-left: .5rem;
 			padding-left: .05rem;
 			font-weight: 100;
+		}
+	}
+	#projects {
+		padding-top: 0;
+		width: 100vw;
+		// margin-left: auto;
+		div.column{
+			display: block;
+			padding-top: 5rem;
+			left: 0;
+			top: 3rem;
+		}
+		.proj{
+			text-align: left;
+			.proj-details{
+				left: 0;
+				text-align: left;
+				.skills {
+					div {
+						span {
+							margin-left: 0;
+							margin-right: .25rem;
+						}
+					}
+				}
+			}
 		}
 	}
 	@include breakpoint(md) {
@@ -66,13 +86,13 @@
 				&.flex{
 					// background: red;
 					width: 100%;
-					padding-top: 4rem;
+					// padding-top: 4rem;
 					> div{
 						@include flex(row);
-						.column.float-3{
+						.column.flex-3{
 							width: 33%;
 						}
-						.column.float-2{
+						.column.flex-2{
 							width: 50%;
 							padding-bottom: 6rem;
 							&:first-child{padding-right: 1.5rem;}
@@ -81,28 +101,22 @@
 					}
 					&+.text.flex{
 						padding-top: 2rem;
-						background: purple;
 					}
 				}
 			}
 			section.content {
 				width: 66.666vw;
 			}
-			#projects {
-				padding-top: 0;
-				margin-left: auto;
-				.proj-details {
-					left: 0;
-					text-align: left;
-					.skills {
-						div {
-							span {
-								margin-left: 0;
-								margin-right: .25rem;
-							}
-						}
-					}
-				}
+		}
+		#projects {
+			padding-left: 32vw;
+			padding-right: 0;
+			margin-top: 4rem;
+			div.column{
+				padding-top: 2rem;
+				position: absolute;
+				left: 0;
+				top: 3rem;
 			}
 		}
 	}

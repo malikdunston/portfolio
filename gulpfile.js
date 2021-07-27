@@ -3,6 +3,7 @@
 var browserSync = require("browser-sync").create();
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
 var minifyCSS = require('gulp-clean-css');
 var rename = require('gulp-rename');
 var changed = require('gulp-changed');
@@ -16,15 +17,17 @@ var projFiles = [
 ]
 
 var SCSS_WATCH = './src/assets/scss/**/*.scss';
-var SCSS_SRC = './src/assets/scss/index.scss';
+var SCSS_SRC = './src/assets/scss/**/*.scss';
 var SCSS_DEST = './src/assets/css';
 
 function compile_scss() {
 	return gulp.src(SCSS_SRC)
+		.pipe(sourcemaps.init())
 		.pipe(sass().on('error', sass.logError))
 		.pipe(minifyCSS())
 		.pipe(rename({ suffix: '.min' }))
 		.pipe(changed(SCSS_SRC))
+		.pipe(sourcemaps.write("."))
 		.pipe(gulp.dest(SCSS_DEST));
 };
 function watch_scss() {

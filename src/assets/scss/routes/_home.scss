@@ -1,15 +1,25 @@
-#homepage {
-	position: fixed;
-	width: calc(32vw - 4rem);
-	top: 2rem;
-	left: calc(68vw + 2rem);
-	display: none;
-	cursor: pointer;
-	transition: top .3s;
-	&.welcomeheader {
-		top: -10rem;
+.App.home{
+	position: relative;
+	#homepage{
+		display: none;
+		padding-top: 5rem;
+		position: absolute;
+		transition: top .25s;
+		@include breakpoint(md) {
+			display: block;
+			top: 0;
+			padding-top: 2rem;
+			width: calc(34vw);
+			right: 0;
+			&.hidden{
+				top: -100vh;
+			}
+		}
 	}
-	@include breakpoint(md) {
-		display: block;
+	#projects{
+		z-index: 100;
+		.column{
+			display: none;
+		}
 	}
 }
