@@ -97,9 +97,6 @@ class App extends Component {
 		}
 	}
 	async componentDidMount() {
-		// this.setState({
-		// 	hiddenProjects: hiddenProjects
-		// })
 		let allProjs = await this.getProjects();
 		this.setState({
 			allProjects: this.organizeProjects(allProjs)

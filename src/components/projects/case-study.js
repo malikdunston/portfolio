@@ -9,7 +9,9 @@ class Casestudy extends Component {
 	UNSAFE_componentWillMount(){
 		let slug = this.props.match.params.projectName
 		let isHidden = this.props.hiddenProjects.filter(h=>h[0] === slug)[0];
-		if(isHidden){
+		let isPassword = isHidden[1][0];
+		console.log(isPassword);
+		if(isHidden && isPassword !== "public"){
 			let pw = prompt("Password: ");
 			if(!isHidden[1].includes(pw)){
 				alert("Password Incorrect!");
@@ -45,7 +47,6 @@ class Casestudy extends Component {
 							</div>
 							<div dangerouslySetInnerHTML={{ __html: p.html }}></div>
 							<div className="btn-group column">
-								{/* {p.url || p.repo ? <h3>Online</h3> : ""} */}
 								{p.url ? <a className="button" 
 									href={p.url} 
 									target="_blank" 
@@ -61,6 +62,9 @@ class Casestudy extends Component {
 							</div>
 						</section>
 						{p.images.length > 0 ? <section className="content">
+							<div slider-js={[{img: "3.jpg"}, {img: "3.jpg"}]}>
+
+							</div>
 							{p.images.map(img => {
 								return <div className="figure"
 									key={img.src}>
