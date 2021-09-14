@@ -7,17 +7,17 @@ class Casestudy extends Component {
 		}
 	}
 	UNSAFE_componentWillMount(){
-		let slug = this.props.match.params.projectName
-		let isHidden = this.props.hiddenProjects.filter(h=>h[0] === slug)[0];
-		let isPassword = isHidden[1][0];
-		console.log(isPassword);
-		if(isHidden && isPassword !== "public"){
-			let pw = prompt("Password: ");
-			if(!isHidden[1].includes(pw)){
-				alert("Password Incorrect!");
-				window.location.href = "https://www.malikdunston.com/";
-			}
-		}
+		// let slug = this.props.match.params.projectName
+		// let isHidden = this.props.hiddenProjects.filter(h=>h[0] === slug)[0];
+		// console.log(this.props.hiddenProjects);
+		// let isPassword = isHidden[1][0];
+		// if(isHidden && isPassword !== "public"){
+		// 	let pw = prompt("Password: ");
+		// 	if(!isHidden[1].includes(pw)){
+		// 		alert("Password Incorrect!");
+		// 		window.location.href = "https://www.malikdunston.com/";
+		// 	}
+		// }
 	}
 	componentDidMount(props) {
 		document.querySelector("nav").classList.add("loading");
