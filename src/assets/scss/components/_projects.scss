@@ -102,8 +102,8 @@
 		margin-right: auto;
 		height: 100vh;
 		.proj {
-			height: 33.33%;
-			width: 33.33%;
+			height: 50%;
+			width: 50%;
 			float: left;
 			.proj-title {
 				height: 33.33vh;
@@ -130,6 +130,7 @@
 		}
 	}
 
+	// mobile devices with > 600px height...
 	@media screen and (max-width: 1000px) and (min-height: 600px){
 		.proj{
 			height: 25vh;
@@ -146,8 +147,3 @@
 	}
 
 }
-
-// .App #projects .column{
-// 	display: none;
-// }
-

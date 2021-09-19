@@ -4,11 +4,9 @@ constructor(props){
 	super(props);
 }
 render(){ return (
-	<div id="modal" className={this.props.data.isOpen ? "open" : ""} onClick={(ev)=>{
-		if(!this.props.data.persist && (ev.target.id === "modal")){
-			this.props.toggle(false, "");
-		}
-	}}>
+	<div id="modal" className={this.props.data.isOpen ? "open" : ""} onClick={(ev)=>{ if(!this.props.data.persist && (ev.target.id === "modal")){
+		this.props.toggle(false, "");
+	}}}>
 		<section id="modalContent">
 			{!this.props.data.persist ? <div className="close" onClick={(ev)=>{this.props.toggle(false, "")}}>
 				╳
