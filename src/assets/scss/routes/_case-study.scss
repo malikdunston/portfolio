@@ -33,7 +33,7 @@
 	}
 	#projects {
 		padding-top: 0;
-		width: 100vw;
+		width: 100%;
 		// margin-left: auto;
 		div.column{
 			display: block;
@@ -78,7 +78,7 @@
 			section.text {
 				padding-top: 0;
 				left: 0;
-				width: 32vw;
+				width: 33vw;
 				margin-right: auto;
 				// .button, button{
 				// 	margin-top: 1.5rem;
@@ -109,7 +109,7 @@
 			}
 		}
 		#projects {
-			padding-left: 32vw;
+			padding-left: 33vw;
 			padding-right: 0;
 			// margin-top: 4rem;
 			div.column{
