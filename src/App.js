@@ -1,17 +1,5 @@
 import { Component } from "react";
-	import "./assets/webfonts/webfonts.css";
-	import "./assets/css/normalize.css";
-	import "./assets/css/index.min.css";
-	import "./assets/css/index.min.css.map";
-	import { Route, Link, withRouter } from "react-router-dom";
-	import hiddenProjects from "./__info.json";
-	import Navigation from "./components/navigation.js";
-	import Projects from "./components/projects/projects.js";
-	import Casestudy from "./components/projects/case-study.js";
-	import Contact from "./components/contact/contact.js";
-	import Home from "./components/Home.js";
-	import Modal from "./components/Modal.js";
-	import avatar from "./assets/images/avatar2.jpg";
+import { Route, withRouter } from "react-router-dom";
 class App extends Component {
 	constructor() {
 		super();
@@ -200,7 +188,7 @@ class App extends Component {
 		params = params || {};
 		params["per_page"] = "100";
 		// let url = new URL("https://wp.malikdunston.com/wp-json/wp/v2/projects");
-		let url = new URL("https://wp.malikdunston.com/wp-json/wp/v2/projects");
+		let url = new URL("https://wp.malikdunston.com/wp-json/wp/v2/graphic-design");
 		url.search = new URLSearchParams(params).toString();
 		return  await fetch(url).then(resp => resp.json());
 	}
