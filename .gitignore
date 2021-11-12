@@ -14,7 +14,6 @@
 
 # hidden
 /public
-/src/__info.json
 /src/config.json
 
 # misc
