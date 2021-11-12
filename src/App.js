@@ -199,8 +199,8 @@ class App extends Component {
 	async getProjects(params){
 		params = params || {};
 		params["per_page"] = "100";
+		// let url = new URL("https://wp.malikdunston.com/wp-json/wp/v2/projects");
 		let url = new URL("https://wp.malikdunston.com/wp-json/wp/v2/projects");
-		let url = new URL("https://wp.malikdunston.com/wp-json/wp/v2/graphic-design");
 		url.search = new URLSearchParams(params).toString();
 		return  await fetch(url).then(resp => resp.json());
 	}
