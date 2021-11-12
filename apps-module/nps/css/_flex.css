@@ -1,0 +1,16 @@
+nav .navbar-brand,
+.carousel h1,
+#social li,
+footer
+{
+	display: -webkit-box; 
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex; 
+	display: flex;
+}
+
+nav .d-flex{
+	justify-content: space-between;
+	width: 100%;
+}
