@@ -17,6 +17,6 @@ export default function Controls({move, data, config}) {
 	}}>
 		<BtnSlider move={()=>{move("prev")}} direction={"prev"} />
 		<BtnSlider move={()=>{move("next")}} direction={"next"} />
-		<Select move={move} data={data} config={config}/>
+		{/* <Select move={move} data={data} config={config}/> */}
 	</div>
 }
