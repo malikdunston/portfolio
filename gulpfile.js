@@ -1,5 +1,3 @@
-'use strict';
-
 var browserSync = require("browser-sync").create();
 var gulp = require('gulp');
 var sass = require('gulp-sass');
@@ -18,7 +16,7 @@ var projFiles = [
 
 var SCSS_WATCH = './src/assets/scss/**/*.scss';
 var SCSS_SRC = './src/assets/scss/**/*.scss';
-var SCSS_DEST = './src/assets/css';
+var SCSS_DEST = './public/assets/css';
 
 function compile_scss() {
 	return gulp.src(SCSS_SRC)
