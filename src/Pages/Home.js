@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import getData from "./../Services/getData";
-import { Slider } from '../Components/Requirements';
+// npm install "C:\Users\crdun\Desktop\malik\work\web\simple_slider.git"
+import { Slider } from 'slides-cards';
 import { Link } from 'react-router-dom';
 function Home( props ) {
 	useEffect(() => { props.getProjects() }, []);
