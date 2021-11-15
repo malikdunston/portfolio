@@ -2,10 +2,8 @@
 	height: 300px;
 	.card{
 		padding: 2em 0em 2em 1em;
-		opacity: .5;
+		opacity: .25;
 		transition: 300ms;
-		position: absolute;
-		bottom: 100vh;
 		&.selected{
 			bottom: 0;
 			opacity: 1;
