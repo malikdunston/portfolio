@@ -1,25 +1,54 @@
 .App.home{
-	position: relative;
-	#homepage{
-		display: none;
-		padding-top: 5rem;
+	.slider-js{
 		position: absolute;
-		transition: top .25s;
-		@include breakpoint(md) {
-			display: block;
-			top: 0;
-			padding-top: 2rem;
-			width: calc(34vw);
+		height: 100vh;
+		width: 100vw;
+		.select{
+			bottom: 0;
+			display: flex;
+			flex-direction: column;
 			right: 0;
-			&.hidden{
-				top: -100vh;
+			margin: 1rem;
+			.selection {
+				height: 2rem;
+				width: 2rem;
+				margin-bottom: .5rem;
+				border-radius: .125rem;
+				&:last-of-type{
+					margin-bottom: 0;
+				}
+				&.selected{
+					border: .125rem solid rgba(255, 255, 255, .5);
+					animation-duration: 2s;
+					animation-name: loop;
+					animation-iteration-count: infinite; 
+				}
+				@keyframes loop {
+					from{
+						border: 2px solid rgba(255, 255, 255, .5);
+					}
+					50%{
+						border: 2px solid rgba(255, 255, 255, 1);
+					}
+					to{
+						border: 2px solid rgba(255, 255, 255, .5);
+					}
+				}
+			}
+		}
+		.card{
+			.card-content{
+				z-index: 600;
 			}
 		}
 	}
-	#projects{
-		z-index: 100;
-		.column{
-			display: none;
-		}
+	.shader{
+		z-index: 500;
+		width: 100vw;
+		height: 100vh;
+		position: fixed;
+		transform-origin: center center;
+		background: linear-gradient(0deg, rgba(21, 21, 21, 0.5) 0%, rgba(21, 21, 21, 0) 100%);
+		// background: linear-gradient(0deg, rgba(21, 21, 21, .5) 0%, rgba(21, 21, 21, 0) 100%);
 	}
 }

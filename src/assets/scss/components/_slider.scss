@@ -1,36 +1,38 @@
 .slider-js{
-	height: 100vh;
-	width: 100vw;
 	.card{
-		// padding: 2em 0em 2em 1em;
 		opacity: .25;
 		transition: 300ms;
 		&.selected{
 			bottom: 0;
 			opacity: 1;
 		}
+		img{
+			opacity: .8;
+		}
 	}
 	.select{
 		bottom: 0;
-		background: purple;
 		display: flex;
-		line-height: 1;
-		height: 20px;
+		transform-origin: center center;
 		.selection {
-			width: 20px;
 			overflow: hidden;
+			transition: 100ms;
 			img{
 				width: 100%;
 				height: 100%;
-				transform: scale(5);
-				transition: 200ms;
 			}
 			&.selected{
-				img{
-					transform: scale(1)
-				}
-				background: blue;
+				transform: scale(1.125)
 			}
+		}
+	}
+	.card{
+		.card-content{
+			bottom: 1rem;
+			left: 1rem;
+			width: calc(100% - 4.5rem);
+			position: absolute;
+			color: white;
 		}
 	}
 }

@@ -7,25 +7,19 @@ function Home({ projects, getProjects }) {
 		{card.acf.cover ? <img src={card.acf.cover} 
 			alt={card.title.rendered}
 			style={{ objectFit:"cover", width:"100%", height:"100%", position:"absolute" }} /> : ""}
-		<div className="card-content" style={{
-			bottom:"0",
-			width:"100%",
-			position:"absolute",
-			background: "rgba(0, 0, 0, .5)",
-			color: "white"
-		}}>
+		<div className="shader"></div>
+		<div className="card-content">
 			<h1 dangerouslySetInnerHTML={{__html: card.title.rendered}}></h1>
-			<Link to={"/work/"+card.slug} className={"button"}> View </Link>
+			<p>A multi-faceted project connecting citizens with our National Parks.</p>
+			<Link to={"/work/"+card.slug}> EXPLORE </Link>
 		</div>
 	</div>
+	const breadcrumbs = proj => <img src={proj.acf.cover} alt="" />
 	return <div>
-		{/* {projects ? <Slider cards={projects.filter(p => p.parent === 0)}
-			cardData={template}
-			controls={true}
-			cardSize={66.66}/> : ""} */}
 		<Slider cards={projects}
+			axis={"Y"}
 			template={template}
-			controls={true}
+			breadcrumbs={breadcrumbs}
 			size={100}/>
 	</div>
 } 

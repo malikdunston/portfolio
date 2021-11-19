@@ -6,7 +6,7 @@ import Home from "./Pages/Home";
 function App( props ) {
 	const [ projects, setProjects ] = useState([]);
 	const getProjects = async () => {
-		let allProjs = await props.getData("graphic-design");
+		let allProjs = await props.getData("projects");
 		let parentProjs = allProjs.filter(proj => proj.parent === 0);
 		allProjs = parentProjs.map(proj => {
 			if(proj.parent === 0){
@@ -18,7 +18,7 @@ function App( props ) {
 		setProjects( allProjs );
 	}
 	return <div className={"App " + (props.location.pathname.split("/")[1] || "home")}>
-		{/* <Navigation /> */}
+		<Navigation />
 		<Route exact path="/" render={ props => <Home { ...props } 
 			getProjects={getProjects} 
 			projects={projects} />}/>
