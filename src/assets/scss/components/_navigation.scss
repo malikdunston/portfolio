@@ -20,7 +20,6 @@ nav {
 		path {
 			fill: $white;
 			transition: fill .66s;
-			opacity: .8;
 		}
 		&.modal{
 			path{
@@ -29,20 +28,6 @@ nav {
 		}
 	}
 	div[class^="ticker"],
-	.loading-prompt {
-		position: absolute;
-		height: 3rem;
-		max-width: 600px;
-		background: $black;
-		padding: 1rem 1rem 1rem 3rem;
-		border-radius: 500px;
-		overflow-y: hidden;
-		box-sizing: border-box;
-		line-height: .5rem;
-		display: flex;
-		align-items: center;
-		display: none;
-	}
 	#circle{
 		position: fixed;
 		transform-origin: center center;
@@ -54,10 +39,6 @@ nav {
 		border-radius: .125rem;
 		transition: transform .66s, background-color 1s;
 		background: $black;
-		&.modal{
-			transform: scale(100);
-			background: $black90;
-		}
 	}
 	ul{
 		display: none;
@@ -65,52 +46,22 @@ nav {
 		top: 4rem;
 		left: 2rem;
 	}
-	&.forced [class^="ticker"],
-	&.peeked [class^="ticker"]{
-		display: flex;
-	}
-	&:not(.replace) .ticker-b{
-		display: none;
-	}
-	&.replace .ticker-a{
-		display: none;
-	}
-	&.replace.peeked .ticker-b{
-		display: flex;
-	}
 	&.open{
 		& #circle{
 			transform: scale(100);
 			background: $black90;
-		}
-		& .ticker-a{
-			display: flex;
-			background: transparent;
 		}
 		ul{
 			display: flex;
 			flex-direction: column;
 		}
 	}
-	&.loading{
-		& #circle{
-			transform: scale(100);
-			background: $black90;
-		}
-		.loading-prompt{
-			display: flex;
-		}
-	}
-	@include breakpoint(lg){
+	@include breakpoint(md){
 		top: 2rem;
 		left: 2rem;
 		#circle{
-			left: 2rem;
 			top: 2rem;
-		}
-		ul{
-			top: 5rem;
-			left: 3rem;
+			left: 2rem;
 		}
 	}
 }

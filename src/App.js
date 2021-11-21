@@ -4,8 +4,10 @@ import getData from "./Services/getData";
 import Navigation from "./Components/Navigation";
 import Home from "./Pages/Home";
 import validateProjects from "./Services/validateProjects";
+import getBreakpoints from "./Services/getBreakpoints";
 function App( props ) {
 	const [ projects, setProjects ] = useState([]);
+	const [ breakpoint, setBreakpoint ] = useState({});
 	const getProjects = async () => {
 		let data = await props.getData("projects");
 		setProjects( validateProjects( data.filter(proj => proj.parent === 0).map(proj => {	
@@ -15,10 +17,15 @@ function App( props ) {
 			}
 		}) ) );
 	}
-	return <div className={"App " + (props.location.pathname.split("/")[1] || "home")}>
+	useEffect(() => {
+		setBreakpoint( getBreakpoints( window ) );
+		window.addEventListener("resize", e => { setBreakpoint( getBreakpoints( e.target ) ) })
+	}, [])
+	return <div className={"App " + (props.location.pathname.split("/")[1] || "home") + " " + (breakpoint.name + "-" + breakpoint.size) }>
 		<Navigation />
 		<Route exact path="/" render={ props => <Home { ...props } 
 			getProjects={getProjects}
+			breakpoint={breakpoint}
 			projects={projects} />}/>
 	</div>
 }

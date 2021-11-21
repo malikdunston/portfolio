@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Slider } from 'malikdunston-slider'
-function Home({ projects, getProjects }) {
-	useEffect(() => { getProjects() }, []);
+function Home({ projects, getProjects, breakpoint }) {
+	const [direction, setDirection] = useState(null);
 	const template = card => <div style={{width: "100%", height: "100%"}}>
 		{card.acf.cover ? <img src={card.acf.cover} 
 			alt={card.title.rendered}
@@ -15,9 +15,10 @@ function Home({ projects, getProjects }) {
 		</div>
 	</div>
 	const breadcrumbs = proj => <img src={proj.acf.cover} alt="" />
+	useEffect(() => { getProjects() }, []);
 	return <div>
 		<Slider cards={projects}
-			axis={"Y"}
+			axis={"X"}
 			template={template}
 			breadcrumbs={breadcrumbs}
 			size={100}/>

@@ -1,12 +1,10 @@
 @mixin breakpoint($screenMinWidth) {
-// mobile & tab
+// mobile
 	@if $screenMinWidth == xs {
-		@media (max-width:400px) { @content; }
-	}	// 320, 360
-	@if $screenMinWidth == sm {
-		@media (min-width:400px) { @content; }
-	}	// 414
-	@if $screenMinWidth == smMd{
+		@media (max-width:600px) { @content; }
+	}	// 320, 360, 414
+// tab/devices...
+	@if $screenMinWidth == sm{
 		@media (min-width:600px) { @content; }
 	}	// 768
 // desktop
