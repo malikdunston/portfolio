@@ -18,7 +18,7 @@ function App( props ) {
 	return <div className={"App " + (props.location.pathname.split("/")[1] || "home")}>
 		<Navigation />
 		<Route exact path="/" render={ props => <Home { ...props } 
-			getProjects={getProjects} 
+			getProjects={getProjects}
 			projects={projects} />}/>
 	</div>
 }

@@ -1,7 +1,10 @@
+import Config from './config.json'
 const validateProjects = projects => {
 	let valid = [];
 	projects.forEach(proj => {
-		if (Object.keys(projects).includes(proj.slug)){
+		console.log(Object.keys(Config));
+		console.log(proj.slug);
+		if (!Object.keys(Config).includes(proj.slug)){
 			valid.push(proj)
 		}
 	})
