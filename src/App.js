@@ -83,7 +83,7 @@ class App extends Component {
 		return pages;
 		function findImages(proj) {
 			let html = document.createElement("div");
-			html.innerHTML = proj.content.rendered;
+			html.innerHTML = proj.content ? proj.content.rendered : "";
 			var imgs = []
 			html.querySelectorAll("figure").forEach(fig=>{
 				let imgTag = fig.querySelector("img");
@@ -98,16 +98,17 @@ class App extends Component {
 	}
 	async componentDidMount() {
 		let allProjs = await this.getProjects();
+		console.log(allProjs);
 		this.setState({
 			allProjects: this.organizeProjects(allProjs)
 		})
-		setInterval(() => {
-			this.setState(prevState => {
-				return {
-					iterator: prevState.iterator === (prevState.navData.tickerA.length - 1) ? 0 : prevState.iterator + 1
-				}
-			});
-		}, 1000)
+		// setInterval(() => {
+		// 	this.setState(prevState => {
+		// 		return {
+		// 			iterator: prevState.iterator === (prevState.navData.tickerA.length - 1) ? 0 : prevState.iterator + 1
+		// 		}
+		// 	});
+		// }, 1000)
 	}
 	openAbout() {
 		const aboutHtml = () => {
@@ -199,7 +200,8 @@ class App extends Component {
 	async getProjects(params){
 		params = params || {};
 		params["per_page"] = "100";
-		let url = new URL("https://wp.malikdunston.com/wp-json/wp/v2/graphic-design");
+		let url = new URL("https://wp.malikdunston.com/wp-json/wp/v2/projects");
+		// let url = new URL("https://wp.malikdunston.com/wp-json/wp/v2/graphic-design");
 		url.search = new URLSearchParams(params).toString();
 		return  await fetch(url).then(resp => resp.json());
 	}
@@ -286,13 +288,11 @@ class App extends Component {
 							modalToggle={this.modalToggle}/>
 					)} />
 				<Route exact path="/" 
-					render={() => (
-						<Home
+					render={() => <Home
 							projHover={this.state.projHover}
 							openAbout={this.openAbout}
 							modalToggle={this.modalToggle}
-							firstname={this.state.contact.firstname} />
-					)} />
+							firstname={this.state.contact.firstname} />} />
 				<Route exact path="/contact"
 					render={() => (
 						<Contact
