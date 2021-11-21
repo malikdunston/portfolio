@@ -4,7 +4,6 @@ import { Component } from "react";
 	import "./assets/css/index.min.css";
 	import "./assets/css/index.min.css.map";
 	import { Route, Link, withRouter } from "react-router-dom";
-	import hiddenProjects from "./__info.json";
 	import Navigation from "./components/navigation.js";
 	import Projects from "./components/projects/projects.js";
 	import Casestudy from "./components/projects/case-study.js";
@@ -12,6 +11,7 @@ import { Component } from "react";
 	import Home from "./components/Home.js";
 	import Modal from "./components/Modal.js";
 	import avatar from "./assets/images/avatar2.jpg";
+	import validateProjects from './Services/validateProjects'
 class App extends Component {
 	constructor() {
 		super();
@@ -48,12 +48,12 @@ class App extends Component {
 			Object.assign(d, {
 				...d.acf,
 				tools: {
-					web: d.acf.web_tools,
-					design: d.acf.design_tools
+					web: d.acf ? d.acf.web_tools : "",
+					design: d.acf ? d.acf.design_tools : ""
 				},
 				text: {
-					title: d.title.rendered,
-					desc: d.acf.about
+					title: d.title ? d.title.rendered : "",
+					desc: d.acf ? d.acf.about : ""
 				},
 				images: findImages(d)
 			});
@@ -74,13 +74,14 @@ class App extends Component {
 					} 
 					return child
 				});
-				return Object.assign(p, {
-					hidden: (hiddenProjects.filter(h=>h[0] === p.slug).length > 0 ? true : false),
-					projects: children
-				})
+				return p
+				// return Object.assign(p, {
+				// 	hidden: (hiddenProjects.filter(h=>h[0] === p.slug).length > 0 ? true : false),
+				// 	projects: children
+				// })
 			}
 		});
-		return pages;
+		return validateProjects(pages);
 		function findImages(proj) {
 			let html = document.createElement("div");
 			html.innerHTML = proj.content ? proj.content.rendered : "";
@@ -98,7 +99,6 @@ class App extends Component {
 	}
 	async componentDidMount() {
 		let allProjs = await this.getProjects();
-		console.log(allProjs);
 		this.setState({
 			allProjects: this.organizeProjects(allProjs)
 		})
@@ -284,15 +284,14 @@ class App extends Component {
 						<Casestudy
 							{...props}
 							data={this.state.allProjects.filter(p=>p.slug === props.match.params.projectName)[0]}
-							hiddenProjects={hiddenProjects}
 							modalToggle={this.modalToggle}/>
 					)} />
 				<Route exact path="/" 
 					render={() => <Home
-							projHover={this.state.projHover}
-							openAbout={this.openAbout}
-							modalToggle={this.modalToggle}
-							firstname={this.state.contact.firstname} />} />
+						projHover={this.state.projHover}
+						openAbout={this.openAbout}
+						modalToggle={this.modalToggle}
+						firstname={this.state.contact.firstname} />} />
 				<Route exact path="/contact"
 					render={() => (
 						<Contact
@@ -302,7 +301,7 @@ class App extends Component {
 				<Projects
 					currentProj={this.state.currentProj}
 					selectProj={this.selectProj}
-					allProjects={this.state.allProjects.filter(p=>p.hidden === false)}/>
+					allProjects={this.state.allProjects}/>
 				<Modal
 					toggle={this.modalToggle}
 					data={this.state.modalData} />

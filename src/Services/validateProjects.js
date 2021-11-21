@@ -1,10 +1,11 @@
-import Config from "./../config";
+import Config from './config.json'
 const validateProjects = projects => {
-	let arr = [];
+	let valid = [];
 	projects.forEach(proj => {
-		let match = Config.filter(c => c.slug === proj.slug);
-		if(match.length === 0) { arr.push(proj) }
+		if (!Object.keys(Config).includes(proj.slug)){
+			valid.push(proj)
+		}
 	})
-	return arr;
+	return valid
 }
-export default validateProjects;
+export default validateProjects
