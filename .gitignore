@@ -15,6 +15,7 @@
 # hidden
 /public
 /src/config.json
+/src/Services/validateProjects.js
 
 # misc
 .DS_Store

@@ -3,19 +3,17 @@ import { Route, Link, withRouter } from "react-router-dom";
 import getData from "./Services/getData";
 import Navigation from "./Components/Navigation";
 import Home from "./Pages/Home";
+import validateProjects from "./Services/validateProjects";
 function App( props ) {
 	const [ projects, setProjects ] = useState([]);
 	const getProjects = async () => {
-		let allProjs = await props.getData("projects");
-		let parentProjs = allProjs.filter(proj => proj.parent === 0);
-		allProjs = parentProjs.map(proj => {
-			if(proj.parent === 0){
-				proj.projChildren = allProjs.filter(p => p.parent === proj.id);
-				console.log("projchildren", proj.projChildren);
-				return proj;
+		let data = await props.getData("projects");
+		setProjects( validateProjects( data.filter(proj => proj.parent === 0).map(proj => {	
+			return {
+				...proj,
+				projChildren: projects.filter(p => p.parent === proj.id)
 			}
-		})
-		setProjects( allProjs );
+		}) ) );
 	}
 	return <div className={"App " + (props.location.pathname.split("/")[1] || "home")}>
 		<Navigation />

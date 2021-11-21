@@ -1,4 +1,5 @@
-.slider-js{
+.slider{
+	overflow: hidden;
 	.card{
 		opacity: .25;
 		transition: 300ms;
@@ -6,33 +7,14 @@
 			bottom: 0;
 			opacity: 1;
 		}
-		img{
-			opacity: .8;
-		}
 	}
 	.select{
-		bottom: 0;
-		display: flex;
-		transform-origin: center center;
 		.selection {
 			overflow: hidden;
-			transition: 100ms;
 			img{
 				width: 100%;
 				height: 100%;
 			}
-			&.selected{
-				transform: scale(1.125)
-			}
-		}
-	}
-	.card{
-		.card-content{
-			bottom: 1rem;
-			left: 1rem;
-			width: calc(100% - 4.5rem);
-			position: absolute;
-			color: white;
 		}
 	}
 }
