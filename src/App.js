@@ -14,7 +14,9 @@ function App( props ) {
 		setProjects( validateProjects( data.filter(proj => proj.parent === 0).map(proj => {	
 			return {
 				...proj,
-				projChildren: projects.filter(p => p.parent === proj.id)
+				projChildren: data.filter(p => {
+					return p.parent === proj.id
+				})
 			}
 		}) ) );
 	}

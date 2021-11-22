@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Slider } from 'malikdunston-slider'
 function Home({ projects, getProjects, breakpoint }) {
-	const [direction, setDirection] = useState(null);
 	const template = card => <div style={{width: "100%", height: "100%"}}>
 		{card.acf.cover ? <img src={card.acf.cover} 
 			alt={card.title.rendered}
