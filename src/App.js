@@ -3,6 +3,7 @@ import { Route, Link, withRouter } from "react-router-dom";
 import getData from "./Services/getData";
 import Navigation from "./Components/Navigation";
 import Home from "./Pages/Home";
+import CaseStudy from "./Pages/CaseStudy";
 import validateProjects from "./Services/validateProjects";
 import getBreakpoints from "./Services/getBreakpoints";
 function App( props ) {
@@ -26,6 +27,8 @@ function App( props ) {
 		<Route exact path="/" render={ props => <Home { ...props } 
 			getProjects={getProjects}
 			breakpoint={breakpoint}
+			projects={projects} />}/>
+		<Route exact path="/work/:projSlug" render={ props => <CaseStudy { ...props } 
 			projects={projects} />}/>
 	</div>
 }

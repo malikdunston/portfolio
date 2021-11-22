@@ -5,38 +5,44 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		.select{
-			bottom: 0;
-			right: 0;
-			display: flex;
-			flex-direction: column;
-			transform-origin: center center;
-			margin: 1rem;
-			transition: 100ms;
-			.selection {
-				height: 2rem;
-				width: 2rem;
-				margin-bottom: .5rem;
-				border-radius: .125rem;
-				&:last-of-type{
-					margin-bottom: 0;
-				}
-				&.selected{
-					transform: scale(1.125);
-					border: .125rem solid rgba(255, 255, 255, .5);
-					animation-duration: 2s;
-					animation-name: loop;
-					animation-iteration-count: infinite; 
-				}
-				@keyframes loop {
-					from{
-						border: 2px solid rgba(255, 255, 255, .5);
+		.slider-controls{
+			position: unset!important;
+			width: unset!important;
+			height: unset!important;
+			.select{
+				z-index: 600;
+				bottom: 0;
+				right: 0;
+				display: flex;
+				flex-direction: column;
+				transform-origin: center center;
+				margin: 1rem;
+				transition: 100ms;
+				.selection {
+					height: 2rem;
+					width: 2rem;
+					margin-bottom: .5rem;
+					border-radius: .125rem;
+					&:last-of-type{
+						margin-bottom: 0;
 					}
-					50%{
-						border: 2px solid rgba(255, 255, 255, 1);
+					&.selected{
+						transform: scale(1.125);
+						border: .125rem solid rgba(255, 255, 255, .5);
+						animation-duration: 2s;
+						animation-name: loop;
+						animation-iteration-count: infinite; 
 					}
-					to{
-						border: 2px solid rgba(255, 255, 255, .5);
+					@keyframes loop {
+						from{
+							border: 2px solid rgba(255, 255, 255, .5);
+						}
+						50%{
+							border: 2px solid rgba(255, 255, 255, 1);
+						}
+						to{
+							border: 2px solid rgba(255, 255, 255, .5);
+						}
 					}
 				}
 			}
