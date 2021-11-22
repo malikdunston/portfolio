@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
-// import { Link } from 'react-router-dom';
-// import { Slider } from 'malikdunston-slider'
-function CaseStudy({ projects, match }) {
-	const [ caseStudy, setCaseStudy ] = useState({});
-	useEffect(() => { 
-		setCaseStudy(projects.filter(proj => {
-			return proj.slug === match.params.projSlug;
-		})[ 0 ])
+function CaseStudy({ getProjects, match }) {
+	const [ projects, setProjects ] = useState([]);
+	useEffect(async () => { 
+
+		let thisProj = await getProjects(match.params.projSlug)[ 0 ];
+
+		// let thisProj = projects.filter(proj => proj.slug === match.params.projSlug)[ 0 ]
+		// let thisProj = projects;
+		console.log(thisProj);
+		setProjects(thisProj)
 	}, []);
 	return <div>
-		{caseStudy.projChildren.map(proj => <div>
+		{/* {caseStudy.projChildren.map(proj => <div>
 			{proj.title.rendered}
-		</div>)}
+		</div>)} */}
 	</div>
 } 
 export default CaseStudy;

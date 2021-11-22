@@ -9,8 +9,8 @@ import getBreakpoints from "./Services/getBreakpoints";
 function App( props ) {
 	const [ projects, setProjects ] = useState([]);
 	const [ breakpoint, setBreakpoint ] = useState({});
-	const getProjects = async () => {
-		let data = await props.getData("projects");
+	const getProjects = async slug => {
+		let data = await props.getData("projects", {slug: slug ? slug : ""});
 		setProjects( validateProjects( data.filter(proj => proj.parent === 0).map(proj => {	
 			return {
 				...proj,
@@ -31,7 +31,7 @@ function App( props ) {
 			breakpoint={breakpoint}
 			projects={projects} />}/>
 		<Route exact path="/work/:projSlug" render={ props => <CaseStudy { ...props } 
-			projects={projects} />}/>
+			getProjects={getProjects} />}/>
 	</div>
 }
 export default withRouter( getData( App ) );
