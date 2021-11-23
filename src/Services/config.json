@@ -1,4 +1,12 @@
 {
-	"ux-study": ["a72b-toolbox", "maxxberkowitz", "josephmena"],
-	"digital-signage": ["dstest"]
+	"exclude": {
+		"ux-study": [
+			"a72b-toolbox",
+			"maxxberkowitz",
+			"josephmena"
+		],
+		"digital-signage": [
+			"dstest"
+		]
+	}
 }
