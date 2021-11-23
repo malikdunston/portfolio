@@ -10,11 +10,11 @@ function App( props ) {
 	const [ projects, setProjects ] = useState([]);
 	const [ thisProject, setThisProject ] = useState(null);
 	const [ breakpoint, setBreakpoint ] = useState({});
-	const getProjects = async params => {
+	const getProjects = async () => {
 		let data = await props.getData("projects");
 		setProjects( validate( data ) );
 	}
-	const selectProject = (params) => {
+	const selectProject = params => {
 		let thisProject = projects.filter(proj => proj.slug === params.slug)[0];
 		setThisProject( thisProject );
 	}
@@ -26,13 +26,11 @@ function App( props ) {
 	return <div className={"App " + (props.location.pathname.split("/")[1] || "home") + " " + (breakpoint.name + "-" + breakpoint.size) }>
 		<Navigation />
 		<Route exact path="/" render={ props => <Home { ...props } 
-			getProjects={getProjects}
 			breakpoint={breakpoint}
 			projects={projects} />}/>
 		<Route exact path="/work/:projSlug" render={ props => <CaseStudy { ...props } 
 			projects={projects}
 			thisProject={thisProject}
-			getProjects={getProjects}
 			selectProject={selectProject} />}/>
 	</div>
 }
