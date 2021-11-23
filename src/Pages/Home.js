@@ -14,7 +14,7 @@ function Home({ projects, getProjects, breakpoint }) {
 		</div>
 	</div>
 	const breadcrumbs = proj => <img src={proj.acf.cover} alt="" />
-	useEffect(() => { getProjects() }, []);
+	// useEffect(() => {  }, []);
 	return <div>
 		<Slider cards={projects}
 			axis={"X"}

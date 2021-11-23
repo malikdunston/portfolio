@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Slider } from 'malikdunston-slider';
-function CaseStudy({ projects, getProjects, match }) {
-	useEffect(() => { getProjects({ slug: match.params.projSlug }) }, []);
-	const sections = projects[0].projChildren;
+function CaseStudy({ projects, thisProject, getProjects, match, selectProject}) {
+	useEffect(() => { 
+		selectProject({
+			slug: match.params.projSlug
+		})
+	}, [ projects ]);
 	return <div>
-		{sections.map(section => <div>
-			{section.title.rendered}
-		</div>)}
+		{projects ? projects.map(proj => proj.slug) : ""} <br/>
+		{thisProject ? thisProject.title.rendered : ""}
 	</div>
 } 
 export default CaseStudy;

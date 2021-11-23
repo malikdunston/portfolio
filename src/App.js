@@ -8,13 +8,18 @@ import validate from "./Services/wordpress";
 import getBreakpoints from "./Services/getBreakpoints";
 function App( props ) {
 	const [ projects, setProjects ] = useState([]);
-	const [ thisProject, setThisProject ] = useState([]);
+	const [ thisProject, setThisProject ] = useState(null);
 	const [ breakpoint, setBreakpoint ] = useState({});
 	const getProjects = async params => {
-		let allProjects = await props.getData("projects", params ? params : "");
-		setProjects( validate( allProjects ) );
+		let data = await props.getData("projects");
+		setProjects( validate( data ) );
+	}
+	const selectProject = (params) => {
+		let thisProject = projects.filter(proj => proj.slug === params.slug)[0];
+		setThisProject( thisProject );
 	}
 	useEffect(() => {
+		getProjects();
 		setBreakpoint( getBreakpoints( window ) );
 		window.addEventListener("resize", e => { setBreakpoint( getBreakpoints( e.target ) ) })
 	}, [])
@@ -25,10 +30,10 @@ function App( props ) {
 			breakpoint={breakpoint}
 			projects={projects} />}/>
 		<Route exact path="/work/:projSlug" render={ props => <CaseStudy { ...props } 
-			getProjects={getProjects}
 			projects={projects}
 			thisProject={thisProject}
-			setThisProject={setThisProject}/>}/>
+			getProjects={getProjects}
+			selectProject={selectProject} />}/>
 	</div>
 }
 export default withRouter( getData( App ) );
