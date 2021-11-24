@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Route, withRouter } from "react-router-dom";
 import getData from "./Services/getData";
-import Navigation from "./Components/Navigation";
+import { organizePosts } from "./Services/wordpress";
+import getBreakpoints from "./Services/getBreakpoints";
 import Home from "./Pages/Home";
 import CaseStudy from "./Pages/CaseStudy";
-import validate from "./Services/wordpress";
-import getBreakpoints from "./Services/getBreakpoints";
+import Navigation from "./Components/Navigation";
 function App( props ) {
 	const [ projects, setProjects ] = useState([]);
+	const [ hiddenProjs, setHiddenProjs ] = useState([]);
 	const [ thisProject, setThisProject ] = useState(null);
 	const [ breakpoint, setBreakpoint ] = useState({});
 	const getProjects = async () => {
 		let data = await props.getData("projects");
-		setProjects( validate( data ) );
+		setProjects( organizePosts( data ) );
 	}
 	const selectProject = params => {
 		let thisProject = projects.filter(proj => proj.slug === params.slug)[0];
@@ -27,7 +28,7 @@ function App( props ) {
 		<Navigation />
 		<Route exact path="/" render={ props => <Home { ...props } 
 			breakpoint={breakpoint}
-			projects={projects} />}/>
+			projects={projects.filter(proj => !proj.hidden)} />}/>
 		<Route exact path="/work/:projSlug" render={ props => <CaseStudy { ...props } 
 			projects={projects}
 			thisProject={thisProject}
