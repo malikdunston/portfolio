@@ -2,20 +2,18 @@
 
 ## scss <- rxjs <- wp api 
 	
-	-	better SEO
-	-	cleaner files and code
-	-	faster
-	-	new components:
-		-	slideshow
-		-	modal
+	-	consistent SEO
+	-	simpler execution
+	-	more performant
 
 ## Credits, Tools, & Dependencies
 
 	-	npm -> malikdunston-slider (homepage)
+	-	normalize.css
+	-	WordPress API
+	-	reactjs, npm, node, create-react-app
 	-	Dev Ed: React Router Tut: https://www.youtube.com/watch?v=Law7wfdg_ls
 	-	from SimpleTut https://www.youtube.com/watch?v=nusgoj74a3Y
-	-	normalize.css
-	-	reactjs, npm, node, create-react-app
 
 ## Journal
 
