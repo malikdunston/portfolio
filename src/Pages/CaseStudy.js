@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { organizeContent } from "./../Services/wordpress";
 function CaseStudy({ projects, thisProject, match, selectProject}) {
+	const [ media, setMedia ] = useState([]);
 	useEffect(() => { 
 		selectProject({
 			slug: match.params.projSlug
@@ -13,10 +14,24 @@ function CaseStudy({ projects, thisProject, match, selectProject}) {
 			<h1 dangerouslySetInnerHTML={{ __html: thisProject.title.rendered }}></h1>
 		</header>
 		{thisProject.projChildren.map((p, i) => <article>
-			<section className={"text " + organizeContent( p.content.rendered ).length > 0 ? "" : "flex"}>
+			<section className={"text " + p.acf.html}>
 				<div className="column">
 					<h3 dangerouslySetInnerHTML={{ __html: p.title.rendered }}></h3>
-					<p>Some content goes here......</p>
+					<div dangerouslySetInnerHTML={{ __html: p.acf.html }}></div>
+					<div className="btn-group column">
+						{p.url ? <a className="button" 
+							href={p.url} 
+							target="_blank" 
+							rel="noreferrer">
+								Live
+							</a> : ""}
+						{p.repo ? <a className="button" 
+							href={p.repo} 
+							target="_blank" 
+							rel="noreferrer">
+								Repo
+							</a> : ""}
+					</div>
 				</div>
 			</section>
 			<section className="content">

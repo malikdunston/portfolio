@@ -75,16 +75,18 @@
 			}
 		}
 	}
-	@include breakpoint(md){
+	@media only screen and (min-width: 1000px){
 		.slider{
-			.select{
-				margin: 2rem;
-				flex-direction: row;
-				left: 0;
-				.selection{
-					width: 5rem;
-					height: 3rem;
-					margin: 0 .5rem 0 0;
+			.slider-controls{
+				.select{
+					margin: 2rem;
+					flex-direction: row;
+					left: 0;
+					.selection{
+						width: 5rem;
+						height: 3rem;
+						margin: 0 .5rem 0 0;
+					}
 				}
 			}
 			.card{

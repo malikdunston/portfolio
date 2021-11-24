@@ -22,4 +22,45 @@
 			margin: 0;
 		}
 	}
+	article{
+		section.content{
+			padding: 0 1.5rem 3rem;
+		}
+	}
+	@include breakpoint(md){
+		header{
+			h1{
+				left: 2.5rem;
+			}
+		}
+		article:first-of-type{
+			img{
+				transform: translateY(-30vh);
+			}
+		}
+		article{
+			display: flex;
+			section.text{
+				flex: 33.33;
+				.column{
+					padding: 0 0 2.5rem 2.5rem;
+				}
+			}
+			section.content{
+				flex: 66.66;
+				padding: 0 2.5rem 5rem 1.5rem;
+			}
+			&:nth-of-type(even){
+				flex-direction: row-reverse;
+				section.text{
+					.column{
+						padding: 0 2.5rem 1.5rem 0;
+					}
+				}
+				section.content{
+					padding: 0 1.5rem 5rem 2.5rem;
+				}
+			}
+		}
+	}
 }
