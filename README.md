@@ -1,6 +1,6 @@
 # portfolio
 
-## rjs, wp api backend
+## scss <- rxjs <- wp api 
 	
 	-	better SEO
 	-	cleaner files and code
@@ -9,7 +9,8 @@
 		-	slideshow
 		-	modal
 
-## Credits/Tools
+## Credits, Tools, & Dependencies
+
 	-	npm -> malikdunston-slider (homepage)
 	-	Dev Ed: React Router Tut: https://www.youtube.com/watch?v=Law7wfdg_ls
 	-	from SimpleTut https://www.youtube.com/watch?v=nusgoj74a3Y
