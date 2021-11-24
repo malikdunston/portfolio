@@ -1,0 +1,25 @@
+.case-study{
+	header{
+		height: 50vh;
+		overflow: hidden;
+		position: relative;
+		margin-bottom: 2rem;
+		img{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+		}
+		.shader{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			background: linear-gradient(360deg, rgba(22, 22, 22, 1) 0%, rgba(21, 21, 21, .2) 100%);
+		}
+		h1{
+			position: absolute;
+			bottom: 1rem;
+			left: 1.5rem;
+			margin: 0;
+		}
+	}
+}
