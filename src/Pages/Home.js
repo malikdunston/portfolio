@@ -9,7 +9,7 @@ function Home({ projects, getProjects, breakpoint }) {
 		<div className="shader"></div>
 		<div className="card-content">
 			<h1 dangerouslySetInnerHTML={{__html: card.title.rendered}}></h1>
-			<p>A multi-faceted project connecting citizens with our National Parks.</p>
+			<p>{card.acf.about}</p>
 			<Link to={"/work/"+card.slug} className="explore"> EXPLORE </Link>
 		</div>
 	</div>

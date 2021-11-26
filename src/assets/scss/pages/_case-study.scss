@@ -23,44 +23,77 @@
 		}
 	}
 	article{
-		section.content{
-			padding: 0 1.5rem 3rem;
-		}
-	}
-	@include breakpoint(md){
-		header{
-			h1{
-				left: 2.5rem;
+		padding: 0 1.5rem 3rem;
+		section.text{
+			.project-section-title{
+				margin-bottom: 1.5rem;
 			}
-		}
-		article:first-of-type{
 			img{
-				transform: translateY(-30vh);
+				width: 100% !important;
+				height: 6rem!important;
+			}
+			&:only-child{
+				padding: 0!important;
+			}
+			.float,
+			.float-2,
+			.float-3{
+				margin-bottom: 1rem;
 			}
 		}
-		article{
-			display: flex;
+		section.content{
+			margin-top: 1rem;
+		}
+	}
+@include breakpoint(md){
+	header{
+		h1{
+			left: 2.5rem;
+		}
+	}
+	article:first-of-type{
+		img{
+			transform: translateY(-30vh);
+		}
+		padding-bottom: 0rem;
+	}
+	article{
+		display: flex;
+		padding: 0 2.5rem 2.5rem;
+		section.text{
+			flex: 33.33;
+			padding: 0 2.5rem 0 0;
+			img{
+				width: 100% !important;
+				height: 6rem!important;
+			}
+			.float,
+			.float-2,
+			.float-3{
+				float: left;
+				&:last-of-type{
+					margin-right: 0;
+				}
+			}
+			.float-2{
+				width: calc(50% - .5rem);
+				margin-right: 1rem;
+			}
+			.float-3{
+				width: calc(33% - 1rem);
+				margin-right: 1rem;
+			}
+		}
+		section.content{
+			flex: 66.66;
+			margin: 0;
+		}
+		&:nth-of-type(even){
+			flex-direction: row-reverse;
 			section.text{
-				flex: 33.33;
-				.column{
-					padding: 0 0 2.5rem 2.5rem;
-				}
-			}
-			section.content{
-				flex: 66.66;
-				padding: 0 2.5rem 5rem 1.5rem;
-			}
-			&:nth-of-type(even){
-				flex-direction: row-reverse;
-				section.text{
-					.column{
-						padding: 0 2.5rem 1.5rem 0;
-					}
-				}
-				section.content{
-					padding: 0 1.5rem 5rem 2.5rem;
-				}
+				padding: 0 0 0 2.5rem;
 			}
 		}
 	}
+}
 }
