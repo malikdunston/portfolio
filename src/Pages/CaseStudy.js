@@ -41,7 +41,7 @@ function CaseStudy({ projects, currentProject, nextProject, match, selectProject
 			<img src={nextProject.acf.cover} alt={nextProject.title.rendered} />
 			<div className="shader"></div>
 			<h3>Next up:</h3>
-			<a href={"https://signage.malikdunston.com/work/" + nextProject.slug}>
+			<a href={"https://www.malikdunston.com/work/" + nextProject.slug}>
 				<img src={nextProject.acf.cover} alt={nextProject.title.rendered} />
 				<h1>
 					{nextProject.title.rendered}
