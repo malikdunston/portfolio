@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { organizeContent } from "./../Services/wordpress";
-function CaseStudy({ projects, thisProject, match, selectProject}) {
-	const [ media, setMedia ] = useState([]);
+function CaseStudy({ projects, currentProject, nextProject, match, selectProject}) {
 	useEffect(() => { 
-		selectProject({
-			slug: match.params.projSlug
-		})
+		selectProject({ slug: match.params.projSlug });
 	}, [ projects ]);
-	return thisProject ? <div className={"case-study " + thisProject.slug}>
-		<header>
-			<img src={thisProject.acf.cover} alt={thisProject.title.rendered} />
+	return currentProject ? <div className={"case-study " + currentProject.slug}>
+		{/* <header>
+			<img src={currentProject.acf.cover} alt={currentProject.title.rendered} />
 			<div className="shader"></div>
-			<h1 dangerouslySetInnerHTML={{ __html: thisProject.title.rendered }}></h1>
+			<h1 dangerouslySetInnerHTML={{ __html: currentProject.title.rendered }}></h1>
 		</header>
-		{thisProject.projChildren.map((p, i) => <article className={p.slug}>
+		{currentProject.projChildren.map((p, i) => <article className={p.slug}>
 			<section className={"text"}>
 				<h3 className="project-section-title" dangerouslySetInnerHTML={{ __html: p.title.rendered }}></h3>
 				<div dangerouslySetInnerHTML={{ __html: p.acf.html }}></div>
@@ -38,9 +35,19 @@ function CaseStudy({ projects, thisProject, match, selectProject}) {
 					{img.caption ? <p>{img.caption}</p> : ""}
 				</div>)}
 			</section> : ""}
-		</article>)}
+		</article>)} */}
 
-		
+		<div className="next-project">
+			<img src={nextProject.acf.cover} alt={nextProject.title.rendered} />
+			<div className="shader"></div>
+			<h3>Next up:</h3>
+			<a href={"https://signage.malikdunston.com/work/" + nextProject.slug}>
+				<img src={nextProject.acf.cover} alt={nextProject.title.rendered} />
+				<h1>
+					{nextProject.title.rendered}
+				</h1>
+			</a>
+		</div>
 
 	</div> : ""
 } 

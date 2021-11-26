@@ -8,16 +8,28 @@ import CaseStudy from "./Pages/CaseStudy";
 import Navigation from "./Components/Navigation";
 function App( props ) {
 	const [ projects, setProjects ] = useState([]);
-	const [ hiddenProjs, setHiddenProjs ] = useState([]);
-	const [ thisProject, setThisProject ] = useState(null);
+	const [ currentProject, setCurrentProject ] = useState(null);
+	const [ nextProject, setNextProject ] = useState(null);
 	const [ breakpoint, setBreakpoint ] = useState({});
 	const getProjects = async () => {
 		let data = await props.getData("projects");
 		setProjects( organizePosts( data ) );
 	}
+	const selectNextProject = currentProject => {
+		if(currentProject){
+			let nextIndex;
+			currentProject.order >= projects.filter(proj => !proj.hidden).length - 1 ? nextIndex = 0 : nextIndex = currentProject.order + 1;
+			setNextProject( 
+				projects.filter(p => p.order === nextIndex)[0]
+			);
+		}
+	}
 	const selectProject = params => {
-		let thisProject = projects.filter(proj => proj.slug === params.slug)[0];
-		setThisProject( thisProject );
+		setCurrentProject( oldCurrentProject => {
+			let currentProject = projects.filter(proj => proj.slug === params.slug)[0];
+			selectNextProject(currentProject);
+			return currentProject
+		} );
 	}
 	useEffect(() => {
 		getProjects();
@@ -31,7 +43,8 @@ function App( props ) {
 			projects={projects.filter(proj => !proj.hidden)} />}/>
 		<Route exact path="/work/:projSlug" render={ props => <CaseStudy { ...props } 
 			projects={projects}
-			thisProject={thisProject}
+			nextProject={nextProject}
+			currentProject={currentProject}
 			selectProject={selectProject} />}/>
 	</div>
 }

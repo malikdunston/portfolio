@@ -31,3 +31,9 @@ body.lightmode{
 		color: $black;
 	}
 }
+.shader{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: linear-gradient(360deg, rgba(22, 22, 22, 1) 0%, rgba(21, 21, 21, .2) 100%);
+}

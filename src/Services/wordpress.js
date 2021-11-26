@@ -1,5 +1,13 @@
 import Config from './config.json'
 const organizePosts = posts => {
+	function orderPosts(posts){
+		return posts.map((p, i) => {
+			return {
+				...p,
+				order: i
+			}
+		})
+	}
 	function handleHeirarchies(posts){
 		return posts.filter(post => post.parent === 0).map(post => {	
 			return {
@@ -10,12 +18,12 @@ const organizePosts = posts => {
 			}
 		})
 	}
-	return handleHeirarchies( posts.map(post => {
+	return orderPosts(handleHeirarchies( posts.map(post => {
 		return {
 			...post,
 			hidden: Object.keys(Config.exclude).includes(post.slug) ? true : false
 		}
-	}) )
+	}) ))
 }
 const organizeContent = content => {
 	let html = document.createElement("div");
@@ -29,7 +37,6 @@ const organizeContent = content => {
 			caption: imgCap === null ? null : imgCap
 		})
 	})
-	console.log(imgs);
 	return imgs
 }
 export { organizePosts, organizeContent }

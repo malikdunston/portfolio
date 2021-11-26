@@ -9,12 +9,6 @@
 			height: 100%;
 			position: absolute;
 		}
-		.shader{
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			background: linear-gradient(360deg, rgba(22, 22, 22, 1) 0%, rgba(21, 21, 21, .2) 100%);
-		}
 		h1{
 			position: absolute;
 			bottom: 1rem;
@@ -43,6 +37,31 @@
 		}
 		section.content{
 			margin-top: 1rem;
+		}
+	}
+	.next-project{
+		height: 10rem;
+		overflow: hidden;
+		position: relative;
+		& > img{
+			width: 100%;
+			position: absolute;
+			opacity: .5;
+			transform-origin: center center;
+		}
+		a, h3{
+			margin: 1.5rem;
+			display: block;
+			overflow: hidden;
+			z-index: 800;
+		}
+		a{
+			height: 5rem;
+			h1{
+				position: absolute;
+				bottom: .5rem;
+				left: .5rem;
+			}
 		}
 	}
 @include breakpoint(md){
