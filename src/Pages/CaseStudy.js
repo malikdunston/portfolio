@@ -5,7 +5,7 @@ function CaseStudy({ projects, currentProject, nextProject, match, selectProject
 		selectProject({ slug: match.params.projSlug });
 	}, [ projects ]);
 	return currentProject ? <div className={"case-study " + currentProject.slug}>
-		{/* <header>
+		<header>
 			<img src={currentProject.acf.cover} alt={currentProject.title.rendered} />
 			<div className="shader"></div>
 			<h1 dangerouslySetInnerHTML={{ __html: currentProject.title.rendered }}></h1>
@@ -35,7 +35,7 @@ function CaseStudy({ projects, currentProject, nextProject, match, selectProject
 					{img.caption ? <p>{img.caption}</p> : ""}
 				</div>)}
 			</section> : ""}
-		</article>)} */}
+		</article>)}
 
 		<div className="next-project">
 			<img src={nextProject.acf.cover} alt={nextProject.title.rendered} />
