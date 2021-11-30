@@ -8,12 +8,17 @@ import CaseStudy from "./Pages/CaseStudy";
 import Navigation from "./Components/Navigation";
 function App( props ) {
 	const [ projects, setProjects ] = useState([]);
+	const [ about, setAbout ] = useState([]);
 	const [ currentProject, setCurrentProject ] = useState(null);
 	const [ nextProject, setNextProject ] = useState(null);
 	const [ breakpoint, setBreakpoint ] = useState({});
 	const getProjects = async () => {
 		let data = await props.getData("projects");
 		setProjects( organizePosts( data ) );
+	}
+	const getAbout = async () => {
+		let data = await props.getData("pages", {slug: "about"});
+		setAbout( data );
 	}
 	const selectNextProject = currentProject => {
 		if(currentProject){
@@ -32,6 +37,7 @@ function App( props ) {
 		} );
 	}
 	useEffect(() => {
+		getAbout();
 		getProjects();
 		setBreakpoint( getBreakpoints( window ) );
 		window.addEventListener("resize", e => { setBreakpoint( getBreakpoints( e.target ) ) })
@@ -40,7 +46,10 @@ function App( props ) {
 		<Navigation />
 		<Route exact path="/" render={ props => <Home { ...props } 
 			breakpoint={breakpoint}
-			projects={projects.filter(proj => !proj.hidden)} />}/>
+			projects={[
+				...about,
+				...projects.filter(proj => !proj.hidden)
+			]} />}/>
 		<Route exact path="/work/:projSlug" render={ props => <CaseStudy { ...props } 
 			projects={projects}
 			nextProject={nextProject}

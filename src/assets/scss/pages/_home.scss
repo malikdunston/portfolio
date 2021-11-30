@@ -23,6 +23,7 @@
 					width: 2rem;
 					margin-bottom: .5rem;
 					border-radius: .125rem;
+					cursor: pointer;
 					&:last-of-type{
 						margin-bottom: 0;
 					}
@@ -94,6 +95,7 @@
 					.card-content{
 						bottom: 6rem;
 						left: 2rem;
+						width: 66.67vw;
 					}
 				}
 			}

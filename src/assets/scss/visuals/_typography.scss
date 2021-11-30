@@ -35,20 +35,11 @@ body{
 		color: $white;
 		border-bottom: 2px dotted $white90;
 	}
-	.column {
-		// // padding: 0 1.5rem 1.5rem;
-		// h3{
-		// 	margin-top: 0;
-		// }
-		// h3:only-child{
-		// 	margin: 0;
-		// }
-		// p:last-child{
-		// 	margin-bottom: 0;
-		// }
-		// .column{
-		// 	padding: 0;
-		// }
-	}
+	ul{
+		li{
+		list-style-type: disc;
+		list-style-position: inside;
 
+		}
+	}
 }

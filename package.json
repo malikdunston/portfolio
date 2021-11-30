@@ -44,7 +44,7 @@
 		"gulp-sass": "^4.1.1",
 		"gulp-sourcemaps": "^3.0.0",
 		"gulp-uglify": "^3.0.2",
-		"malikdunston-slider": "^0.3.3",
+		"malikdunston-slider": "^1.0.4",
 		"react-router-dom": "^5.3.0"
 	},
 	"homepage": "https://portfolio.malikdunston.com"
