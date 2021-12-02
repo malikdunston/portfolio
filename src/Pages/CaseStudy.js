@@ -11,7 +11,7 @@ function CaseStudy({ projects, currentProject, nextProject, match, selectProject
 			<div className="shader"></div>
 			<h1 dangerouslySetInnerHTML={{ __html: currentProject.title.rendered }}></h1>
 		</header>
-		{currentProject.projChildren.map((p, i) => <article className={p.slug}>
+		{currentProject.projChildren.map((p, i) => <article id={p.slug}>
 			<section className={"text"}>
 				<h3 className="project-section-title" dangerouslySetInnerHTML={{ __html: p.title.rendered }}></h3>
 				<div dangerouslySetInnerHTML={{ __html: p.acf.html }}></div>

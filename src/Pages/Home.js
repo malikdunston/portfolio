@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Slider } from 'malikdunston-slider';
-function Home({ projects }) {
+import getBreakpoints from '../Services/getBreakpoints';
+function Home({ projects, breakpoint }) {
 	const template = card => <div style={{width: "100%", height: "100%"}}>
 		{/* for projects that don't yet have two covers.... */}
 		{card.acf.cover ? <img src={card.acf.cover} 
@@ -14,11 +15,12 @@ function Home({ projects }) {
 		<div className="card-content">
 			<h1 dangerouslySetInnerHTML={{__html: card.title.rendered}}></h1>
 			<p>{card.acf.about}</p>
+			{ breakpoint.size <= 1000 ? <Link to={"/work/"+card.slug}>Explore</Link> : ""}
 		</div>
 	</div>
 	const breadcrumbs = proj => {
 		let img = <img src={proj.acf.cover} alt=""/>;
-		return proj.slug === "about" ? img : <Link to={"/work/"+proj.slug}>{img}</Link>
+		return proj.slug === "about" && breakpoint.size >= 1000 ? img : <Link to={"/work/"+proj.slug}>{img}</Link>
 	}
 	return <div>
 		<Slider cards={projects}
