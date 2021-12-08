@@ -39,6 +39,9 @@ nav {
 			line-height: .5rem;
 		}
 	}
+	// .nav-body{
+	// 	display: none;
+	// }
 	div[class^="ticker"],
 	#circle{
 		position: fixed;
@@ -52,7 +55,7 @@ nav {
 		transition: transform .66s, background-color 1s;
 		background: $black;
 	}
-	ul{
+	.menu{
 		display: none;
 		position: fixed;
 		top: 3.5rem;
@@ -70,14 +73,35 @@ nav {
 			display: flex;
 			align-items: center;
 		}
-		ul{
-			display: flex;
-			flex-direction: column;
+		.menu{
+			display: block;
+			// flex-direction: column;
 		}
 	}
 	@include breakpoint(md){
 		top: 2rem;
 		left: 2rem;
+		.menu{
+			display: flex;
+			height: 2rem;
+			right: 2rem;
+			top: 2rem;
+			left: unset;
+			a{
+				margin-left: .5rem;
+				display: flex;
+				align-items: center;
+				padding: 0 .75rem;
+				border-radius: .125rem;
+				transition: background .5s;
+				h3{
+					margin: 0;
+				}
+				&:hover{
+					background: #141414;
+				}
+			}
+		}
 		#circle{
 			top: 2rem;
 			left: 2rem;

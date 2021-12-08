@@ -25,14 +25,14 @@ export default function Navigation ({ breakpoint }) {
 		</div>
 		<div className="nav-body">
 			<ul className="menu">
-				<Link to="/">
+				{breakpoint.size <= 1000 ? <Link to="/">
 					<li>
 						<h3>Home</h3>
 					</li>
-				</Link>
+				</Link> : ""}
 				<a href="mailto: malik.dunston.1024@gmail.com">
 					<li>
-						<h3>Contact</h3>
+						<h3>Reach Out</h3>
 					</li>
 				</a>
 			</ul>

@@ -15,7 +15,7 @@ function Home({ projects, breakpoint }) {
 		<div className="card-content">
 			<h1 dangerouslySetInnerHTML={{__html: card.title.rendered}}></h1>
 			<p>{card.acf.about}</p>
-			{ breakpoint.size <= 1000 ? <Link to={"/work/"+card.slug}>Explore</Link> : ""}
+			{/* { breakpoint.size <= 1000 ? <Link to={"/work/"+card.slug}>Explore</Link> : ""} */}
 		</div>
 	</div>
 	const breadcrumbs = proj => {
