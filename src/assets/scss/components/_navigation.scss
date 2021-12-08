@@ -27,6 +27,18 @@ nav {
 			}
 		}
 	}
+	.masthead{
+		display: none;
+		left: 2rem;
+		height: 2rem;
+		position: absolute;
+		h3{
+			margin: 0;
+			height: 1rem;
+			font-size: .4rem;
+			line-height: .5rem;
+		}
+	}
 	div[class^="ticker"],
 	#circle{
 		position: fixed;
@@ -43,13 +55,20 @@ nav {
 	ul{
 		display: none;
 		position: fixed;
-		top: 4rem;
-		left: 2rem;
+		top: 3.5rem;
+		left: 1.5rem;
+		li{
+			list-style-type: unset;
+		}
 	}
 	&.open{
 		& #circle{
 			transform: scale(100);
 			background: $black90;
+		}
+		.masthead{
+			display: flex;
+			align-items: center;
 		}
 		ul{
 			display: flex;

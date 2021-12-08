@@ -43,7 +43,7 @@ function App( props ) {
 		window.addEventListener("resize", e => { setBreakpoint( getBreakpoints( e.target ) ) })
 	}, [])
 	return <div className={"App " + (props.location.pathname.split("/")[1] || "home") + " " + (breakpoint.name + "-" + breakpoint.size) }>
-		<Navigation />
+		<Navigation breakpoint={breakpoint}/>
 		<Route exact path="/" render={ props => <Home { ...props } 
 			breakpoint={breakpoint}
 			projects={[
