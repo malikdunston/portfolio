@@ -4,7 +4,7 @@ export default function Navigation ({ breakpoint }) {
 	const [ open, setOpen ] = useState(false);
 	const toggle = e => {
 		if(breakpoint.size >= 1000) {
-			window.location.href = "https://www.malikdunston.com"
+			window.location.href = "https://design.malikdunston.com"
 		} else {
 			setOpen(!open)
 		}

@@ -13,11 +13,11 @@ function App( props ) {
 	const [ nextProject, setNextProject ] = useState(null);
 	const [ breakpoint, setBreakpoint ] = useState({});
 	const getProjects = async () => {
-		let data = await props.getData("projects");
+		let data = await props.getData("graphic-design");
 		setProjects( organizePosts( data ) );
 	}
 	const getAbout = async () => {
-		let data = await props.getData("pages", {slug: "about"});
+		let data = await props.getData("pages", {slug: "gd-about"});
 		setAbout( data );
 	}
 	const selectNextProject = currentProject => {
