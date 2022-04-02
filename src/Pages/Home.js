@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Slider } from 'malikdunston-slider';
+const {REACT_APP_EX} = process.env;
 function Home({ projects, breakpoint }) {
 	const template = proj => <div style={{width: "100%", height: "100%"}}>
 		{proj.acf.cover2 ? <img src={proj.acf.cover2} 
@@ -17,6 +18,7 @@ function Home({ projects, breakpoint }) {
 		return <Link to={"/work/"+proj.slug}>{img}</Link>
 	}
 	return <div>
+		<div>hello its {REACT_APP_EX}</div>
 		{projects ? <Slider cards={projects}
 			axis={"X"}
 			template={template}
