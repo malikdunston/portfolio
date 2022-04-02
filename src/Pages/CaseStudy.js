@@ -44,7 +44,6 @@ function CaseStudy({ projects, currentProject, nextProject, match, selectProject
 				<h3>Next:</h3>
 				<h1 dangerouslySetInnerHTML={{ __html: nextProject.title.rendered }}></h1>
 			</div>
-			<img src={nextProject.acf.cover} alt={nextProject.title.rendered} />
 			<img src={nextProject.acf.cover2} alt={nextProject.title.rendered} />
 			<div className="shader"></div>
 		</a>
