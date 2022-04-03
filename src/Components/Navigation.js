@@ -35,6 +35,11 @@ export default function Navigation ({ breakpoint }) {
 						<h3>Reach Out</h3>
 					</li>
 				</a>
+				<Link to="/resume">
+					<li>
+						<h3>Resume</h3>
+					</li>
+				</Link>
 			</ul>
 		</div>
 	</nav>

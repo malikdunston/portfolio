@@ -5,6 +5,7 @@ import { organizePosts } from "./Services/wordpress";
 import getBreakpoints from "./Services/getBreakpoints";
 import Home from "./Pages/Home";
 import CaseStudy from "./Pages/CaseStudy";
+import Resume from "./Pages/Resume";
 import Navigation from "./Components/Navigation";
 function App( props ) {
 	const [ projects, setProjects ] = useState([]);
@@ -55,6 +56,7 @@ function App( props ) {
 			nextProject={nextProject}
 			currentProject={currentProject}
 			selectProject={selectProject} />}/>
+		<Route exact path="/resume" render={ props => <Resume { ...props } />}/>
 	</div>
 }
 export default withRouter( getData( App ) );
