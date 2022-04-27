@@ -26,7 +26,7 @@ function Resume( props ){
 		<div id="resume_menu">
 			<button onClick={printResume}>Print</button>
 		</div>
-		<div id="resume">
+		{resume ? <div id="resume">
 			<section id="about">
 				<h1>Malik Dunston</h1>
 				<p>Atlanta, GA - 770.895.2061</p>
@@ -35,10 +35,9 @@ function Resume( props ){
 			</section>
 			<section id="skills">
 				<h2>Skills</h2>
-				<p>
-					<span>React<span>, </span></span>
-					<span>Typescript<span>, </span></span>
-				</p>
+				<p>{resume.skills.map((skill, i) => <span>
+					{skill.name}{i < resume.skills.length - 1 ? ", " : ""}
+				</span>)}</p>
 			</section>
 			<section id="experience">
 				<h2>Experience</h2>
@@ -75,7 +74,8 @@ function Resume( props ){
 					<p>Issuer<span>, August 2019</span></p>
 				</div>
 			</section>
-		</div>
+		</div> : <div>loading</div>}
+		
 	</div>
 } 
 export default getData( Resume );
