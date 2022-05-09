@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import getData from "./../Services/getData";
-import { formatResume } from "./../Services/resume";
 function Resume( props ){
 	const [ resume, setResume ] = useState({
 		about: {},
@@ -13,13 +12,12 @@ function Resume( props ){
 		let experience = await props.getResume("experience");
 		let education = await props.getResume("education");
 		let skills = await props.getResume("skills");
-		let resume = formatResume({
+		setResume({
 			about: people[0],
 			experience: experience,
 			education: education,
 			skills: skills
 		});
-		setResume(resume);
 	}
 	const printResume = () => {
 		window.print()

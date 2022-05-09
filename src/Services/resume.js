@@ -1,5 +1,12 @@
+const resumeData = {
+	someStuff: ["hey"]
+}
 const formatResume = resume => {
-	console.log("formatted now");
-	return resume
+	let newResume = {
+		...resume,
+		fromService: 8909709
+	}
+	console.log("from resumeservice: ", newResume);
+	return resume;
 }
 export { formatResume }

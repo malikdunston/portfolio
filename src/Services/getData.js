@@ -1,5 +1,10 @@
 import React from 'react';
-const { REACT_APP_WP_URL, REACT_APP_RESUME, REACT_APP_CITIES} = process.env;
+import { formatResume } from './resume';
+const { 
+	REACT_APP_WP_URL, 
+	REACT_APP_RESUME, 
+	REACT_APP_CITIES
+} = process.env;
 export default function getData(OrigComp) { // HOC
 	return function GetDataHOC(props) { // Data
 		const getPortfolio = async (lookFor, params = { ["per_page"]: "100" }) => {
@@ -10,7 +15,7 @@ export default function getData(OrigComp) { // HOC
 		const getResume = async (table = "experience") => {
 			let url = new URL(REACT_APP_RESUME);
 			url.search = new URLSearchParams({table: table}).toString();
-			return await fetch(url).then(res => res.json()).catch(err => err)
+			return await fetch(url).then(res => res.json()).then(resume => formatResume(resume)).catch(err => err)
 		}
 		const getCities = async () => {
 			let url = new URL(REACT_APP_CITIES);
